@@ -7,10 +7,14 @@ public class PlayerController : MonoBehaviour
 {
     private Rigidbody playerRB;
 
+    private float horizontalInput;
     [SerializeField] private float speed = 20f;
     [SerializeField] private float maxSpeed = 30f;
     [SerializeField] private float smooth = 30f;
-    private float horizontalInput;
+
+    //Effect
+    [SerializeField] private ParticleSystem dieFX;
+    [SerializeField] private ParticleSystem hitFX;
 
     private void Awake()
     {
@@ -38,7 +42,19 @@ public class PlayerController : MonoBehaviour
     {
         if(collision.gameObject.CompareTag("Wall"))
         {
-            Debug.Log("Wall");
+            dieFX.Play();
+           // Destroy(gameObject);
+        }
+        else if(collision.gameObject.CompareTag("Enemy"))
+        {
+            hitFX.Play();
+        }
+    }
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.CompareTag("Item"))
+        {
+            Destroy(other.gameObject);
         }
     }
 }
