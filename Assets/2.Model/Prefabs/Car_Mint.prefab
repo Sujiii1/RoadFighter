@@ -426,7 +426,7 @@ GameObject:
   - component: {fileID: 1131614294480248302}
   - component: {fileID: 4820807806817385872}
   - component: {fileID: 8355568252252327430}
-  - component: {fileID: 2957839570825682083}
+  - component: {fileID: 3016176335056489305}
   - component: {fileID: -3008356158572761989}
   m_Layer: 0
   m_Name: Car_Mint
@@ -434,7 +434,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1131614294480248302
 Transform:
   m_ObjectHideFlags: 0
@@ -503,19 +503,22 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 4
   m_CollisionDetection: 0
---- !u!114 &2957839570825682083
+--- !u!114 &3016176335056489305
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9169204954353745219}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 798b820e9f7e2044b881b5dc56bd84d3, type: 3}
+  m_Script: {fileID: 11500000, guid: 2206b11d0b50a8640b5d2cac01987d19, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 10
+  carType: 2
+  isBus: 0
+  player: {fileID: 0}
+  carSpeed_x: 0
 --- !u!114 &-3008356158572761989
 MonoBehaviour:
   m_ObjectHideFlags: 0

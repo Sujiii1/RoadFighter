@@ -177,7 +177,7 @@ GameObject:
   - component: {fileID: 5042144512192352408}
   - component: {fileID: 4542357579246283118}
   - component: {fileID: 5400993922560927033}
-  - component: {fileID: 3252192360856172349}
+  - component: {fileID: 726642818662147895}
   - component: {fileID: -2275039996498745264}
   m_Layer: 0
   m_Name: Car_Yellow
@@ -185,7 +185,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &5042144512192352408
 Transform:
   m_ObjectHideFlags: 0
@@ -254,19 +254,22 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 4
   m_CollisionDetection: 0
---- !u!114 &3252192360856172349
+--- !u!114 &726642818662147895
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3935531410507799975}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 798b820e9f7e2044b881b5dc56bd84d3, type: 3}
+  m_Script: {fileID: 11500000, guid: 2206b11d0b50a8640b5d2cac01987d19, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 10
+  carType: 0
+  isBus: 0
+  player: {fileID: 0}
+  carSpeed_x: 0
 --- !u!114 &-2275039996498745264
 MonoBehaviour:
   m_ObjectHideFlags: 0
