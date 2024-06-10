@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using TMPro;
 
 public class RoadLoop : MonoBehaviour
@@ -13,7 +14,6 @@ public class RoadLoop : MonoBehaviour
     [SerializeField] private float maxSpeed = 50.0f;
     [SerializeField] private float accelerationspeed = 1f;
 
-    public bool isStartGame = false;
 
     //Road Repeat
     [SerializeField] private List<Transform> roadSegments;
@@ -23,12 +23,13 @@ public class RoadLoop : MonoBehaviour
     private void Start()
     {
         speed = 0f;
-        isStartGame = false;
+        ScoreManager.Instance.isStartGame = false;
     }
 
     private void Update()
     {
-        if (isStartGame )
+        
+        if(ScoreManager.Instance.isStartGame)
         {
             RepeatRoad();
             UpdateSpeedText();
@@ -37,7 +38,7 @@ public class RoadLoop : MonoBehaviour
 
     private void RepeatRoad()
     {
-        isStartGame = true;
+        ScoreManager.Instance.isStartGame = true;
         for (int i = 0; i < roadSegments.Count; i++)
         {
             if (speed < maxSpeed)
@@ -78,19 +79,30 @@ public class RoadLoop : MonoBehaviour
     }
 
 
+    public float GetSpeed()
+    {
+        return speed;
+    }
 
+    public void SetSpeed(float newSpeed)
+    {
+        speed = Mathf.Clamp(newSpeed, 0f, maxSpeed); // 새로운 속도를 클램핑
+    }
 
     //ReStart / Start
     public void ReStartSpeed()
     {
-        isStartGame = true;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        ScoreManager.Instance.isStartGame = true;
         speed = 0;
+
         endPopUp.gameObject.SetActive(false);
+
     }
 
     public void StartGame()
     {
-        isStartGame = true;
+        ScoreManager.Instance.isStartGame = false;
         speed = 0;
         startPopUp.gameObject.SetActive(false);
     }

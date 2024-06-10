@@ -10,23 +10,25 @@ public class ObjectPoolingManager : MonoBehaviour
 
     [SerializeField] private CarObject[] CarObjectsPrefab;
 
+
     public Queue<CarObject> YellowcarObjectPool = new Queue<CarObject>();
     public Queue<CarObject> GreencarObjectPool = new Queue<CarObject>();
     public Queue<CarObject> MintcarObjectPool = new Queue<CarObject>();
     public Queue<CarObject> BuscarObjectPool = new Queue<CarObject>();
 
+
+
     private void Awake()
     {
         if(Instance == null)
         {
-            Debug.Log("ΩÃ±€≈Ê");
             Instance = this;
             DontDestroyOnLoad(gameObject);
             return;
         }
         else
         {
-            Debug.Log("ªÁ∂Û¡¸");
+            Debug.Log("InstanceªÁ∂Û¡¸");
             Destroy(gameObject);
             return;
         }
@@ -40,6 +42,17 @@ public class ObjectPoolingManager : MonoBehaviour
             GreencarObjectPool.Enqueue(Instantiate(CarObjectsPrefab[1], CarObjectsPrefab[1].transform.position, Quaternion.identity));
             MintcarObjectPool.Enqueue(Instantiate(CarObjectsPrefab[2], CarObjectsPrefab[2].transform.position, Quaternion.identity));
             BuscarObjectPool.Enqueue(Instantiate(CarObjectsPrefab[3], CarObjectsPrefab[3].transform.position, Quaternion.identity));
+
         }
     }
+
+    private void CreatAndEnqueueCar(CarObject carObject, Queue<CarObject> pool)
+    {
+        CarObject newCar = Instantiate(carObject, carObject.transform.position, Quaternion.identity);
+        newCar.gameObject.SetActive(false);
+        pool.Enqueue(newCar);
+    }
+
+
+
 }

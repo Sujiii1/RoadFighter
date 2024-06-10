@@ -34,7 +34,7 @@ public class CarObject : MonoBehaviour
     }
 
     public bool pIsBus { get { return isBus; } }
-    
+
 
     //=================내부 변수====================
     [Header("자동차 상태")]
@@ -52,6 +52,12 @@ public class CarObject : MonoBehaviour
     private WaitForSeconds waitTime = new WaitForSeconds(3f);
 
     private float xLimit = 3.5f;
+    [SerializeField] private float pushForce = 10f;
+    [SerializeField] private float rotationAngle = 45f;
+
+
+
+
 
     private bool isFindPlayer = false;
     private bool isAccident = false;
@@ -65,7 +71,7 @@ public class CarObject : MonoBehaviour
 
     private void Start()
     {
-        switch(carType)
+        switch (carType)
         {
             case CarType.Yellow:
                 carSpeed_x = 0.0f;
@@ -88,11 +94,22 @@ public class CarObject : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if(collision.gameObject.CompareTag("Wall"))
+        if (collision.gameObject.CompareTag("Wall"))
         {
             gameObject.SetActive(false);
 
             EnQueueObject();
+        }
+        else if (collision.gameObject.CompareTag("Player"))     //속도 느려짐
+        {
+            Rigidbody enemyRB = GetComponent<Rigidbody>();
+            enemyRB.AddForce(pushForce * new Vector3(1, -1, 0), ForceMode.Impulse);   //대각선으로 밀려남
+
+            transform.rotation = Quaternion.Euler(0, rotationAngle, 0);
+            StartCoroutine(collision_Co());
+
+
+            //앞으로 가기 
         }
     }
     private void Update()
@@ -100,7 +117,7 @@ public class CarObject : MonoBehaviour
         FindPlayer();
         CheckDirection();
 
-        if(transform.position.z <= -7f)
+        if (transform.position.z <= -7f)
         {
             EnQueueObject();
         }
@@ -150,8 +167,8 @@ public class CarObject : MonoBehaviour
     private void FindPlayer()
     {
         float distance = Vector3.Distance(player.transform.position, transform.position);
-        
-        if(distance <= 5f)
+
+        if (distance <= 5f)
         {
             isFindPlayer = true;
         }
@@ -162,17 +179,16 @@ public class CarObject : MonoBehaviour
     {
         if (isCheck || !isFindPlayer) return;
 
-        Vector3 cross = Vector3.Cross(transform.position.normalized, player.transform.position.normalized);
+        // Vector3 cross = Vector3.Cross(transform.position.normalized, player.transform.position.normalized);
+        Vector3 directionPlayer = player.transform.position - transform.position;
 
-        if (cross.y > 0f)
+        if (Vector3.Dot(directionPlayer, transform.right) > 0f) //Right
         {
-            Debug.Log("오른쪽");
             isRight = true;
             isCheck = true;
         }
-        else if (cross.y < 0f)
+        else    //Left
         {
-            Debug.Log("왼쪽");
             isRight = false;
             isCheck = true;
         }
@@ -196,7 +212,7 @@ public class CarObject : MonoBehaviour
 
             return;
         }
-        if(!isRight)
+        if (!isRight)
         {
             transform.Translate(Vector3.left * carSpeed_x * Time.deltaTime);
             if (transform.position.x < -xLimit)
@@ -205,5 +221,11 @@ public class CarObject : MonoBehaviour
             }
             return;
         }
+    }
+
+    IEnumerator collision_Co()
+    {
+        yield return new WaitForSeconds(2f);
+        transform.rotation = Quaternion.Euler(0, 0, 0);
     }
 }

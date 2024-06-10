@@ -478,7 +478,6 @@ MonoBehaviour:
   speed: 20
   maxSpeed: 50
   accelerationspeed: 2
-  isStartGame: 0
   roadSegments: []
   resetPositionZ: -10
   roadSegmentLength: 10
@@ -635,7 +634,6 @@ MonoBehaviour:
   speed: 20
   maxSpeed: 50
   accelerationspeed: 2
-  isStartGame: 0
   roadSegments: []
   resetPositionZ: -10
   roadSegmentLength: 10
@@ -860,7 +858,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a596585a1fd6af64da957ccebf792917, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  roadLoop: {fileID: 0}
+  roadLoop: {fileID: 1714660768}
 --- !u!1 &447607535
 GameObject:
   m_ObjectHideFlags: 0
@@ -1183,7 +1181,6 @@ MonoBehaviour:
   speed: 20
   maxSpeed: 50
   accelerationspeed: 2
-  isStartGame: 0
   roadSegments: []
   resetPositionZ: -10
   roadSegmentLength: 10
@@ -2667,9 +2664,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f99f4a27d0112347a143f16b3c172e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timeText: {fileID: 1618951332}
+  timeText: 
   endPopUp: {fileID: 761873740}
-  scoreText: {fileID: 162613875}
+  scoreText: 
+  preBsetScoreText: 
+  scoreTime: 0
+  isStartGame: 0
 --- !u!1 &1229007679
 GameObject:
   m_ObjectHideFlags: 0
@@ -3804,7 +3804,6 @@ MonoBehaviour:
   speed: 20
   maxSpeed: 50
   accelerationspeed: 2
-  isStartGame: 0
   roadSegments:
   - {fileID: 451322977}
   - {fileID: 294314765}
@@ -4243,6 +4242,7 @@ GameObject:
   - component: {fileID: 1990689988}
   - component: {fileID: 1990689987}
   - component: {fileID: 1990689986}
+  - component: {fileID: 1990689990}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -4335,6 +4335,22 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &1990689990
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1990689985}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a5957b457b55bc4f82fa2b7b083509e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timerTextUI: {fileID: 1618951332}
+  scoreTextUI: {fileID: 162613875}
+  endScoreTextUI: {fileID: 1366437561}
+  preBsetScoreTextUI: {fileID: 1229007681}
 --- !u!1 &2053740050
 GameObject:
   m_ObjectHideFlags: 0
@@ -39043,7 +39059,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 30
   maxSpeed: 30
-  smooth: 60
+  smooth: 80
+  pushForce: 10
+  rotationAngle: 45
   dieFX: {fileID: 8194992990443329413}
   hitFX: {fileID: 4271093393413954850}
 --- !u!114 &8581342514329536667

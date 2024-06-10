@@ -270,6 +270,8 @@ MonoBehaviour:
   isBus: 0
   player: {fileID: 0}
   carSpeed_x: 0
+  pushForce: 10
+  rotationAngle: 45
 --- !u!114 &-2275039996498745264
 MonoBehaviour:
   m_ObjectHideFlags: 0

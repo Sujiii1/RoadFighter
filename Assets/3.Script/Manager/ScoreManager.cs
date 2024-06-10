@@ -5,57 +5,91 @@ using TMPro;
 
 public class ScoreManager : MonoBehaviour   //Timer, Score
 {
-    //Timer
-    [SerializeField] private TMP_Text timeText;
-    [SerializeField] private GameObject endPopUp;
+    public static ScoreManager Instance = null;
+   
+    
+    public GameObject endPopUp;
 
-    private float time = 100f;
-    private bool startTime;
+    //Timer
+    public float time = 100f;
+    public string timeText;
+    private bool isStartTime;
 
     //Score
-    [SerializeField] private TMP_Text scoreText;
-    private float scoreTime = 0;
+    public string scoreText;
+    public string preBsetScoreText;
+    public float scoreTime = 0;
     private int preBsetScore = 0;
+
+
+    public bool isStartGame = false;
+    public bool isGameOver = false;
+
+    private void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+            return;
+        }
+        else
+        {
+            Destroy(gameObject);
+            return;
+        }
+    }
 
     private void Start()
     {
+        LoadPreScore();
         StartTimer();
         StartCoroutine(IncreaseScore_Co());
     }
 
     private void Update()
     {
-        UpdateTimer();
-        UpdateScore();
+        if(isStartGame)
+        {
+            UpdateTimer();
+            UpdateScore();
+        }
     }
+    
+
 
     //Timer
     private void UpdateTimer()
     {
-        if (!startTime) return;
-
+        if (!isStartTime) return;
         if (time > 0)
         {
             time -= Time.deltaTime;
-            timeText.text = Mathf.CeilToInt(time).ToString();   // Mathf.CeilToInt -> float을 int 형식으로 변환
+            timeText = Mathf.CeilToInt(time).ToString();   // Mathf.CeilToInt -> float을 int 형식으로 변환
         }
-        else
+        else    // 게임 종료
         {
             endPopUp.gameObject.SetActive(true);    //Timer가 다 끝났을 때
+            SavePreScore();
+
+            isStartGame = false;
+            isGameOver = true;
         }
     }
 
     private void StartTimer()
     {
-        timeText.text = time.ToString();
-        startTime = true;
+        timeText = time.ToString();
+        isStartTime = true;
     }
 
 
+
     //Score
-    private void UpdateScore()
+    public void UpdateScore()
     {
-        scoreText.text = Mathf.CeilToInt(scoreTime).ToString("000000");
+        isStartGame = true;
+        scoreText = Mathf.CeilToInt(scoreTime).ToString("000000");
     }
 
     IEnumerator IncreaseScore_Co()
@@ -63,24 +97,47 @@ public class ScoreManager : MonoBehaviour   //Timer, Score
         while (true)
         {
             yield return new WaitForSeconds(1f);
-            scoreTime += 50;
-            UpdateScore();
+            if(isStartGame)
+            {
+                scoreTime += 50;
+                UpdateScore();
+            }
         }
     }
 
+
+    //PreScore
     public void LoadPreScore()
     {
         preBsetScore = PlayerPrefs.GetInt("preBsetScore", 0);
+        preBsetScoreText = Mathf.CeilToInt(preBsetScore).ToString("000000");
     }
 
     public void SavePreScore()
     {
-        PlayerPrefs.SetInt("preBsetScore", preBsetScore);
-        PlayerPrefs.Save();
+        if(scoreTime > preBsetScore)
+        {
+            preBsetScore = Mathf.CeilToInt(scoreTime);
+            PlayerPrefs.SetInt("preBsetScore", preBsetScore);
+            PlayerPrefs.Save();
+        }
     }
 
-/*    public TMP_Text GetScoreTexts()
+
+
+    //UI
+    public string GetTimerTexts()
+    {
+        return timeText;
+    }
+
+    public string GetScoreTexts()
     {
         return scoreText;
-    }*/
+    }
+    public string GetPreviousScoreTexts()
+    {
+        return preBsetScoreText;
+    }
+
 }
