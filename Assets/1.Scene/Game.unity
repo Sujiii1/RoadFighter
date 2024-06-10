@@ -472,8 +472,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 825f9913c4c67574d89670ec66f01df2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startPopUp: {fileID: 0}
-  endPopUp: {fileID: 0}
   speedText: {fileID: 0}
   speed: 20
   maxSpeed: 50
@@ -628,8 +626,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 825f9913c4c67574d89670ec66f01df2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startPopUp: {fileID: 0}
-  endPopUp: {fileID: 0}
   speedText: {fileID: 0}
   speed: 20
   maxSpeed: 50
@@ -1175,8 +1171,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 825f9913c4c67574d89670ec66f01df2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startPopUp: {fileID: 0}
-  endPopUp: {fileID: 0}
   speedText: {fileID: 0}
   speed: 20
   maxSpeed: 50
@@ -1757,8 +1751,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1714660768}
-        m_TargetAssemblyTypeName: RoadLoop, Assembly-CSharp
+      - m_Target: {fileID: 1601729811}
+        m_TargetAssemblyTypeName: ScoreManager, Assembly-CSharp
         m_MethodName: StartGame
         m_Mode: 1
         m_Arguments:
@@ -2611,6 +2605,37 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1029689288}
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &1056343175
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1056343176}
+  m_Layer: 0
+  m_Name: ================
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1056343176
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1056343175}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.02000022, y: 6.1900005, z: 19.212334}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1220990453
 GameObject:
   m_ObjectHideFlags: 0
@@ -2620,7 +2645,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1220990454}
-  - component: {fileID: 1220990456}
   m_Layer: 5
   m_Name: Game Bar
   m_TagString: Untagged
@@ -2652,24 +2676,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 1166.75}
   m_SizeDelta: {x: 0, y: 94.3999}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1220990456
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1220990453}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8f99f4a27d0112347a143f16b3c172e2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  timeText: 
-  endPopUp: {fileID: 761873740}
-  scoreText: 
-  preBsetScoreText: 
-  scoreTime: 0
-  isStartGame: 0
 --- !u!1 &1229007679
 GameObject:
   m_ObjectHideFlags: 0
@@ -3321,6 +3327,76 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1482767461}
   m_CullTransparentMesh: 1
+--- !u!1 &1601729809
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1601729812}
+  - component: {fileID: 1601729811}
+  - component: {fileID: 1601729810}
+  m_Layer: 0
+  m_Name: ScoreManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1601729810
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1601729809}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a5957b457b55bc4f82fa2b7b083509e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timerTextUI: {fileID: 1618951332}
+  scoreTextUI: {fileID: 162613875}
+  endScoreTextUI: {fileID: 1366437561}
+  preBsetScoreTextUI: {fileID: 1229007681}
+--- !u!114 &1601729811
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1601729809}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f99f4a27d0112347a143f16b3c172e2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startPopUp: {fileID: 1428705277}
+  endPopUp: {fileID: 761873740}
+  time: 10
+  timeText: 
+  scoreText: 
+  preBsetScoreText: 
+  scoreTime: 0
+  isStartGame: 0
+  isGameOver: 0
+--- !u!4 &1601729812
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1601729809}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 3.57, y: 6.82, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1618951330
 GameObject:
   m_ObjectHideFlags: 0
@@ -3798,8 +3874,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 825f9913c4c67574d89670ec66f01df2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startPopUp: {fileID: 1428705277}
-  endPopUp: {fileID: 761873740}
   speedText: {fileID: 501242967}
   speed: 20
   maxSpeed: 50
@@ -4180,8 +4254,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1714660768}
-        m_TargetAssemblyTypeName: RoadLoop, Assembly-CSharp
+      - m_Target: {fileID: 1601729811}
+        m_TargetAssemblyTypeName: ScoreManager, Assembly-CSharp
         m_MethodName: ReStartSpeed
         m_Mode: 1
         m_Arguments:
@@ -4242,7 +4316,6 @@ GameObject:
   - component: {fileID: 1990689988}
   - component: {fileID: 1990689987}
   - component: {fileID: 1990689986}
-  - component: {fileID: 1990689990}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -4335,22 +4408,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
---- !u!114 &1990689990
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1990689985}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4a5957b457b55bc4f82fa2b7b083509e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  timerTextUI: {fileID: 1618951332}
-  scoreTextUI: {fileID: 162613875}
-  endScoreTextUI: {fileID: 1366437561}
-  preBsetScoreTextUI: {fileID: 1229007681}
 --- !u!1 &2053740050
 GameObject:
   m_ObjectHideFlags: 0
@@ -39057,13 +39114,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 87978cc7b7a307c4284f5e6d330b2138, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  roadLoop: {fileID: 1714660768}
   speed: 30
-  maxSpeed: 30
   smooth: 80
   pushForce: 10
   rotationAngle: 45
   dieFX: {fileID: 8194992990443329413}
   hitFX: {fileID: 4271093393413954850}
+  isDie: 0
 --- !u!114 &8581342514329536667
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -39238,7 +39296,9 @@ SceneRoots:
   - {fileID: 1968532066}
   - {fileID: 1990689989}
   - {fileID: 973934529}
+  - {fileID: 1601729812}
   - {fileID: 318463721}
+  - {fileID: 1056343176}
   - {fileID: 1714660764}
   - {fileID: 8581342514329536665}
   - {fileID: 1775460311618847000}

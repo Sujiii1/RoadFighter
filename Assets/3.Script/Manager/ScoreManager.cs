@@ -1,32 +1,38 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using TMPro;
 
 public class ScoreManager : MonoBehaviour   //Timer, Score
 {
     public static ScoreManager Instance = null;
-   
-    
+
+    private RoadLoop roadLoop;
+
+    public GameObject startPopUp;
     public GameObject endPopUp;
 
     //Timer
+    [Header("Timer")]
     public float time = 100f;
     public string timeText;
     private bool isStartTime;
 
     //Score
+    [Header ("Score")]
     public string scoreText;
     public string preBsetScoreText;
     public float scoreTime = 0;
     private int preBsetScore = 0;
 
-
+    [Header(" ")]
     public bool isStartGame = false;
     public bool isGameOver = false;
 
     private void Awake()
     {
+        #region [SingleTone]
         if (Instance == null)
         {
             Instance = this;
@@ -38,6 +44,8 @@ public class ScoreManager : MonoBehaviour   //Timer, Score
             Destroy(gameObject);
             return;
         }
+        #endregion
+        roadLoop = GameObject.FindGameObjectWithTag("RoadLoop").GetComponent<RoadLoop>();
     }
 
     private void Start()
@@ -138,6 +146,26 @@ public class ScoreManager : MonoBehaviour   //Timer, Score
     public string GetPreviousScoreTexts()
     {
         return preBsetScoreText;
+    }
+
+    
+    //ReStart / Start
+
+    public void StartGame()
+    {
+        isStartGame = false;
+        //speed = 0;
+        startPopUp.gameObject.SetActive(false);
+    }
+
+    public void ReStart()      //완전 처음 게임 시작 - 다 초기화
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        isStartGame = true;
+
+
+        roadLoop.ZeroSpeed(0f);
+        endPopUp.gameObject.SetActive(false);
     }
 
 }

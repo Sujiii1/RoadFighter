@@ -1,13 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using TMPro;
 
 public class RoadLoop : MonoBehaviour
 {
-    [SerializeField] private GameObject startPopUp;
-    [SerializeField] private GameObject endPopUp;
     [SerializeField] private TMP_Text speedText;
 
     [SerializeField] private float speed = 10.0f;
@@ -84,26 +81,15 @@ public class RoadLoop : MonoBehaviour
         return speed;
     }
 
+    public void ZeroSpeed(float speed)
+    {
+        this.speed = speed;
+    }
+
     public void SetSpeed(float newSpeed)
     {
         speed = Mathf.Clamp(newSpeed, 0f, maxSpeed); // 새로운 속도를 클램핑
     }
 
-    //ReStart / Start
-    public void ReStartSpeed()
-    {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-        ScoreManager.Instance.isStartGame = true;
-        speed = 0;
 
-        endPopUp.gameObject.SetActive(false);
-
-    }
-
-    public void StartGame()
-    {
-        ScoreManager.Instance.isStartGame = false;
-        speed = 0;
-        startPopUp.gameObject.SetActive(false);
-    }
 }
