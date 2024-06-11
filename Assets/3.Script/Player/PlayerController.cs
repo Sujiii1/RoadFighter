@@ -24,12 +24,12 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private ParticleSystem dieFX;
     [SerializeField] private ParticleSystem hitFX;
 
-    public bool isDie = false;
+    public bool isWall = false;
 
     private void Awake()
     {
-        playerRB = GetComponent<Rigidbody>();
         // player = GameObject.FindObjectOfType<PlayerController>().gameObject;
+        playerRB = GetComponent<Rigidbody>();
         roadLoop = GameObject.FindGameObjectWithTag("Road").GetComponent<RoadLoop>();
     }
 
@@ -49,21 +49,29 @@ public class PlayerController : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if(collision.gameObject.CompareTag("Wall"))     //만약 100초가 안지났다면
+        if(collision.gameObject.CompareTag("Wall"))    
         {
-            dieFX.Play();
-            
-            if(ScoreManager.Instance.time == 0)
+            isWall = true;
+
+            //Timer가 0
+            if (ScoreManager.Instance.time == 0)       
             {
                 ScoreManager.Instance.SavePreScore();
                 ScoreManager.Instance.endPopUp.SetActive(true);
+                ScoreManager.Instance.GameOverScore();
             }
-
-            roadLoop.ZeroSpeed(0f);
+            
+            //만약 100초가 안지났다면
+            else
+            {
+                dieFX.Play();
+                roadLoop.ZeroSpeed(0f);     //로드 루프 멈춤
+                ScoreManager.Instance.PauseScoreForSeconds(3f);  // 3초 동안 점수 증가 멈춤
+            }
         }
         else if(collision.gameObject.CompareTag("Enemy"))
         {
-
+            isWall = false;
             playerRB.AddForce(pushForce * Vector3.right, ForceMode.Impulse);
             transform.rotation = Quaternion.Euler(0, rotationAngle, 0);
             hitFX.Play();

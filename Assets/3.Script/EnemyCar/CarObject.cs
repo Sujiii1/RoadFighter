@@ -9,7 +9,8 @@ public enum CarType
     Yellow,     // 가만히 있는 차
     Green,      // 느리게 움직이는 차
     Mint,       // 빠르게 움직이는 차
-    Bus         // 가만히 있는데 부딪치면 무조건 죽는 차
+    Bus,       // 가만히 있는데 부딪치면 무조건 죽는 차
+    Empty         // 가만히 있는데 부딪치면 무조건 죽는 차
 }
 
 
@@ -37,27 +38,29 @@ public class CarObject : MonoBehaviour
 
 
     //=================내부 변수====================
-    [Header("자동차 상태")]
+    [SerializeField] private RoadLoop roadLoop;
+
+    [Header("Car Type")]
     [SerializeField] private CarType carType;
     [SerializeField] private bool isBus = false;
 
-    [Header("플레이어 오브젝트")]
+    [Header("Player")]
     [SerializeField] private GameObject player;
 
     #region [자동차 속도]
-    [Header("자동차 속도")]
+    [Header("Car Speed")]
     [SerializeField] private float carSpeed_x;
     #endregion
-
-    private WaitForSeconds waitTime = new WaitForSeconds(3f);
 
     private float xLimit = 3.5f;
     [SerializeField] private float pushForce = 10f;
     [SerializeField] private float rotationAngle = 45f;
 
 
-
-
+    [Header("Effect")]
+    [SerializeField] private ParticleSystem dieFX;
+   
+    private WaitForSeconds waitTime = new WaitForSeconds(3f);
 
     private bool isFindPlayer = false;
     private bool isAccident = false;
@@ -67,6 +70,7 @@ public class CarObject : MonoBehaviour
     private void Awake()
     {
         player = GameObject.FindObjectOfType<PlayerController>().gameObject;
+        roadLoop = GameObject.FindGameObjectWithTag("Road").GetComponent<RoadLoop>();
     }
 
     private void Start()
@@ -89,6 +93,10 @@ public class CarObject : MonoBehaviour
                 carSpeed_x = 0.0f;
                 isBus = true;
                 break;
+
+            case CarType.Empty:
+                carSpeed_x = 0.0f;
+                break;
         }
     }
 
@@ -96,9 +104,10 @@ public class CarObject : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Wall"))
         {
+            dieFX.Play();       
             gameObject.SetActive(false);
-
             EnQueueObject();
+
         }
         else if (collision.gameObject.CompareTag("Player"))     //속도 느려짐
         {
@@ -106,10 +115,12 @@ public class CarObject : MonoBehaviour
             enemyRB.AddForce(pushForce * new Vector3(1, -1, 0), ForceMode.Impulse);   //대각선으로 밀려남
 
             transform.rotation = Quaternion.Euler(0, rotationAngle, 0);
-            StartCoroutine(collision_Co());
+            StartCoroutine(Collision_Co());
 
-
-            //앞으로 가기 
+            if(isBus)   //로드루프 멈춤
+            {
+                roadLoop.ZeroSpeed(0f);
+            }
         }
     }
     private void Update()
@@ -152,6 +163,10 @@ public class CarObject : MonoBehaviour
                 break;
 
             case CarType.Bus:
+                ObjectPoolingManager.Instance.BuscarObjectPool.Enqueue(this);
+                break;
+
+            case CarType.Empty:
                 ObjectPoolingManager.Instance.BuscarObjectPool.Enqueue(this);
                 break;
         }
@@ -223,9 +238,15 @@ public class CarObject : MonoBehaviour
         }
     }
 
-    IEnumerator collision_Co()
+    IEnumerator Collision_Co()
     {
         yield return new WaitForSeconds(2f);
         transform.rotation = Quaternion.Euler(0, 0, 0);
     }
+
+/*    IEnumerator DelayFX_Co()
+    {
+        dieFX.Play();
+        yield return new WaitForSeconds(dieFX.main.duration);
+    }*/
 }

@@ -90,6 +90,4 @@ public class RoadLoop : MonoBehaviour
     {
         speed = Mathf.Clamp(newSpeed, 0f, maxSpeed); // 새로운 속도를 클램핑
     }
-
-
 }

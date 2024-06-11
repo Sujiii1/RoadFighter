@@ -11,10 +11,9 @@ public class SpawnManager : MonoBehaviour
 
     [SerializeField] private RoadLoop roadLoop;
 
-    //[SerializeField] private GameObject[] enemyPrefebs;
+    [SerializeField] private float spawnPosZ = 10f;       //Spawn Start Position
     private float spawnRangeX = 3.5f;
-    private float spawnPosZ = 10f;       //Spawn Start Position
-    private float spawnDistance = 0.5f;
+    private float spawnDistance = 1f;
 
     private void Awake()
     {
@@ -39,20 +38,11 @@ public class SpawnManager : MonoBehaviour
         StartCoroutine(SpawnBetween_Co());
     }
 
-    IEnumerator SpawnBetween_Co()
-    {
-        while (true)
-        {
-            Create();
-            yield return new WaitForSeconds(1f);
-        }
-        
-    }
 
     private void Create()
     {
         ScoreManager.Instance.isStartGame = true;
-        int enemyIndex = Random.Range(0, 4);
+        int enemyIndex = Random.Range(0, 5);
         //Vector3 spawnPos = new Vector3(Random.Range(-spawnRangeX, spawnRangeX), 6.3f, Random.Range(2, 12));
 
         CarObject carObject = null;
@@ -74,7 +64,10 @@ public class SpawnManager : MonoBehaviour
         {
             carObject = ObjectPoolingManager.Instance.BuscarObjectPool.Dequeue();
         }
-
+        else if (enemyIndex.Equals(4))
+        {
+            carObject = ObjectPoolingManager.Instance.BuscarObjectPool.Dequeue();
+        }
 
 
         //생성 위치
@@ -86,8 +79,14 @@ public class SpawnManager : MonoBehaviour
         carObject.transform.position = spawnPositionZ;
 
         carObject.gameObject.SetActive(true);
+    }
 
-
-/*        Instantiate(enemyPrefebs[enemyIndex], spawnPositionZ, enemyPrefebs[enemyIndex].transform.rotation);*/
+    IEnumerator SpawnBetween_Co()
+    {
+        while (true)
+        {
+            Create();
+            yield return new WaitForSeconds(1f);
+        }
     }
 }

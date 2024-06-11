@@ -2,9 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using TMPro;
 
-public class ScoreManager : MonoBehaviour   //Timer, Score
+public class ScoreManager : MonoBehaviour
 {
     public static ScoreManager Instance = null;
 
@@ -13,22 +12,24 @@ public class ScoreManager : MonoBehaviour   //Timer, Score
     public GameObject startPopUp;
     public GameObject endPopUp;
 
-    //Timer
+    // Timer
     [Header("Timer")]
     public float time = 100f;
     public string timeText;
     private bool isStartTime;
 
-    //Score
-    [Header ("Score")]
+    // Score
+    [Header("Score")]
     public string scoreText;
     public string preBsetScoreText;
     public float scoreTime = 0;
     private int preBsetScore = 0;
+    private float increaseScore = 50;
 
     [Header(" ")]
     public bool isStartGame = false;
     public bool isGameOver = false;
+    private bool isPauseScore = false;
 
     private void Awake()
     {
@@ -51,22 +52,22 @@ public class ScoreManager : MonoBehaviour   //Timer, Score
     private void Start()
     {
         LoadPreScore();
-        StartTimer();
+        ResetScore();
+
+        // Score 오름
         StartCoroutine(IncreaseScore_Co());
     }
 
     private void Update()
     {
-        if(isStartGame)
+        if (isStartGame)
         {
             UpdateTimer();
             UpdateScore();
         }
     }
-    
 
-
-    //Timer
+    // Timer
     private void UpdateTimer()
     {
         if (!isStartTime) return;
@@ -77,11 +78,13 @@ public class ScoreManager : MonoBehaviour   //Timer, Score
         }
         else    // 게임 종료
         {
-            endPopUp.gameObject.SetActive(true);    //Timer가 다 끝났을 때
+            endPopUp.gameObject.SetActive(true);    // Timer가 다 끝났을 때
+
             SavePreScore();
 
             isStartGame = false;
             isGameOver = true;
+
         }
     }
 
@@ -91,12 +94,14 @@ public class ScoreManager : MonoBehaviour   //Timer, Score
         isStartTime = true;
     }
 
-
-
-    //Score
+    // Score
+    private void ResetScore()   //초기화
+    {
+        scoreTime = 0;
+        scoreText = "000000";
+    }
     public void UpdateScore()
     {
-        isStartGame = true;
         scoreText = Mathf.CeilToInt(scoreTime).ToString("000000");
     }
 
@@ -105,16 +110,34 @@ public class ScoreManager : MonoBehaviour   //Timer, Score
         while (true)
         {
             yield return new WaitForSeconds(1f);
-            if(isStartGame)
+            if (isStartGame && !isPauseScore)
             {
-                scoreTime += 50;
+                scoreTime += increaseScore;
                 UpdateScore();
             }
         }
     }
 
+    // 점수 증가 일시 중지 메서드 추가
+    public IEnumerator ReInCrease_Co(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        isPauseScore = false;
+    }
 
-    //PreScore
+    public void PauseScoreForSeconds(float seconds)
+    {
+        isPauseScore = true;
+        StartCoroutine(ReInCrease_Co(seconds));
+    }
+
+    public void GameOverScore()
+    {
+        isPauseScore = true;
+    }
+
+
+    // PreScore
     public void LoadPreScore()
     {
         preBsetScore = PlayerPrefs.GetInt("preBsetScore", 0);
@@ -123,7 +146,7 @@ public class ScoreManager : MonoBehaviour   //Timer, Score
 
     public void SavePreScore()
     {
-        if(scoreTime > preBsetScore)
+        if (scoreTime > preBsetScore)
         {
             preBsetScore = Mathf.CeilToInt(scoreTime);
             PlayerPrefs.SetInt("preBsetScore", preBsetScore);
@@ -131,9 +154,7 @@ public class ScoreManager : MonoBehaviour   //Timer, Score
         }
     }
 
-
-
-    //UI
+    // UI
     public string GetTimerTexts()
     {
         return timeText;
@@ -143,29 +164,30 @@ public class ScoreManager : MonoBehaviour   //Timer, Score
     {
         return scoreText;
     }
+
     public string GetPreviousScoreTexts()
     {
         return preBsetScoreText;
     }
 
-    
-    //ReStart / Start
+
+    // ReStart / Start
+
 
     public void StartGame()
     {
-        isStartGame = false;
-        //speed = 0;
+        isStartGame = true;
         startPopUp.gameObject.SetActive(false);
+
+        StartTimer(); // 타이머 시작
     }
 
-    public void ReStart()      //완전 처음 게임 시작 - 다 초기화
+    public void ReStart() // 완전 처음 게임 시작 - 다 초기화
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         isStartGame = true;
 
-
         roadLoop.ZeroSpeed(0f);
         endPopUp.gameObject.SetActive(false);
     }
-
 }

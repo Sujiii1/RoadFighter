@@ -15,12 +15,14 @@ public class ObjectPoolingManager : MonoBehaviour
     public Queue<CarObject> GreencarObjectPool = new Queue<CarObject>();
     public Queue<CarObject> MintcarObjectPool = new Queue<CarObject>();
     public Queue<CarObject> BuscarObjectPool = new Queue<CarObject>();
+    public Queue<CarObject> EmptyObjectPool = new Queue<CarObject>();
 
 
 
     private void Awake()
     {
-        if(Instance == null)
+        #region [SingleTone]
+        if (Instance == null)
         {
             Instance = this;
             DontDestroyOnLoad(gameObject);
@@ -32,6 +34,8 @@ public class ObjectPoolingManager : MonoBehaviour
             Destroy(gameObject);
             return;
         }
+        #endregion
+
     }
 
     private void Start()
@@ -42,6 +46,7 @@ public class ObjectPoolingManager : MonoBehaviour
             GreencarObjectPool.Enqueue(Instantiate(CarObjectsPrefab[1], CarObjectsPrefab[1].transform.position, Quaternion.identity));
             MintcarObjectPool.Enqueue(Instantiate(CarObjectsPrefab[2], CarObjectsPrefab[2].transform.position, Quaternion.identity));
             BuscarObjectPool.Enqueue(Instantiate(CarObjectsPrefab[3], CarObjectsPrefab[3].transform.position, Quaternion.identity));
+            EmptyObjectPool.Enqueue(Instantiate(CarObjectsPrefab[4], CarObjectsPrefab[4].transform.position, Quaternion.identity));
 
         }
     }
@@ -52,7 +57,4 @@ public class ObjectPoolingManager : MonoBehaviour
         newCar.gameObject.SetActive(false);
         pool.Enqueue(newCar);
     }
-
-
-
 }

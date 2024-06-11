@@ -40,12 +40,4 @@ public class MoveZ : MonoBehaviour
             Destroy(gameObject);
         }
     }
-
-    //Player 죽으면 앞으로 
-    private void IsDie()
-    {
-        player.isDie = true;
-        transform.Translate(Vector3.forward * Time.deltaTime * speed);
-    }
-    
 }
