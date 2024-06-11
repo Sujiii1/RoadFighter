@@ -182,12 +182,13 @@ public class ScoreManager : MonoBehaviour
         StartTimer(); // 타이머 시작
     }
 
-    public void ReStart() // 완전 처음 게임 시작 - 다 초기화
+    public void AgainBtn() // 완전 처음 게임 시작 - 다 초기화
     {
+        SavePreScore();
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         isStartGame = true;
 
-        roadLoop.ZeroSpeed(0f);
+        roadLoop.ZeroSpeed(0f); //Null
         endPopUp.gameObject.SetActive(false);
     }
 }

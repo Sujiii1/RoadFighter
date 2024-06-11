@@ -4839,7 +4839,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1601729811}
         m_TargetAssemblyTypeName: ScoreManager, Assembly-CSharp
-        m_MethodName: ReStartSpeed
+        m_MethodName: AgainBtn
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

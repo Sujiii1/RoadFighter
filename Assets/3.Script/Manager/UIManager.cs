@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-public class UIManager : MonoBehaviour
+public class UIManager : MonoBehaviour //ReStart ¾ø¾îÁü
 {
     public TMP_Text timerTextUI;
     public TMP_Text scoreTextUI;
