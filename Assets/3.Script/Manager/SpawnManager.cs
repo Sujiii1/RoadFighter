@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class SpawnManager : MonoBehaviour
@@ -23,7 +22,7 @@ public class SpawnManager : MonoBehaviour
 
     private void Start()
     {
-        if(ScoreManager.Instance.isStartGame)
+        if (ScoreManager.Instance != null && ScoreManager.Instance.isStartGame)
         {
             StartCoroutine(SpawnBetween_Co());
         }
@@ -36,13 +35,16 @@ public class SpawnManager : MonoBehaviour
 
     public void SpawnStart()
     {
-        StartCoroutine(SpawnBetween_Co());
+        if (ScoreManager.Instance != null)
+        {
+            StartCoroutine(SpawnBetween_Co());
+        }
     }
 
 
     private void Create()
     {
-        if(ScoreManager.Instance.isGameOver)
+        if (ScoreManager.Instance == null || ScoreManager.Instance.isGameOver)
         {
             return;
         }
@@ -54,11 +56,11 @@ public class SpawnManager : MonoBehaviour
         CarObject carObject = null;
 
 
-        if(enemyIndex.Equals(0))
+        if (enemyIndex.Equals(0))
         {
             carObject = ObjectPoolingManager.Instance.YellowcarObjectPool.Dequeue();
         }
-        else if(enemyIndex.Equals(1))
+        else if (enemyIndex.Equals(1))
         {
             carObject = ObjectPoolingManager.Instance.GreencarObjectPool.Dequeue();
         }
@@ -76,20 +78,24 @@ public class SpawnManager : MonoBehaviour
         }
 
 
-        //생성 위치
-        Vector3 spawnPositionZ = carObject.transform.position + Vector3.forward * spawnPosZ;
-        spawnPositionZ.x = Random.Range(-spawnRangeX, spawnRangeX);
-        spawnPositionZ.y = 6.3f;
-        spawnPosZ += spawnDistance;
+        if (carObject != null)
+        {
+            //생성 위치
+            Vector3 spawnPositionZ = carObject.transform.position + Vector3.forward * spawnPosZ;
+            spawnPositionZ.x = Random.Range(-spawnRangeX, spawnRangeX);
+            spawnPositionZ.y = 6.3f;
+            spawnPosZ += spawnDistance;
 
-        carObject.transform.position = spawnPositionZ;
+            carObject.transform.position = spawnPositionZ;
 
-        carObject.gameObject.SetActive(true);
+            carObject.gameObject.SetActive(true);
+        }
+
     }
 
     IEnumerator SpawnBetween_Co()
     {
-        while (!ScoreManager.Instance.isGameOver)   //게임 오버 아닐 때 Spawn
+        while (ScoreManager.Instance != null && !ScoreManager.Instance.isGameOver)   //게임 오버 아닐 때 Spawn
         {
             Create();
             yield return new WaitForSeconds(1f);

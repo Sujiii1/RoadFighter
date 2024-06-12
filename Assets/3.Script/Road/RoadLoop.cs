@@ -1,7 +1,6 @@
-using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 using TMPro;
+using UnityEngine;
 
 public class RoadLoop : MonoBehaviour
 {
@@ -25,8 +24,7 @@ public class RoadLoop : MonoBehaviour
 
     private void Update()
     {
-        
-        if(ScoreManager.Instance.isStartGame)
+        if (ScoreManager.Instance.isStartGame)
         {
             RepeatRoad();
             UpdateSpeedText();
@@ -71,8 +69,8 @@ public class RoadLoop : MonoBehaviour
     private void UpdateSpeedText()      //Speed UI
     {
         float displayedSpeed = Mathf.Clamp(speed, 0f, maxSpeed); // 속도를 최대값(maxSpeed)까지 클램핑
-        float normalizedSpeed = (displayedSpeed / maxSpeed) * 400f; 
-        speedText.text = Mathf.RoundToInt(normalizedSpeed) + "  Km/h"; 
+        float normalizedSpeed = (displayedSpeed / maxSpeed) * 400f;
+        speedText.text = Mathf.RoundToInt(normalizedSpeed) + "  Km/h";
     }
 
 

@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -26,7 +25,7 @@ public class ScoreManager : MonoBehaviour
     public float scoreTime = 0;
     private int preBsetScore = 0;
     private float increaseScore = 50;
-
+    //
     [Header(" ")]
     public bool isStartGame = false;
     public bool isGameOver = false;
@@ -48,7 +47,7 @@ public class ScoreManager : MonoBehaviour
         }
         #endregion
         //roadLoop = GameObject.FindGameObjectWithTag("RoadLoop").GetComponent<RoadLoop>();
-        
+
     }
 
     private void Start()
@@ -59,7 +58,7 @@ public class ScoreManager : MonoBehaviour
         {
             Debug.LogError("UIManager None");
         }
-
+        uiManager.startPopUp.gameObject.SetActive(true);
         LoadPreScore();
         ResetScore();
 
@@ -200,12 +199,13 @@ public class ScoreManager : MonoBehaviour
     public void StartGame()
     {
         isStartGame = true;
+
         if (uiManager != null)
         {
             uiManager.startPopUp.gameObject.SetActive(false);
         }
 
-        if(!isGameOver)
+        if (!isGameOver)
         {
             uiManager.startPopUp.gameObject.SetActive(false);
         }
@@ -239,11 +239,13 @@ public class ScoreManager : MonoBehaviour
         //roadLoop.ZeroSpeed(0f);  //Null
 
         //Spawn*/
+
         SavePreScore();
         ResetScore();
         ResetTime();
         isGameOver = false;
         isStartGame = true;
+
         if (uiManager != null)
         {
             uiManager.startPopUp.gameObject.SetActive(false);
@@ -252,9 +254,10 @@ public class ScoreManager : MonoBehaviour
 
         StartCoroutine(ReloadScene());
     }
+
     private IEnumerator ReloadScene()
     {
-        yield return new WaitForSeconds(0.1f); // 씬이 완전히 로드되기 전에 UIManager를 찾는 것을 방지
+        yield return new WaitForSeconds(0.2f); // 씬이 완전히 로드되기 전에 UIManager를 찾는 것 방지
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 }

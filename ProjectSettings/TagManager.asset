@@ -12,6 +12,7 @@ TagManager:
   - FxTemporaire
   - Road
   - UI
+  - SpawnManager
   layers:
   - Default
   - TransparentFX
