@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 
@@ -17,7 +16,6 @@ public enum CarType
 public class CarObject : MonoBehaviour
 {
     //=================외부 변수====================
-
 
 
     /// <summary>
@@ -38,7 +36,7 @@ public class CarObject : MonoBehaviour
 
 
     //=================내부 변수====================
-    [SerializeField] private RoadLoop roadLoop;
+    private RoadLoop roadLoop;
 
     [Header("Car Type")]
     [SerializeField] private CarType carType;
@@ -59,9 +57,10 @@ public class CarObject : MonoBehaviour
 
     [Header("Effect")]
     [SerializeField] private ParticleSystem dieFX;
-   
+
     private WaitForSeconds waitTime = new WaitForSeconds(3f);
 
+    private Rigidbody enemyRB;
     private bool isFindPlayer = false;
     private bool isAccident = false;
     private bool isCheck = false;
@@ -71,6 +70,7 @@ public class CarObject : MonoBehaviour
     {
         player = GameObject.FindObjectOfType<PlayerController>().gameObject;
         roadLoop = GameObject.FindGameObjectWithTag("Road").GetComponent<RoadLoop>();
+        enemyRB = GetComponent<Rigidbody>();
     }
 
     private void Start()
@@ -104,23 +104,31 @@ public class CarObject : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Wall"))
         {
-            dieFX.Play();       
+            dieFX.Play();
             gameObject.SetActive(false);
             EnQueueObject();
 
         }
         else if (collision.gameObject.CompareTag("Player"))     //속도 느려짐
         {
-            Rigidbody enemyRB = GetComponent<Rigidbody>();
-            enemyRB.AddForce(pushForce * new Vector3(1, -1, 0), ForceMode.Impulse);   //대각선으로 밀려남
-
-            transform.rotation = Quaternion.Euler(0, rotationAngle, 0);
-            StartCoroutine(Collision_Co());
-
-            if(isBus)   //로드루프 멈춤
+            if (!isBus)
             {
-                roadLoop.ZeroSpeed(0f);
+                enemyRB.AddForce(pushForce * new Vector3(1, -1, 0), ForceMode.Impulse);   //대각선으로 밀려남
+
+                transform.rotation = Quaternion.Euler(0, rotationAngle, 0);
+                StartCoroutine(Collision_Co());
             }
+            else
+            {
+                roadLoop.ZeroSpeed(0f);  //로드루프 멈춤
+                enemyRB.AddForce(pushForce * new Vector3(1, -1, 0), ForceMode.Impulse);   //대각선으로 밀려남
+            }
+
+
+            /*            if (isBus)   //로드루프 멈춤
+                        {
+                            roadLoop.ZeroSpeed(0f);
+                        }*/
         }
     }
     private void Update()
@@ -244,9 +252,9 @@ public class CarObject : MonoBehaviour
         transform.rotation = Quaternion.Euler(0, 0, 0);
     }
 
-/*    IEnumerator DelayFX_Co()
-    {
-        dieFX.Play();
-        yield return new WaitForSeconds(dieFX.main.duration);
-    }*/
+    /*    IEnumerator DelayFX_Co()
+        {
+            dieFX.Play();
+            yield return new WaitForSeconds(dieFX.main.duration);
+        }*/
 }

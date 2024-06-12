@@ -9,16 +9,12 @@ public class SpawnManager : MonoBehaviour
     //3. Item ³ª¿Ã È®·ü Àû°Ô
     //4. IsGameOver true µÆÀ» ¶§ ½ºÆù ¸ØÃãv
 
-    [SerializeField] private RoadLoop roadLoop;
 
     [SerializeField] private float spawnPosZ = 10f;       //Spawn Start Position
     private float spawnRangeX = 3.5f;
     private float spawnDistance = 1f;
 
-    private void Awake()
-    {
-        roadLoop = GameObject.FindGameObjectWithTag("Road").GetComponent<RoadLoop>();
-    }
+
 
     private void Start()
     {
@@ -35,7 +31,7 @@ public class SpawnManager : MonoBehaviour
 
     public void SpawnStart()
     {
-        if (ScoreManager.Instance != null)
+        if (ScoreManager.Instance != null && ScoreManager.Instance.isStartGame)
         {
             StartCoroutine(SpawnBetween_Co());
         }
@@ -51,10 +47,8 @@ public class SpawnManager : MonoBehaviour
 
         ScoreManager.Instance.isStartGame = true;
         int enemyIndex = Random.Range(0, 5);
-        //Vector3 spawnPos = new Vector3(Random.Range(-spawnRangeX, spawnRangeX), 6.3f, Random.Range(2, 12));
 
         CarObject carObject = null;
-
 
         if (enemyIndex.Equals(0))
         {

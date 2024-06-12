@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -8,6 +7,7 @@ public class PlayerController : MonoBehaviour
     private Rigidbody playerRB;
     [SerializeField] private RoadLoop roadLoop;
     [SerializeField] private UIManager uiManager;
+    //private GameObject bus;
 
     private float horizontalInput;
     [SerializeField] private float speed = 20f;
@@ -29,7 +29,8 @@ public class PlayerController : MonoBehaviour
 
     private void Awake()
     {
-        // player = GameObject.FindObjectOfType<PlayerController>().gameObject;
+        //bus = GameObject.FindObjectOfType<CarObject>().gameObject;
+        // bus = GameObject.FindGameObjectWithTag("Bus").GetComponent<CarObject>().gameObject;
         playerRB = GetComponent<Rigidbody>();
         roadLoop = GameObject.FindGameObjectWithTag("Road").GetComponent<RoadLoop>();
     }
@@ -51,6 +52,7 @@ public class PlayerController : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Wall"))
         {
+            Debug.Log(collision.gameObject.name);
             isWall = true;
             TimeEnd();
         }
@@ -108,6 +110,6 @@ public class PlayerController : MonoBehaviour
     IEnumerator collision_Co()
     {
         yield return new WaitForSeconds(2f);
-        transform.rotation = Quaternion.Euler(0,0,0);
+        transform.rotation = Quaternion.Euler(0, 0, 0);
     }
 }

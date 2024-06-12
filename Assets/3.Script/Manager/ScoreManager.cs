@@ -6,11 +6,8 @@ public class ScoreManager : MonoBehaviour
 {
     public static ScoreManager Instance = null;
 
-    //private RoadLoop roadLoop;
     private UIManager uiManager;
 
-    //public GameObject startPopUp;
-    //public GameObject endPopUp;
 
     // Timer
     [Header("Timer")]
@@ -31,6 +28,7 @@ public class ScoreManager : MonoBehaviour
     public bool isGameOver = false;
     private bool isPauseScore = false;
 
+
     private void Awake()
     {
         #region [SingleTone]
@@ -46,7 +44,6 @@ public class ScoreManager : MonoBehaviour
             return;
         }
         #endregion
-        //roadLoop = GameObject.FindGameObjectWithTag("RoadLoop").GetComponent<RoadLoop>();
 
     }
 
@@ -252,12 +249,20 @@ public class ScoreManager : MonoBehaviour
             uiManager.endPopUp.gameObject.SetActive(false);
         }
 
-        StartCoroutine(ReloadScene());
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        StartCoroutine(StartSpawnAfterReload());
     }
 
-    private IEnumerator ReloadScene()
+
+
+    private IEnumerator StartSpawnAfterReload()
     {
-        yield return new WaitForSeconds(0.2f); // 씬이 완전히 로드되기 전에 UIManager를 찾는 것 방지
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        yield return new WaitForSeconds(0.1f); // 씬이 로드된 후 약간의 대기 시간
+        SpawnManager spawnManager = FindObjectOfType<SpawnManager>();
+        Debug.Log(spawnManager + " --");
+        if (spawnManager != null)
+        {
+            spawnManager.SpawnStart();
+        }
     }
 }
