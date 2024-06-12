@@ -7,10 +7,11 @@ public class ScoreManager : MonoBehaviour
 {
     public static ScoreManager Instance = null;
 
-    private RoadLoop roadLoop;
+    //private RoadLoop roadLoop;
+    private UIManager uiManager;
 
-    public GameObject startPopUp;
-    public GameObject endPopUp;
+    //public GameObject startPopUp;
+    //public GameObject endPopUp;
 
     // Timer
     [Header("Timer")]
@@ -46,11 +47,19 @@ public class ScoreManager : MonoBehaviour
             return;
         }
         #endregion
-        roadLoop = GameObject.FindGameObjectWithTag("RoadLoop").GetComponent<RoadLoop>();
+        //roadLoop = GameObject.FindGameObjectWithTag("RoadLoop").GetComponent<RoadLoop>();
+        
     }
 
     private void Start()
     {
+        uiManager = GameObject.FindGameObjectWithTag("UI")?.GetComponent<UIManager>();
+
+        if (uiManager == null)
+        {
+            Debug.LogError("UIManager None");
+        }
+
         LoadPreScore();
         ResetScore();
 
@@ -67,7 +76,15 @@ public class ScoreManager : MonoBehaviour
         }
     }
 
-    // Timer
+
+    #region  [Timer]
+
+    public void ResetTime()
+    {
+        time = 100;
+        timeText = "100";
+    }
+
     private void UpdateTimer()
     {
         if (!isStartTime) return;
@@ -78,7 +95,11 @@ public class ScoreManager : MonoBehaviour
         }
         else    // 게임 종료
         {
-            endPopUp.gameObject.SetActive(true);    // Timer가 다 끝났을 때
+            if (uiManager != null)
+            {
+                uiManager.endPopUp.gameObject.SetActive(true);
+            }
+            // Timer가 다 끝났을 때
 
             SavePreScore();
 
@@ -88,13 +109,16 @@ public class ScoreManager : MonoBehaviour
         }
     }
 
-    private void StartTimer()
+    public void StartTimer()
     {
         timeText = time.ToString();
         isStartTime = true;
     }
 
-    // Score
+    #endregion
+
+
+    #region  [Score]
     private void ResetScore()   //초기화
     {
         scoreTime = 0;
@@ -153,8 +177,10 @@ public class ScoreManager : MonoBehaviour
             PlayerPrefs.Save();
         }
     }
+    #endregion
 
-    // UI
+
+    #region [Get UI]
     public string GetTimerTexts()
     {
         return timeText;
@@ -169,26 +195,66 @@ public class ScoreManager : MonoBehaviour
     {
         return preBsetScoreText;
     }
-
-
-    // ReStart / Start
-
+    #endregion
 
     public void StartGame()
     {
         isStartGame = true;
-        startPopUp.gameObject.SetActive(false);
+        if (uiManager != null)
+        {
+            uiManager.startPopUp.gameObject.SetActive(false);
+        }
 
-        StartTimer(); // 타이머 시작
+        if(!isGameOver)
+        {
+            uiManager.startPopUp.gameObject.SetActive(false);
+        }
+        StartTimer();  // Timer 시작
     }
 
-    public void AgainBtn() // 완전 처음 게임 시작 - 다 초기화
+    public void AgainBtn()      // 완전 처음 게임 시작 - 다 초기화
     {
-        SavePreScore();
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        /*isGameOver = false;
         isStartGame = true;
 
-        roadLoop.ZeroSpeed(0f); //Null
-        endPopUp.gameObject.SetActive(false);
+        uiManager.startPopUp.gameObject.SetActive(false);
+
+        //Score
+        isStartGame = true;
+        SavePreScore();
+        if (uiManager != null)
+        {
+            uiManager.endPopUp.gameObject.SetActive(false);
+            uiManager.startPopUp.gameObject.SetActive(false);
+        }
+
+        ResetScore();
+        ResetTime();
+
+
+        //Scene
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+
+        //Road
+        //roadLoop.ZeroSpeed(0f);  //Null
+
+        //Spawn*/
+        SavePreScore();
+        ResetScore();
+        ResetTime();
+        isGameOver = false;
+        isStartGame = true;
+        if (uiManager != null)
+        {
+            uiManager.startPopUp.gameObject.SetActive(false);
+            uiManager.endPopUp.gameObject.SetActive(false);
+        }
+
+        StartCoroutine(ReloadScene());
+    }
+    private IEnumerator ReloadScene()
+    {
+        yield return new WaitForSeconds(0.1f); // 씬이 완전히 로드되기 전에 UIManager를 찾는 것을 방지
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 }

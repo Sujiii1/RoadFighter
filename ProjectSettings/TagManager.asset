@@ -11,6 +11,7 @@ TagManager:
   - Bus
   - FxTemporaire
   - Road
+  - UI
   layers:
   - Default
   - TransparentFX

@@ -8,7 +8,7 @@ public class SpawnManager : MonoBehaviour
     //1. 오브젝트 랜덤 생성(z축, x축)   하나씩 랜덤
     //2. 랜덤 움직임(x축 랜덤)
     //3. Item 나올 확률 적게
-    //4. IsGameOver true 됐을 때 스폰 멈춤
+    //4. IsGameOver true 됐을 때 스폰 멈춤v
 
     [SerializeField] private RoadLoop roadLoop;
 

@@ -6,11 +6,12 @@ using UnityEngine.InputSystem;
 public class PlayerController : MonoBehaviour
 {
     private Rigidbody playerRB;
-    [SerializeField]private RoadLoop roadLoop;
+    [SerializeField] private RoadLoop roadLoop;
+    [SerializeField] private UIManager uiManager;
 
     private float horizontalInput;
     [SerializeField] private float speed = 20f;
-   // [SerializeField] private float maxSpeed = 30f;
+    // [SerializeField] private float maxSpeed = 30f;
     [SerializeField] private float smooth = 30f;
 
     //Collision
@@ -34,7 +35,6 @@ public class PlayerController : MonoBehaviour
     }
 
 
-
     public void PlayerMove(InputAction.CallbackContext context)
     {
         Vector3 input = context.ReadValue<Vector3>();
@@ -49,36 +49,18 @@ public class PlayerController : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if(collision.gameObject.CompareTag("Wall"))    
+        if (collision.gameObject.CompareTag("Wall"))
         {
             isWall = true;
-
-            //Timer가 0
-            if (ScoreManager.Instance.time == 0)       
-            {
-                ScoreManager.Instance.SavePreScore();
-                ScoreManager.Instance.endPopUp.SetActive(true);
-                ScoreManager.Instance.GameOverScore();
-            }
-            
-            //만약 100초가 안지났다면
-            else
-            {
-                dieFX.Play();
-                roadLoop.ZeroSpeed(0f);     //로드 루프 멈춤
-                ScoreManager.Instance.PauseScoreForSeconds(3f);  // 3초 동안 점수 증가 멈춤
-            }
+            TimeEnd();
         }
-        else if(collision.gameObject.CompareTag("Enemy"))
+        else if (collision.gameObject.CompareTag("Enemy"))
         {
             isWall = false;
-            playerRB.AddForce(pushForce * Vector3.right, ForceMode.Impulse);
-            transform.rotation = Quaternion.Euler(0, rotationAngle, 0);
-            hitFX.Play();
-            StartCoroutine(collision_Co());
+            CollisionPlayer();
 
             //부딪혔을 때 Road Speed 낮추기
-            if(roadLoop != null) 
+            if (roadLoop != null)
             {
                 float currentSpeed = roadLoop.GetSpeed();
                 float reducedSpeed = currentSpeed * 0.5f; // 속도를 절반으로 줄임
@@ -88,10 +70,39 @@ public class PlayerController : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
-        if(other.CompareTag("Item"))
+        if (other.CompareTag("Item"))
         {
             Destroy(other.gameObject);
         }
+    }
+
+    private void TimeEnd()
+    {
+        //Timer가 0
+        if (ScoreManager.Instance.time == 0)
+        {
+            uiManager.endPopUp.SetActive(true);
+
+            ScoreManager.Instance.SavePreScore();
+            ScoreManager.Instance.GameOverScore();
+
+        }
+
+        //만약 100초가 안지났다면
+        else
+        {
+            dieFX.Play();
+            roadLoop.ZeroSpeed(0f);     //로드 루프 멈춤
+            ScoreManager.Instance.PauseScoreForSeconds(3f);  // 3초 동안 점수 증가 멈춤
+        }
+    }
+
+    private void CollisionPlayer()
+    {
+        playerRB.AddForce(pushForce * Vector3.right, ForceMode.Impulse);
+        transform.rotation = Quaternion.Euler(0, rotationAngle, 0);
+        hitFX.Play();
+        StartCoroutine(collision_Co());
     }
 
     IEnumerator collision_Co()
