@@ -3980,7 +3980,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f99f4a27d0112347a143f16b3c172e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  time: 20
+  time: 5
   timeText: 
   scoreText: 
   preBsetScoreText: 

@@ -125,10 +125,6 @@ public class CarObject : MonoBehaviour
             }
 
 
-            /*            if (isBus)   //∑ŒµÂ∑Á«¡ ∏ÿ√„
-                        {
-                            roadLoop.ZeroSpeed(0f);
-                        }*/
         }
     }
     private void Update()
@@ -189,14 +185,17 @@ public class CarObject : MonoBehaviour
 
     private void FindPlayer()
     {
-        float distance = Vector3.Distance(player.transform.position, transform.position);
-
-        if (distance <= 5f)
+        if(player != null)
         {
-            isFindPlayer = true;
-        }
-    }
+            float distance = Vector3.Distance(player.transform.position, transform.position);
 
+            if (distance <= 5f)
+            {
+                isFindPlayer = true;
+            }
+        }
+       
+    }
 
     private void CheckDirection()
     {
@@ -205,7 +204,7 @@ public class CarObject : MonoBehaviour
         // Vector3 cross = Vector3.Cross(transform.position.normalized, player.transform.position.normalized);
         Vector3 directionPlayer = player.transform.position - transform.position;
 
-        if (Vector3.Dot(directionPlayer, transform.right) > 0f) //Right
+        if (Vector3.Dot(directionPlayer, transform.right) > 0f)     //Right
         {
             isRight = true;
             isCheck = true;
@@ -252,9 +251,4 @@ public class CarObject : MonoBehaviour
         transform.rotation = Quaternion.Euler(0, 0, 0);
     }
 
-    /*    IEnumerator DelayFX_Co()
-        {
-            dieFX.Play();
-            yield return new WaitForSeconds(dieFX.main.duration);
-        }*/
 }

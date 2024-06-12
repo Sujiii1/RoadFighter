@@ -17,7 +17,7 @@ public class CameraController : MonoBehaviour
 
     private void Update()
     {
-        StartCoroutine(RePos_Co());
+      //  StartCoroutine(RePos_Co());
     }
 
     private void CameraMove()

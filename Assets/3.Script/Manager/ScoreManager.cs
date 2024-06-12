@@ -11,7 +11,7 @@ public class ScoreManager : MonoBehaviour
 
     // Timer
     [Header("Timer")]
-    public float time = 100f;
+    public float time = 10f;
     public string timeText;
     private bool isStartTime;
 
@@ -22,7 +22,7 @@ public class ScoreManager : MonoBehaviour
     public float scoreTime = 0;
     private int preBsetScore = 0;
     private float increaseScore = 50;
-    //
+    
     [Header(" ")]
     public bool isStartGame = false;
     public bool isGameOver = false;
@@ -211,32 +211,6 @@ public class ScoreManager : MonoBehaviour
 
     public void AgainBtn()      // 완전 처음 게임 시작 - 다 초기화
     {
-        /*isGameOver = false;
-        isStartGame = true;
-
-        uiManager.startPopUp.gameObject.SetActive(false);
-
-        //Score
-        isStartGame = true;
-        SavePreScore();
-        if (uiManager != null)
-        {
-            uiManager.endPopUp.gameObject.SetActive(false);
-            uiManager.startPopUp.gameObject.SetActive(false);
-        }
-
-        ResetScore();
-        ResetTime();
-
-
-        //Scene
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-
-        //Road
-        //roadLoop.ZeroSpeed(0f);  //Null
-
-        //Spawn*/
-
         SavePreScore();
         ResetScore();
         ResetTime();
@@ -259,7 +233,6 @@ public class ScoreManager : MonoBehaviour
     {
         yield return new WaitForSeconds(0.1f); // 씬이 로드된 후 약간의 대기 시간
         SpawnManager spawnManager = FindObjectOfType<SpawnManager>();
-        Debug.Log(spawnManager + " --");
         if (spawnManager != null)
         {
             spawnManager.SpawnStart();
