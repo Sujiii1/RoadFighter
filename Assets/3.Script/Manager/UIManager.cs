@@ -22,6 +22,4 @@ public class UIManager : MonoBehaviour //ReStart ¾ø¾îÁü
         endScoreTextUI.text = ScoreManager.Instance.GetScoreTexts();
         preBsetScoreTextUI.text = ScoreManager.Instance.GetPreviousScoreTexts();
     }
-
-
 }

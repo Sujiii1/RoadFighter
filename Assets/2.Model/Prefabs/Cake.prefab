@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 2288559468514635559}
   - component: {fileID: -2856634403499444775}
   - component: {fileID: -6684971687426080151}
+  - component: {fileID: 4798453952980836149}
   m_Layer: 0
   m_Name: Cake
   m_TagString: Item
@@ -147,3 +148,22 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 4
   m_CollisionDetection: 0
+--- !u!114 &4798453952980836149
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3457502947828558979}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2206b11d0b50a8640b5d2cac01987d19, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  carType: -1
+  isBus: 0
+  player: {fileID: 0}
+  carSpeed_x: 0
+  pushForce: 10
+  rotationAngle: 45
+  dieFX: {fileID: 1146890246311960304, guid: 4a21f2f7170dd2545a625ebb82de1576, type: 3}

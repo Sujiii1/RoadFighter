@@ -6,53 +6,101 @@ public class ObjectPoolingManager : MonoBehaviour
     public static ObjectPoolingManager Instance = null;
 
     [SerializeField] private CarObject[] CarObjectsPrefab;
+    [SerializeField] private CarObject itemPrefab; // 추가된 아이템 프리팹
 
     public Queue<CarObject> YellowcarObjectPool = new Queue<CarObject>();
     public Queue<CarObject> GreencarObjectPool = new Queue<CarObject>();
     public Queue<CarObject> MintcarObjectPool = new Queue<CarObject>();
     public Queue<CarObject> BuscarObjectPool = new Queue<CarObject>();
     public Queue<CarObject> EmptyObjectPool = new Queue<CarObject>();
+    public Queue<CarObject> ItemObjectPool = new Queue<CarObject>(); // 아이템 풀 추가
 
     public Queue<CarObject> RemainYellow = new Queue<CarObject>();
     public Queue<CarObject> RemainGreen = new Queue<CarObject>();
     public Queue<CarObject> RemainMint = new Queue<CarObject>();
     public Queue<CarObject> RemainBus = new Queue<CarObject>();
     public Queue<CarObject> RemainEmpty = new Queue<CarObject>();
+    public Queue<CarObject> RemainItem = new Queue<CarObject>(); // 아이템 남은 목록 추가
 
     private void Awake()
     {
-        #region [SingleTone]
         if (Instance == null)
         {
             Instance = this;
             DontDestroyOnLoad(gameObject);
-            return;
         }
         else
         {
-            Debug.Log("Instance사라짐");
             Destroy(gameObject);
             return;
         }
-        #endregion
     }
 
     private void Start()
     {
-        for (int i = 0; i < 15; i++)
+        InitializeCarPools();
+        InitializeItemPool();
+    }
+
+    private void InitializeCarPools()
+    {
+        if (CarObjectsPrefab == null || CarObjectsPrefab.Length == 0)
         {
-            YellowcarObjectPool.Enqueue(Instantiate(CarObjectsPrefab[0], CarObjectsPrefab[0].transform.position, Quaternion.identity, this.transform));
-            GreencarObjectPool.Enqueue(Instantiate(CarObjectsPrefab[1], CarObjectsPrefab[1].transform.position, Quaternion.identity, this.transform));
-            MintcarObjectPool.Enqueue(Instantiate(CarObjectsPrefab[2], CarObjectsPrefab[2].transform.position, Quaternion.identity, this.transform));
-            BuscarObjectPool.Enqueue(Instantiate(CarObjectsPrefab[3], CarObjectsPrefab[3].transform.position, Quaternion.identity, this.transform));
-            EmptyObjectPool.Enqueue(Instantiate(CarObjectsPrefab[4], CarObjectsPrefab[4].transform.position, Quaternion.identity, this.transform));
+            Debug.LogError("CarObjectsPrefab is not set or empty!");
+            return;
+        }
+
+        for (int i = 0; i < CarObjectsPrefab.Length; i++)
+        {
+            if (CarObjectsPrefab[i] == null)
+            {
+                Debug.LogError($"CarObjectsPrefab[{i}] is null!");
+                continue;
+            }
+
+            for (int j = 0; j < 15; j++)
+            {
+                CarObject newCar = Instantiate(CarObjectsPrefab[i], CarObjectsPrefab[i].transform.position, Quaternion.identity, transform);
+                newCar.gameObject.SetActive(false);
+
+                switch (i)
+                {
+                    case 0:
+                        YellowcarObjectPool.Enqueue(newCar);
+                        break;
+                    case 1:
+                        GreencarObjectPool.Enqueue(newCar);
+                        break;
+                    case 2:
+                        MintcarObjectPool.Enqueue(newCar);
+                        break;
+                    case 3:
+                        BuscarObjectPool.Enqueue(newCar);
+                        break;
+                    case 4:
+                        EmptyObjectPool.Enqueue(newCar);
+                        break;
+                    default:
+                        break;
+                }
+            }
         }
     }
 
-    private void CreatAndEnqueueCar(CarObject carObject, Queue<CarObject> pool)
+    private void InitializeItemPool()
     {
-        CarObject newCar = Instantiate(carObject, carObject.transform.position, Quaternion.identity);
-        newCar.gameObject.SetActive(false);
-        pool.Enqueue(newCar);
+        if (itemPrefab == null)
+        {
+            return;
+        }
+
+        for (int i = 0; i < 5; i++) // 예시로 5개의 아이템을 생성하여 풀에 넣는다.
+        {
+            CarObject newItem = Instantiate(itemPrefab, itemPrefab.transform.position, Quaternion.identity, transform);
+            newItem.gameObject.SetActive(false);
+            ItemObjectPool.Enqueue(newItem);
+        }
     }
+
+    // 추가적으로 필요한 메서드들을 여기에 추가할 수 있습니다.
 }

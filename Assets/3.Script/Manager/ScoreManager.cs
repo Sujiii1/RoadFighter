@@ -1,4 +1,5 @@
 using System.Collections;
+using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -22,11 +23,13 @@ public class ScoreManager : MonoBehaviour
     public float scoreTime = 0;
     private int preBsetScore = 0;
     private float increaseScore = 50;
-    
+
     [Header(" ")]
     public bool isStartGame = false;
     public bool isGameOver = false;
     private bool isPauseScore = false;
+    private bool isAgainBtn = false;
+
 
 
     private void Awake()
@@ -72,36 +75,28 @@ public class ScoreManager : MonoBehaviour
         }
     }
 
-
     #region  [Timer]
 
     public void ResetTime()
     {
-        time = 100;
-        timeText = "100";
+        time = 10.0f;
+        timeText = "10";
     }
 
     private void UpdateTimer()
     {
         if (!isStartTime) return;
-        if (time > 0)
+        if (time > 0.0f)
+
         {
             time -= Time.deltaTime;
             timeText = Mathf.CeilToInt(time).ToString();   // Mathf.CeilToInt -> float을 int 형식으로 변환
         }
-        else    // 게임 종료
+        else if (time <= 0.0f)   // 게임 종료
         {
-            if (uiManager != null)
-            {
-                uiManager.endPopUp.gameObject.SetActive(true);
-            }
-            // Timer가 다 끝났을 때
-
-            SavePreScore();
-
-            isStartGame = false;
-            isGameOver = true;
-
+            time = 0.0f;
+            timeText = "0";
+            EndTimer();
         }
     }
 
@@ -109,6 +104,32 @@ public class ScoreManager : MonoBehaviour
     {
         timeText = time.ToString();
         isStartTime = true;
+    }
+
+    private void EndTimer()     // Timer가 다 끝났을 때
+    {
+        isStartGame = false;
+        isGameOver = true;
+
+        if (uiManager != null)
+        {
+            uiManager.endPopUp.gameObject.SetActive(true);
+        }
+        SavePreScore();
+
+        if (isAgainBtn)
+        {
+            isAgainBtn = false; // 플 무한 루프 방지
+            StartGameAgain();   // 게임을 다시 시작하는 로직을 별도로 분리
+        }
+    }
+
+    private void StartGameAgain()
+    {
+        isStartGame = true;
+        isGameOver = false;
+        ResetTime();
+        StartTimer();
     }
 
     #endregion
@@ -211,23 +232,22 @@ public class ScoreManager : MonoBehaviour
 
     public void AgainBtn()      // 완전 처음 게임 시작 - 다 초기화
     {
-        SavePreScore();
-        ResetScore();
-        ResetTime();
+        isAgainBtn = true;
         isGameOver = false;
         isStartGame = true;
 
+        SavePreScore();
+        ResetScore();
+        ResetTime();
+
         if (uiManager != null)
         {
-            uiManager.startPopUp.gameObject.SetActive(false);
             uiManager.endPopUp.gameObject.SetActive(false);
+            uiManager.startPopUp.gameObject.SetActive(true);
         }
-
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         StartCoroutine(StartSpawnAfterReload());
     }
-
-
 
     private IEnumerator StartSpawnAfterReload()
     {
