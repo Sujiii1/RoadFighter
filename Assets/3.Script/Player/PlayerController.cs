@@ -1,18 +1,17 @@
 using System.Collections;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
     private Rigidbody playerRB;
     [SerializeField] private RoadLoop roadLoop;
     [SerializeField] private UIManager uiManager;
-    //private GameObject bus;
+
 
     private float horizontalInput;
     [SerializeField] private float speed = 20f;
-    // [SerializeField] private float maxSpeed = 30f;
-    [SerializeField] private float smooth = 30f;
+    [SerializeField] private float maxX = 4.7f;
+    private Vector3 targetPosition;
 
     //Collision
     [Header("Collision")]
@@ -29,28 +28,52 @@ public class PlayerController : MonoBehaviour
 
     private void Awake()
     {
-        //bus = GameObject.FindObjectOfType<CarObject>().gameObject;
-        // bus = GameObject.FindGameObjectWithTag("Bus").GetComponent<CarObject>().gameObject;
         playerRB = GetComponent<Rigidbody>();
         roadLoop = GameObject.FindGameObjectWithTag("Road").GetComponent<RoadLoop>();
     }
 
 
-    public void PlayerMove(InputAction.CallbackContext context)
-    {
-        Vector3 input = context.ReadValue<Vector3>();
-        horizontalInput = input.x * speed;
+    /*    public void PlayerMove(InputAction.CallbackContext context)
+        {
+            Vector3 input = context.ReadValue<Vector3>();
+            horizontalInput = input.x * speed;
 
-        // 가속도 제한
-        float tar = horizontalInput;
-        float smoothedVelocity = Mathf.Lerp(playerRB.velocity.x, tar, Time.deltaTime * smooth);
-        playerRB.velocity = new Vector3(smoothedVelocity, playerRB.velocity.y, playerRB.velocity.z);
+            // 가속도 제한
+            float tar = horizontalInput;
+            float smoothedVelocity = Mathf.Lerp(playerRB.velocity.x, tar, Time.deltaTime);
+            playerRB.velocity = new Vector3(smoothedVelocity, playerRB.velocity.y, playerRB.velocity.z);
+        }*/
+
+    private void FixedUpdate()
+    {
+        if (ScoreManager.Instance.isStartGame)
+        {
+            TouchMovePlayer();
+        }
+    }
+
+    private void TouchMovePlayer()
+    {
+        if (Input.GetMouseButton(0))
+        {
+            RaycastHit hit;
+
+            if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit))
+            {
+                Vector3 point = hit.point;
+                float targetX = Mathf.Clamp(point.x, -maxX, maxX); // x축 이동 제한
+                var direction = targetX > 0 ? Vector3.right : Vector3.left;
+                targetPosition = new Vector3(targetX, transform.position.y, transform.position.z);
+
+                transform.position += direction * speed * Time.deltaTime;
+            }
+        }
     }
 
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.CompareTag("Wall"))
+        if (collision.gameObject.CompareTag("Wall") || collision.gameObject.CompareTag("Bus"))
         {
             Debug.Log(collision.gameObject.name);
             isWall = true;
@@ -75,6 +98,8 @@ public class PlayerController : MonoBehaviour
         if (other.CompareTag("Item"))
         {
             Destroy(other.gameObject);
+
+            ScoreManager.Instance.ItemIncreaseScore();
         }
     }
 

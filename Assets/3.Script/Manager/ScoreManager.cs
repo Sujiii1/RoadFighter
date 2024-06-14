@@ -1,5 +1,4 @@
 using System.Collections;
-using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -8,7 +7,8 @@ public class ScoreManager : MonoBehaviour
     public static ScoreManager Instance = null;
 
     private UIManager uiManager;
-
+    private PlayerController playerController;
+    private RoadLoop roadLoop;
 
     // Timer
     [Header("Timer")]
@@ -71,6 +71,15 @@ public class ScoreManager : MonoBehaviour
         if (isStartGame)
         {
             UpdateTimer();
+            UpdateScore();
+        }
+    }
+
+    public void ItemIncreaseScore()     //Item Score Up
+    {
+        if (isStartGame && !isPauseScore)
+        {
+            scoreTime += 1000;
             UpdateScore();
         }
     }
