@@ -12,8 +12,8 @@ GameObject:
   - component: {fileID: 6273153595747406435}
   - component: {fileID: 685415891727364582}
   - component: {fileID: 2288559468514635559}
-  - component: {fileID: -2856634403499444775}
   - component: {fileID: -6684971687426080151}
+  - component: {fileID: -2856634403499444775}
   - component: {fileID: 4798453952980836149}
   m_Layer: 0
   m_Name: Cake
@@ -108,19 +108,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.12852365, y: 0.09663769, z: 0.15962124}
   m_Center: {x: -0.00016980991, y: 0.048318844, z: 0.0143846795}
---- !u!114 &-2856634403499444775
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3457502947828558979}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: da5fa0b079fa3ee4aa78560d5df2cd19, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 10
 --- !u!54 &-6684971687426080151
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -146,8 +133,21 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 4
+  m_Constraints: 84
   m_CollisionDetection: 0
+--- !u!114 &-2856634403499444775
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3457502947828558979}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da5fa0b079fa3ee4aa78560d5df2cd19, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 5
 --- !u!114 &4798453952980836149
 MonoBehaviour:
   m_ObjectHideFlags: 0

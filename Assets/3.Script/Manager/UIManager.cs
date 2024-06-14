@@ -1,7 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using TMPro;
+using UnityEngine;
 
 public class UIManager : MonoBehaviour //ReStart ¾ø¾îÁü
 {
@@ -14,6 +12,14 @@ public class UIManager : MonoBehaviour //ReStart ¾ø¾îÁü
     public GameObject startPopUp;
     public GameObject endPopUp;
 
+    private PlayerInput inputActions;
+
+    private void Awake()
+    {
+        inputActions = new PlayerInput();
+        inputActions.Enable();
+        //inputActions.Touch.TouchPress.started += (context) => Debug.Log("123");
+    }
 
     private void Update()
     {

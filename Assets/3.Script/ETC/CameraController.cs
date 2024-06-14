@@ -1,6 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
-using UnityEditor;
 using UnityEngine;
 
 public class CameraController : MonoBehaviour
@@ -17,7 +15,7 @@ public class CameraController : MonoBehaviour
 
     private void Update()
     {
-      //  StartCoroutine(RePos_Co());
+        //  StartCoroutine(RePos_Co());
     }
 
     private void CameraMove()
@@ -29,7 +27,7 @@ public class CameraController : MonoBehaviour
         }
     }
 
-    IEnumerator RePos_Co()
+    public IEnumerator RePos_Co()
     {
         CameraMove();
         yield return new WaitForSeconds(3f);

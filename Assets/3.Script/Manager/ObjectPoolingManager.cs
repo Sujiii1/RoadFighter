@@ -6,7 +6,7 @@ public class ObjectPoolingManager : MonoBehaviour
     public static ObjectPoolingManager Instance = null;
 
     [SerializeField] private CarObject[] CarObjectsPrefab;
-    [SerializeField] private CarObject itemPrefab; // 추가된 아이템 프리팹
+    [SerializeField] private CarObject itemPrefab;
 
     public Queue<CarObject> YellowcarObjectPool = new Queue<CarObject>();
     public Queue<CarObject> GreencarObjectPool = new Queue<CarObject>();
@@ -15,6 +15,7 @@ public class ObjectPoolingManager : MonoBehaviour
     public Queue<CarObject> EmptyObjectPool = new Queue<CarObject>();
     public Queue<CarObject> ItemObjectPool = new Queue<CarObject>(); // 아이템 풀 추가
 
+    //Dequeue 했다가 다시 넣기
     public Queue<CarObject> RemainYellow = new Queue<CarObject>();
     public Queue<CarObject> RemainGreen = new Queue<CarObject>();
     public Queue<CarObject> RemainMint = new Queue<CarObject>();
@@ -24,6 +25,7 @@ public class ObjectPoolingManager : MonoBehaviour
 
     private void Awake()
     {
+        #region  [SingleTone]
         if (Instance == null)
         {
             Instance = this;
@@ -34,6 +36,7 @@ public class ObjectPoolingManager : MonoBehaviour
             Destroy(gameObject);
             return;
         }
+        #endregion
     }
 
     private void Start()
@@ -46,7 +49,6 @@ public class ObjectPoolingManager : MonoBehaviour
     {
         if (CarObjectsPrefab == null || CarObjectsPrefab.Length == 0)
         {
-            Debug.LogError("CarObjectsPrefab is not set or empty!");
             return;
         }
 
@@ -54,7 +56,6 @@ public class ObjectPoolingManager : MonoBehaviour
         {
             if (CarObjectsPrefab[i] == null)
             {
-                Debug.LogError($"CarObjectsPrefab[{i}] is null!");
                 continue;
             }
 
@@ -80,6 +81,10 @@ public class ObjectPoolingManager : MonoBehaviour
                     case 4:
                         EmptyObjectPool.Enqueue(newCar);
                         break;
+                    case 5:
+                        ItemObjectPool.Enqueue(newCar);
+                        break;
+
                     default:
                         break;
                 }
@@ -94,13 +99,11 @@ public class ObjectPoolingManager : MonoBehaviour
             return;
         }
 
-        for (int i = 0; i < 5; i++) // 예시로 5개의 아이템을 생성하여 풀에 넣는다.
+        for (int i = 0; i < 5; i++)
         {
             CarObject newItem = Instantiate(itemPrefab, itemPrefab.transform.position, Quaternion.identity, transform);
             newItem.gameObject.SetActive(false);
             ItemObjectPool.Enqueue(newItem);
         }
     }
-
-    // 추가적으로 필요한 메서드들을 여기에 추가할 수 있습니다.
 }

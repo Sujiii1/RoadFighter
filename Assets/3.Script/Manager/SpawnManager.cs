@@ -73,6 +73,15 @@ public class SpawnManager : MonoBehaviour
             }
             ObjectPoolingManager.Instance.EmptyObjectPool.Enqueue(carobject);
         }
+        if (ObjectPoolingManager.Instance.RemainItem.Count > 0)
+        {
+            CarObject carobject = ObjectPoolingManager.Instance.RemainItem.Dequeue();
+            if (carobject != null)
+            {
+                carobject.gameObject.SetActive(false);
+            }
+            ObjectPoolingManager.Instance.ItemObjectPool.Enqueue(carobject);
+        }
     }
 
 
@@ -81,7 +90,6 @@ public class SpawnManager : MonoBehaviour
         if (ScoreManager.Instance != null && ScoreManager.Instance.isStartGame)
         {
             StartCoroutine(SpawnBetween_Co());
-
         }
     }
 
@@ -93,7 +101,7 @@ public class SpawnManager : MonoBehaviour
         }
 
         ScoreManager.Instance.isStartGame = true;
-        int enemyIndex = Random.Range(0, 5);
+        int enemyIndex = Random.Range(0, 6);
 
         CarObject carObject = null;
 
@@ -122,6 +130,11 @@ public class SpawnManager : MonoBehaviour
             carObject = ObjectPoolingManager.Instance.EmptyObjectPool.Dequeue();
             ObjectPoolingManager.Instance.RemainEmpty.Enqueue(carObject);
         }
+        else if (enemyIndex.Equals(5) && ObjectPoolingManager.Instance.ItemObjectPool.Count > 0)
+        {
+            carObject = ObjectPoolingManager.Instance.ItemObjectPool.Dequeue();
+            ObjectPoolingManager.Instance.RemainItem.Enqueue(carObject);
+        }
 
         if (carObject != null)
         {
@@ -140,13 +153,12 @@ public class SpawnManager : MonoBehaviour
         spawnPosZ += spawnDistance;
 
         carObject.transform.position = spawnPositionZ;
-
         carObject.gameObject.SetActive(true);
     }
 
     IEnumerator SpawnBetween_Co()
     {
-        while (ScoreManager.Instance != null && !ScoreManager.Instance.isGameOver)   //°ÔÀÓ ¿À¹ö ¾Æ´Ò ¶§ Spawn
+        while (ScoreManager.Instance != null && !ScoreManager.Instance.isGameOver)   //GameOver ¾Æ´Ò ¶§ Spawn
         {
             Create();
             yield return new WaitForSeconds(1f);

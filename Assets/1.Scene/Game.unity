@@ -268,8 +268,6 @@ GameObject:
   - component: {fileID: 44613995}
   - component: {fileID: 44613994}
   - component: {fileID: 44613993}
-  - component: {fileID: 44613992}
-  - component: {fileID: 44613991}
   m_Layer: 0
   m_Name: Plane (5)
   m_TagString: Untagged
@@ -292,38 +290,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1714660764}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &44613991
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 44613989}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: da5fa0b079fa3ee4aa78560d5df2cd19, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 5
---- !u!114 &44613992
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 44613989}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 825f9913c4c67574d89670ec66f01df2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speedText: {fileID: 0}
-  speed: 20
-  maxSpeed: 50
-  accelerationspeed: 2
-  roadSegments: []
-  resetPositionZ: -10
-  roadSegmentLength: 10
 --- !u!65 &44613993
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -429,7 +395,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 568, y: 18}
+  m_AnchoredPosition: {x: 568, y: -31.8}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &162613875
@@ -577,8 +543,6 @@ GameObject:
   - component: {fileID: 239922985}
   - component: {fileID: 239922984}
   - component: {fileID: 239922983}
-  - component: {fileID: 239922982}
-  - component: {fileID: 239922981}
   m_Layer: 0
   m_Name: Plane (1)
   m_TagString: Untagged
@@ -586,38 +550,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &239922981
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 239922980}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: da5fa0b079fa3ee4aa78560d5df2cd19, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 5
---- !u!114 &239922982
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 239922980}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 825f9913c4c67574d89670ec66f01df2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speedText: {fileID: 0}
-  speed: 20
-  maxSpeed: 50
-  accelerationspeed: 2
-  roadSegments: []
-  resetPositionZ: -10
-  roadSegmentLength: 10
 --- !u!65 &239922983
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -716,8 +648,6 @@ GameObject:
   - component: {fileID: 294314770}
   - component: {fileID: 294314769}
   - component: {fileID: 294314768}
-  - component: {fileID: 294314767}
-  - component: {fileID: 294314766}
   m_Layer: 0
   m_Name: Plane (3)
   m_TagString: Untagged
@@ -740,38 +670,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1714660764}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &294314766
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 294314764}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: da5fa0b079fa3ee4aa78560d5df2cd19, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 5
---- !u!114 &294314767
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 294314764}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 825f9913c4c67574d89670ec66f01df2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speedText: {fileID: 0}
-  speed: 20
-  maxSpeed: 50
-  accelerationspeed: 2
-  roadSegments: []
-  resetPositionZ: -10
-  roadSegmentLength: 10
 --- !u!65 &294314768
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1028,7 +926,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -555, y: 18}
+  m_AnchoredPosition: {x: -555, y: -31.8}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &447607537
@@ -1146,7 +1044,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &449742377
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1261,8 +1159,6 @@ GameObject:
   - component: {fileID: 451322982}
   - component: {fileID: 451322981}
   - component: {fileID: 451322980}
-  - component: {fileID: 451322979}
-  - component: {fileID: 451322978}
   m_Layer: 0
   m_Name: Plane (4)
   m_TagString: Untagged
@@ -1285,38 +1181,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1714660764}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &451322978
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 451322976}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: da5fa0b079fa3ee4aa78560d5df2cd19, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 5
---- !u!114 &451322979
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 451322976}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 825f9913c4c67574d89670ec66f01df2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speedText: {fileID: 0}
-  speed: 20
-  maxSpeed: 50
-  accelerationspeed: 2
-  roadSegments: []
-  resetPositionZ: -10
-  roadSegmentLength: 10
 --- !u!65 &451322980
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1400,15 +1264,13 @@ GameObject:
   - component: {fileID: 456513794}
   - component: {fileID: 456513793}
   - component: {fileID: 456513792}
-  - component: {fileID: 456513791}
-  - component: {fileID: 456513790}
   m_Layer: 0
   m_Name: Plane (5)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &456513789
 Transform:
   m_ObjectHideFlags: 0
@@ -1418,44 +1280,12 @@ Transform:
   m_GameObject: {fileID: 456513788}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 43.26}
+  m_LocalPosition: {x: 0, y: -0.1, z: 9.3}
   m_LocalScale: {x: 1, y: 1, z: 4.9512}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1714660764}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &456513790
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 456513788}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: da5fa0b079fa3ee4aa78560d5df2cd19, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 5
---- !u!114 &456513791
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 456513788}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 825f9913c4c67574d89670ec66f01df2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speedText: {fileID: 0}
-  speed: 20
-  maxSpeed: 50
-  accelerationspeed: 2
-  roadSegments: []
-  resetPositionZ: -10
-  roadSegmentLength: 10
 --- !u!65 &456513792
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1473,7 +1303,7 @@ BoxCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Size: {x: 10, y: 2.220446e-16, z: 10}
   m_Center: {x: 0, y: 0, z: 0}
@@ -1554,15 +1384,15 @@ RectTransform:
   m_GameObject: {fileID: 470112536}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 15, y: 25.9, z: 1}
+  m_LocalScale: {x: 17, y: 26, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1428705278}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 10.815009}
+  m_SizeDelta: {x: 0, y: 21.62998}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &470112538
 MonoBehaviour:
@@ -1636,7 +1466,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -555, y: -82}
+  m_AnchoredPosition: {x: -555, y: -124.3}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &501242967
@@ -1804,15 +1634,15 @@ RectTransform:
   m_GameObject: {fileID: 645201927}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 15, y: 25.9, z: 1}
+  m_LocalScale: {x: 17, y: 30, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 761873741}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &645201929
 MonoBehaviour:
@@ -2546,12 +2376,12 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8870d5e2d1001d7449ef1a9b3713f721, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 8581342514329536666}
+  player: {fileID: 0}
   offet: {x: 0, y: 0, z: 0}
   cameraSpeed: 10
 --- !u!1 &973934528
@@ -2994,8 +2824,6 @@ GameObject:
   - component: {fileID: 1084784421}
   - component: {fileID: 1084784420}
   - component: {fileID: 1084784419}
-  - component: {fileID: 1084784418}
-  - component: {fileID: 1084784417}
   m_Layer: 0
   m_Name: Plane (7)
   m_TagString: Untagged
@@ -3018,38 +2846,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1714660764}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1084784417
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1084784415}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: da5fa0b079fa3ee4aa78560d5df2cd19, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 5
---- !u!114 &1084784418
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1084784415}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 825f9913c4c67574d89670ec66f01df2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speedText: {fileID: 0}
-  speed: 20
-  maxSpeed: 50
-  accelerationspeed: 2
-  roadSegments: []
-  resetPositionZ: -10
-  roadSegmentLength: 10
 --- !u!65 &1084784419
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -3156,9 +2952,9 @@ RectTransform:
   - {fileID: 1618951331}
   m_Father: {fileID: 1990689989}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 1166.75}
+  m_AnchorMin: {x: 0.5, y: 1}
+  m_AnchorMax: {x: 0.5, y: 1}
+  m_AnchoredPosition: {x: 0, y: -145.41}
   m_SizeDelta: {x: 0, y: 94.3999}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1229007679
@@ -3576,8 +3372,6 @@ GameObject:
   - component: {fileID: 1403632495}
   - component: {fileID: 1403632494}
   - component: {fileID: 1403632493}
-  - component: {fileID: 1403632492}
-  - component: {fileID: 1403632491}
   m_Layer: 0
   m_Name: Plane (8)
   m_TagString: Untagged
@@ -3600,38 +3394,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1714660764}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1403632491
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1403632489}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: da5fa0b079fa3ee4aa78560d5df2cd19, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 5
---- !u!114 &1403632492
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1403632489}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 825f9913c4c67574d89670ec66f01df2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speedText: {fileID: 0}
-  speed: 20
-  maxSpeed: 50
-  accelerationspeed: 2
-  roadSegments: []
-  resetPositionZ: -10
-  roadSegmentLength: 10
 --- !u!65 &1403632493
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -3911,8 +3673,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 100, y: 52.80011}
+  m_AnchoredPosition: {x: 0, y: 42.914978}
+  m_SizeDelta: {x: 100, y: 138.63004}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1482767463
 MonoBehaviour:
@@ -3988,6 +3750,7 @@ MonoBehaviour:
   scoreTime: 0
   isStartGame: 0
   isGameOver: 0
+  isTimeOver: 0
 --- !u!4 &1601729812
 Transform:
   m_ObjectHideFlags: 0
@@ -4037,7 +3800,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 568, y: -82}
+  m_AnchoredPosition: {x: 568, y: -124.3}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1618951332
@@ -4691,7 +4454,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1968532066}
   - component: {fileID: 1968532065}
-  - component: {fileID: 1968532064}
+  - component: {fileID: 1968532067}
   m_Layer: 0
   m_Name: EventSystem
   m_TagString: Untagged
@@ -4699,26 +4462,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1968532064
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1968532063}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4f231c4fb786f3946a6b90b886c48677, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_SendPointerHoverToParent: 1
-  m_HorizontalAxis: Horizontal
-  m_VerticalAxis: Vertical
-  m_SubmitButton: Submit
-  m_CancelButton: Cancel
-  m_InputActionsPerSecond: 10
-  m_RepeatDelay: 0.5
-  m_ForceModuleActive: 0
 --- !u!114 &1968532065
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4749,6 +4492,36 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1968532067
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1968532063}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 01614664b831546d2ae94a42149d80ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SendPointerHoverToParent: 1
+  m_MoveRepeatDelay: 0.5
+  m_MoveRepeatRate: 0.1
+  m_XRTrackingOrigin: {fileID: 0}
+  m_ActionsAsset: {fileID: -944628639613478452, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
+  m_PointAction: {fileID: -1654692200621890270, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
+  m_MoveAction: {fileID: -8784545083839296357, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
+  m_SubmitAction: {fileID: 392368643174621059, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
+  m_CancelAction: {fileID: 7727032971491509709, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
+  m_LeftClickAction: {fileID: 3001919216989983466, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
+  m_MiddleClickAction: {fileID: -2185481485913320682, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
+  m_RightClickAction: {fileID: -4090225696740746782, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
+  m_ScrollWheelAction: {fileID: 6240969308177333660, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
+  m_TrackedDevicePositionAction: {fileID: 6564999863303420839, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
+  m_TrackedDeviceOrientationAction: {fileID: 7970375526676320489, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
+  m_DeselectOnBackgroundClick: 1
+  m_PointerBehavior: 0
+  m_CursorLockBehavior: 0
 --- !u!1 &1972142723
 GameObject:
   m_ObjectHideFlags: 0
@@ -5010,8 +4783,6 @@ GameObject:
   - component: {fileID: 2001553888}
   - component: {fileID: 2001553887}
   - component: {fileID: 2001553886}
-  - component: {fileID: 2001553885}
-  - component: {fileID: 2001553884}
   m_Layer: 0
   m_Name: Plane (6)
   m_TagString: Untagged
@@ -5034,38 +4805,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1714660764}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2001553884
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2001553882}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: da5fa0b079fa3ee4aa78560d5df2cd19, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 5
---- !u!114 &2001553885
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2001553882}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 825f9913c4c67574d89670ec66f01df2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speedText: {fileID: 0}
-  speed: 20
-  maxSpeed: 50
-  accelerationspeed: 2
-  roadSegments: []
-  resetPositionZ: -10
-  roadSegmentLength: 10
 --- !u!65 &2001553886
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -39771,8 +39510,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   roadLoop: {fileID: 1714660768}
   uiManager: {fileID: 944022733}
-  speed: 30
-  smooth: 80
+  speed: 10
+  maxX: 4.7
   pushForce: 10
   rotationAngle: 45
   dieFX: {fileID: 5757806106117436432}
@@ -39805,7 +39544,7 @@ MonoBehaviour:
   m_ActionEvents:
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 8581342514329536666}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
         m_MethodName: PlayerMove
         m_Mode: 0
@@ -39819,6 +39558,10 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 4e56f2d3-cfb0-4368-8e0f-ccd6670963a5
     m_ActionName: Player/PlayerMove[/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: effa3d90-6041-4da5-bf21-a8b16d01c253
+    m_ActionName: Touch/TouchPress[/Mouse/leftButton]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player

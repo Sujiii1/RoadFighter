@@ -30,7 +30,6 @@ public class RoadLoop : MonoBehaviour
             UpdateSpeedText();
         }
     }
-
     private void RepeatRoad()
     {
         ScoreManager.Instance.isStartGame = true;
