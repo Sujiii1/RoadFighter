@@ -106,7 +106,7 @@ public class PlayerController : MonoBehaviour
     private void TimeEnd()
     {
         //Timer°¡ 0
-        if (ScoreManager.Instance.time == 0)
+        if (ScoreManager.Instance.time <= 0)
         {
             uiManager.endPopUp.SetActive(true);
 

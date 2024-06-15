@@ -6,9 +6,26 @@ public class ScoreManager : MonoBehaviour
 {
     public static ScoreManager Instance = null;
 
-    private UIManager uiManager;
-    private PlayerController playerController;
-    private RoadLoop roadLoop;
+    // ==========================================
+    // 외부 참조
+    // ==========================================
+
+    public void SetUIManager(UIManager uIManager)
+    {
+        this.uiManager = uIManager;
+    }
+
+
+
+
+
+
+    // ==========================================
+    // 내부 변수
+    // ==========================================
+
+
+    [SerializeField] private UIManager uiManager;
 
     // Timer
     [Header("Timer")]
@@ -28,7 +45,7 @@ public class ScoreManager : MonoBehaviour
     public bool isStartGame = false;
     public bool isGameOver = false;
     private bool isPauseScore = false;
-    private bool isAgainBtn = false;
+    [SerializeField] private bool isAgainBtn = false;
 
 
 
@@ -52,8 +69,8 @@ public class ScoreManager : MonoBehaviour
 
     private void Start()
     {
-        uiManager = GameObject.FindGameObjectWithTag("UI")?.GetComponent<UIManager>();
-
+/*        uiManager = GameObject.FindGameObjectWithTag("UI")?.GetComponent<UIManager>();
+*/
         if (uiManager == null)
         {
             Debug.LogError("UIManager None");
@@ -190,6 +207,12 @@ public class ScoreManager : MonoBehaviour
     // PreScore
     public void LoadPreScore()
     {
+        //PlayerPrefs는 로컬 레지스트리에 저장
+
+        //PlayerPrefs 초기화 코드
+        //PlayerPrefs.DeleteAll();
+
+
         preBsetScore = PlayerPrefs.GetInt("preBsetScore", 0);
         preBsetScoreText = Mathf.CeilToInt(preBsetScore).ToString("000000");
     }
@@ -241,7 +264,7 @@ public class ScoreManager : MonoBehaviour
 
     public void AgainBtn()      // 완전 처음 게임 시작 - 다 초기화
     {
-        isAgainBtn = true;
+        //isAgainBtn = true;
         isGameOver = false;
         isStartGame = true;
 
@@ -255,7 +278,7 @@ public class ScoreManager : MonoBehaviour
             uiManager.startPopUp.gameObject.SetActive(true);
         }
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-        StartCoroutine(StartSpawnAfterReload());
+        //StartCoroutine(StartSpawnAfterReload());
     }
 
     private IEnumerator StartSpawnAfterReload()
