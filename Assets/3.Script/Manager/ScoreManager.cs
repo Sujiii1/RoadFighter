@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -25,7 +26,18 @@ public class ScoreManager : MonoBehaviour
     // ==========================================
 
 
+    public enum GameMode
+    {
+        None,
+        GameStart,
+        GameOver
+    }
+
+
     [SerializeField] private UIManager uiManager;
+
+    [SerializeField] private GameMode gameMode;
+
 
     // Timer
     [Header("Timer")]
@@ -64,13 +76,38 @@ public class ScoreManager : MonoBehaviour
             return;
         }
         #endregion
-
     }
+
+/*    public void GameModeTrigger(Action Start, Action Over)
+    {
+        switch(gameMode)
+        {
+            case GameMode.GameStart:
+                Start?.Invoke();
+                break;
+            case GameMode.GameOver:
+                Over?.Invoke();
+                break;
+            default:
+                return;
+        }
+    }*/
+
 
     private void Start()
     {
-/*        uiManager = GameObject.FindGameObjectWithTag("UI")?.GetComponent<UIManager>();
-*/
+ /*       GameModeTrigger(
+            Start: () => { return; },
+            Over: () => { return; }
+            );*/
+
+
+
+        if (isGameOver.Equals(true))
+        {
+            return;
+        }
+
         if (uiManager == null)
         {
             Debug.LogError("UIManager None");
@@ -174,9 +211,10 @@ public class ScoreManager : MonoBehaviour
 
     IEnumerator IncreaseScore_Co()
     {
+        WaitForSeconds waitTime = new WaitForSeconds(1f);
         while (true)
         {
-            yield return new WaitForSeconds(1f);
+            yield return waitTime;
             if (isStartGame && !isPauseScore)
             {
                 scoreTime += increaseScore;
@@ -195,7 +233,7 @@ public class ScoreManager : MonoBehaviour
     public void PauseScoreForSeconds(float seconds)
     {
         isPauseScore = true;
-        StartCoroutine(ReInCrease_Co(seconds));
+        StartCoroutine(ReInCrease_Co(delay: seconds));
     }
 
     public void GameOverScore()
