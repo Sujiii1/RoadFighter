@@ -6,7 +6,7 @@ public class PlayerController : MonoBehaviour
     private Rigidbody playerRB;
     [SerializeField] private RoadLoop roadLoop;
     [SerializeField] private UIManager uiManager;
-
+    [SerializeField] private CameraController cameraController;
 
     private float horizontalInput;
     [SerializeField] private float speed = 20f;
@@ -29,7 +29,10 @@ public class PlayerController : MonoBehaviour
     private void Awake()
     {
         playerRB = GetComponent<Rigidbody>();
-        roadLoop = GameObject.FindGameObjectWithTag("Road").GetComponent<RoadLoop>();
+
+        //이런 것은 직접 참조해주세요.
+        //roadLoop = GameObject.FindGameObjectWithTag("Road").GetComponent<RoadLoop>();
+        //cameraController = GameObject.FindGameObjectWithTag("Camera").GetComponent<CameraController>();
     }
 
 
@@ -75,7 +78,6 @@ public class PlayerController : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Wall") || collision.gameObject.CompareTag("Bus"))
         {
-            Debug.Log(collision.gameObject.name);
             isWall = true;
             TimeEnd();
         }
@@ -118,6 +120,7 @@ public class PlayerController : MonoBehaviour
         //만약 100초가 안지났다면
         else
         {
+            //StartCoroutine(cameraController.RePos_Co());
             dieFX.Play();
             roadLoop.ZeroSpeed(0f);     //로드 루프 멈춤
             ScoreManager.Instance.PauseScoreForSeconds(3f);  // 3초 동안 점수 증가 멈춤
@@ -136,5 +139,14 @@ public class PlayerController : MonoBehaviour
     {
         yield return new WaitForSeconds(2f);
         transform.rotation = Quaternion.Euler(0, 0, 0);
+    }
+
+    private void OnDestroy()
+    {
+        //아래 메서드는 해당 *스크립트의 모든 코루틴을 Stop한다.
+        //여기서 중요한 것은 다른 스크립트의 코루틴을 Stop시키지는 않는다는 것
+        //이는 다른 사람의 코드에 영향이 없다는 것이기 때문에
+        //협업할 때 걍 쓰자
+        StopAllCoroutines();
     }
 }

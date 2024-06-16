@@ -29,7 +29,7 @@ public class ScoreManager : MonoBehaviour
 
     // Timer
     [Header("Timer")]
-    public float time = 10f;
+    public float time = 20f;
     public string timeText;
     private bool isStartTime;
 
@@ -105,8 +105,8 @@ public class ScoreManager : MonoBehaviour
 
     public void ResetTime()
     {
-        time = 10.0f;
-        timeText = "10";
+        time = 20.0f;
+        timeText = "20";
     }
 
     private void UpdateTimer()

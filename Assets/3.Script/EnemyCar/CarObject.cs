@@ -50,7 +50,7 @@ public class CarObject : MonoBehaviour
     [SerializeField] private float carSpeed_x;
     #endregion
 
-    private float xLimit = 3.5f;
+    private float xLimit = 3.7f;
     [SerializeField] private float pushForce = 10f;
     [SerializeField] private float rotationAngle = 45f;
 

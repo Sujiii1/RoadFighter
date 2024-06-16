@@ -33,7 +33,8 @@ public class SpawnManager : MonoBehaviour
     {
         if (ObjectPoolingManager.Instance.RemainYellow.Count > 0)
         {
-            for (int i = 0; i < ObjectPoolingManager.Instance.RemainYellow.Count; i++)
+            int count = ObjectPoolingManager.Instance.RemainYellow.Count;
+            for (int i = 0; i < count; i++)
             {
                 CarObject carobject = ObjectPoolingManager.Instance.RemainYellow.Dequeue();
                 if (carobject != null)
@@ -46,7 +47,8 @@ public class SpawnManager : MonoBehaviour
 
         if (ObjectPoolingManager.Instance.RemainGreen.Count > 0)
         {
-            for (int i = 0; i < ObjectPoolingManager.Instance.RemainGreen.Count; i++)
+            int count = ObjectPoolingManager.Instance.RemainGreen.Count;
+            for (int i = 0; i < count; i++)
             {
                 CarObject carobject = ObjectPoolingManager.Instance.RemainGreen.Dequeue();
                 if (carobject != null)
@@ -59,7 +61,8 @@ public class SpawnManager : MonoBehaviour
 
         if (ObjectPoolingManager.Instance.RemainMint.Count > 0)
         {
-            for (int i = 0; i < ObjectPoolingManager.Instance.RemainMint.Count; i++)
+            int count = ObjectPoolingManager.Instance.RemainMint.Count;
+            for (int i = 0; i < count; i++)
             {
                 CarObject carobject = ObjectPoolingManager.Instance.RemainMint.Dequeue();
                 if (carobject != null)
@@ -73,7 +76,8 @@ public class SpawnManager : MonoBehaviour
 
         if (ObjectPoolingManager.Instance.RemainBus.Count > 0)
         {
-            for (int i = 0; i < ObjectPoolingManager.Instance.RemainBus.Count; i++)
+            int count = ObjectPoolingManager.Instance.RemainBus.Count;
+            for (int i = 0; i < count; i++)
             {
                 CarObject carobject = ObjectPoolingManager.Instance.RemainBus.Dequeue();
                 if (carobject != null)
@@ -86,7 +90,8 @@ public class SpawnManager : MonoBehaviour
 
         if (ObjectPoolingManager.Instance.RemainEmpty.Count > 0)
         {
-            for (int i = 0; i < ObjectPoolingManager.Instance.RemainEmpty.Count; i++)
+            int count = ObjectPoolingManager.Instance.RemainEmpty.Count;
+            for (int i = 0; i < count; i++)
             {
                 CarObject carobject = ObjectPoolingManager.Instance.RemainEmpty.Dequeue();
                 if (carobject != null)
@@ -99,7 +104,8 @@ public class SpawnManager : MonoBehaviour
 
         if (ObjectPoolingManager.Instance.RemainItem.Count > 0)
         {
-            for (int i = 0; i < ObjectPoolingManager.Instance.RemainItem.Count; i++)
+            int count = ObjectPoolingManager.Instance.RemainItem.Count;
+            for (int i = 0; i < count; i++)
             {
                 CarObject carobject = ObjectPoolingManager.Instance.RemainItem.Dequeue();
                 if (carobject != null)
