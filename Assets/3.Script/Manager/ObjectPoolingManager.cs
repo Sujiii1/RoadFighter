@@ -12,7 +12,6 @@ public class ObjectPoolingManager : MonoBehaviour
     public Queue<CarObject> GreencarObjectPool = new Queue<CarObject>();
     public Queue<CarObject> MintcarObjectPool = new Queue<CarObject>();
     public Queue<CarObject> BuscarObjectPool = new Queue<CarObject>();
-    public Queue<CarObject> EmptyObjectPool = new Queue<CarObject>();
     public Queue<CarObject> ItemObjectPool = new Queue<CarObject>(); // 아이템 풀 추가
 
     //Dequeue 했다가 다시 넣기
@@ -20,7 +19,6 @@ public class ObjectPoolingManager : MonoBehaviour
     public Queue<CarObject> RemainGreen = new Queue<CarObject>();
     public Queue<CarObject> RemainMint = new Queue<CarObject>();
     public Queue<CarObject> RemainBus = new Queue<CarObject>();
-    public Queue<CarObject> RemainEmpty = new Queue<CarObject>();
     public Queue<CarObject> RemainItem = new Queue<CarObject>(); // 아이템 남은 목록 추가
 
     private void Awake()
@@ -78,12 +76,7 @@ public class ObjectPoolingManager : MonoBehaviour
                     case 3:
                         BuscarObjectPool.Enqueue(newCar);
                         break;
-                    case 4:
-                        EmptyObjectPool.Enqueue(newCar);
-                        break;
-                    case 5:
-                        ItemObjectPool.Enqueue(newCar);
-                        break;
+
 
                     default:
                         break;
@@ -99,7 +92,7 @@ public class ObjectPoolingManager : MonoBehaviour
             return;
         }
 
-        for (int i = 0; i < 5; i++)
+        for (int i = 0; i < 3; i++)
         {
             CarObject newItem = Instantiate(itemPrefab, itemPrefab.transform.position, Quaternion.identity, transform);
             newItem.gameObject.SetActive(false);

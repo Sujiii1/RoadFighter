@@ -9,7 +9,7 @@ public class SpawnManager : MonoBehaviour
     //3. Item ³ª¿Ã È®·ü Àû°Ô
     //4. IsGameOver true µÆÀ» ¶§ ½ºÆù ¸ØÃãv
 
-    [SerializeField] private float spawnPosZ = 10f;       //Spawn Start Position
+    [SerializeField] private float spawnPosZ = 35f;       //Spawn Start Position
     private float spawnRangeX = 3.5f;
     private float spawnDistance = 1f;
 
@@ -88,19 +88,7 @@ public class SpawnManager : MonoBehaviour
             }
         }
 
-        if (ObjectPoolingManager.Instance.RemainEmpty.Count > 0)
-        {
-            int count = ObjectPoolingManager.Instance.RemainEmpty.Count;
-            for (int i = 0; i < count; i++)
-            {
-                CarObject carobject = ObjectPoolingManager.Instance.RemainEmpty.Dequeue();
-                if (carobject != null)
-                {
-                    carobject.gameObject.SetActive(false);
-                }
-                ObjectPoolingManager.Instance.EmptyObjectPool.Enqueue(carobject);
-            }
-        }
+
 
         if (ObjectPoolingManager.Instance.RemainItem.Count > 0)
         {
@@ -134,7 +122,7 @@ public class SpawnManager : MonoBehaviour
         }
 
         ScoreManager.Instance.isStartGame = true;
-        int enemyIndex = Random.Range(0, 6);
+        int enemyIndex = Random.Range(0, 5);
 
         CarObject carObject = null;
 
@@ -158,11 +146,7 @@ public class SpawnManager : MonoBehaviour
             carObject = ObjectPoolingManager.Instance.BuscarObjectPool.Dequeue();
             ObjectPoolingManager.Instance.RemainBus.Enqueue(carObject);
         }
-        else if (enemyIndex.Equals(4) && ObjectPoolingManager.Instance.EmptyObjectPool.Count > 0)
-        {
-            carObject = ObjectPoolingManager.Instance.EmptyObjectPool.Dequeue();
-            ObjectPoolingManager.Instance.RemainEmpty.Enqueue(carObject);
-        }
+
         else if (enemyIndex.Equals(5) && ObjectPoolingManager.Instance.ItemObjectPool.Count > 0)
         {
             carObject = ObjectPoolingManager.Instance.ItemObjectPool.Dequeue();
@@ -195,7 +179,7 @@ public class SpawnManager : MonoBehaviour
         {
             yield return new WaitForSeconds(1f);
             Create();
-            
+
         }
     }
 

@@ -29,10 +29,6 @@ public class PlayerController : MonoBehaviour
     private void Awake()
     {
         playerRB = GetComponent<Rigidbody>();
-
-        //이런 것은 직접 참조해주세요.
-        //roadLoop = GameObject.FindGameObjectWithTag("Road").GetComponent<RoadLoop>();
-        //cameraController = GameObject.FindGameObjectWithTag("Camera").GetComponent<CameraController>();
     }
 
 
@@ -143,10 +139,6 @@ public class PlayerController : MonoBehaviour
 
     private void OnDestroy()
     {
-        //아래 메서드는 해당 *스크립트의 모든 코루틴을 Stop한다.
-        //여기서 중요한 것은 다른 스크립트의 코루틴을 Stop시키지는 않는다는 것
-        //이는 다른 사람의 코드에 영향이 없다는 것이기 때문에
-        //협업할 때 걍 쓰자
         StopAllCoroutines();
     }
 }

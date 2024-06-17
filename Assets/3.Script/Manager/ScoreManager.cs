@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -78,31 +77,8 @@ public class ScoreManager : MonoBehaviour
         #endregion
     }
 
-/*    public void GameModeTrigger(Action Start, Action Over)
-    {
-        switch(gameMode)
-        {
-            case GameMode.GameStart:
-                Start?.Invoke();
-                break;
-            case GameMode.GameOver:
-                Over?.Invoke();
-                break;
-            default:
-                return;
-        }
-    }*/
-
-
     private void Start()
     {
- /*       GameModeTrigger(
-            Start: () => { return; },
-            Over: () => { return; }
-            );*/
-
-
-
         if (isGameOver.Equals(true))
         {
             return;
@@ -199,19 +175,24 @@ public class ScoreManager : MonoBehaviour
 
 
     #region  [Score]
+
+
     private void ResetScore()   //초기화
     {
         scoreTime = 0;
         scoreText = "000000";
     }
+
     public void UpdateScore()
     {
         scoreText = Mathf.CeilToInt(scoreTime).ToString("000000");
     }
 
+
     IEnumerator IncreaseScore_Co()
     {
         WaitForSeconds waitTime = new WaitForSeconds(1f);
+
         while (true)
         {
             yield return waitTime;
@@ -316,16 +297,7 @@ public class ScoreManager : MonoBehaviour
             uiManager.startPopUp.gameObject.SetActive(true);
         }
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-        //StartCoroutine(StartSpawnAfterReload());
-    }
 
-    private IEnumerator StartSpawnAfterReload()
-    {
-        yield return new WaitForSeconds(0.1f); // 씬이 로드된 후 약간의 대기 시간
-        SpawnManager spawnManager = FindObjectOfType<SpawnManager>();
-        if (spawnManager != null)
-        {
-            spawnManager.SpawnStart();
-        }
+        //StartCoroutine(StartScoreIncreaseAfterDelay());
     }
 }

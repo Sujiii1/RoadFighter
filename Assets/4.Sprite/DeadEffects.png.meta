@@ -1,0 +1,728 @@
+fileFormatVersion: 2
+guid: f5c935eb311fdc64c944fdd6fcf723d8
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 0
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: iPhone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Windows Store Apps
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: DeadEffects_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 449.16666
+        width: 92.6
+        height: 89.833336
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7ffb17bf87780644fbb888ffd3ad0ef7
+      internalID: -1505069579
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DeadEffects_1
+      rect:
+        serializedVersion: 2
+        x: 92
+        y: 449.16666
+        width: 92.6
+        height: 89.833336
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 06c96abe4d4c2d448a2e9d1c2b08b9b5
+      internalID: -532250578
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DeadEffects_2
+      rect:
+        serializedVersion: 2
+        x: 184
+        y: 449.16666
+        width: 92.6
+        height: 89.833336
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ebbda38e83dbdc249b2ce0a42cee885a
+      internalID: 138331633
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DeadEffects_3
+      rect:
+        serializedVersion: 2
+        x: 276
+        y: 449.16666
+        width: 92.6
+        height: 89.833336
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 43994e8fd246f964fb6044b225103618
+      internalID: -283089648
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DeadEffects_4
+      rect:
+        serializedVersion: 2
+        x: 368
+        y: 449.16666
+        width: 92.6
+        height: 89.833336
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7630b48310a051b4fb601717d8ba9b6f
+      internalID: -1162394524
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DeadEffects_5
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 360.16666
+        width: 92.6
+        height: 89.833336
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: decb82d46dbc18540aa920956d889470
+      internalID: 1120220417
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DeadEffects_6
+      rect:
+        serializedVersion: 2
+        x: 92
+        y: 360.16666
+        width: 92.6
+        height: 89.833336
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0d4eb0878367d1f4f874eaf701d14abf
+      internalID: -375616309
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DeadEffects_7
+      rect:
+        serializedVersion: 2
+        x: 184
+        y: 360.16666
+        width: 92.6
+        height: 89.833336
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d5331076f0a2279448ab996f455601b9
+      internalID: -1374584154
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DeadEffects_8
+      rect:
+        serializedVersion: 2
+        x: 276
+        y: 360.16666
+        width: 92.6
+        height: 89.833336
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7f1287268f5bb9f48a450b3f1bda9321
+      internalID: 1003697218
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DeadEffects_9
+      rect:
+        serializedVersion: 2
+        x: 368
+        y: 360.16666
+        width: 92.6
+        height: 89.833336
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0e2545825ef8a164fb2340531ef8fa46
+      internalID: -395572217
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DeadEffects_10
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 271.16666
+        width: 92.6
+        height: 89.833336
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b34b80022a511604581210723123030b
+      internalID: 1698664479
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DeadEffects_11
+      rect:
+        serializedVersion: 2
+        x: 92
+        y: 271.16666
+        width: 92.6
+        height: 89.833336
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ad59a22d5f1b4b742add9f7c2e1f2428
+      internalID: 2130716583
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DeadEffects_12
+      rect:
+        serializedVersion: 2
+        x: 184
+        y: 271.16666
+        width: 92.6
+        height: 89.833336
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2703039205980ba4384a2931fca52fa0
+      internalID: 927277650
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DeadEffects_13
+      rect:
+        serializedVersion: 2
+        x: 276
+        y: 271.16666
+        width: 92.6
+        height: 89.833336
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 14f919736eb170241ab5909b3a91a276
+      internalID: 103919381
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DeadEffects_14
+      rect:
+        serializedVersion: 2
+        x: 368
+        y: 271.16666
+        width: 92.6
+        height: 89.833336
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5dd2553c32374d34390d4b6e0af14058
+      internalID: -1604266587
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DeadEffects_15
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 182.16666
+        width: 92.6
+        height: 89.833336
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d12818797afdfc047a0e529810d6d1e8
+      internalID: 1389541740
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DeadEffects_16
+      rect:
+        serializedVersion: 2
+        x: 92
+        y: 182.16666
+        width: 92.6
+        height: 89.833336
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b01c4453383a38e48a3c82d32526acb9
+      internalID: 65386102
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DeadEffects_17
+      rect:
+        serializedVersion: 2
+        x: 184
+        y: 182.16666
+        width: 92.6
+        height: 89.833336
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8f96a0028f6fbed46b68dcc31b678cb1
+      internalID: 1758349551
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DeadEffects_18
+      rect:
+        serializedVersion: 2
+        x: 276
+        y: 182.16666
+        width: 92.6
+        height: 89.833336
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2b163730a6af42649ae9a450fb65ae78
+      internalID: -1704522614
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DeadEffects_19
+      rect:
+        serializedVersion: 2
+        x: 368
+        y: 182.16666
+        width: 92.6
+        height: 89.833336
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 494ec1b13c386414480cba46d2328db4
+      internalID: 875525566
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DeadEffects_20
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 93.166664
+        width: 92.6
+        height: 89.833336
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1d759974fde771a4aa633a74ad7f29ef
+      internalID: 1093785450
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DeadEffects_21
+      rect:
+        serializedVersion: 2
+        x: 92
+        y: 93.166664
+        width: 92.6
+        height: 89.833336
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8e07b67b2886e4c4f94b559e51a1d670
+      internalID: 891926316
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DeadEffects_22
+      rect:
+        serializedVersion: 2
+        x: 184
+        y: 93.166664
+        width: 92.6
+        height: 89.833336
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7639ea1509824f747bd1088985f54452
+      internalID: 741099872
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DeadEffects_23
+      rect:
+        serializedVersion: 2
+        x: 276
+        y: 93.166664
+        width: 92.6
+        height: 89.833336
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2c43ec6b80f42c147a1ffddbceedad76
+      internalID: -752846907
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DeadEffects_24
+      rect:
+        serializedVersion: 2
+        x: 368
+        y: 93.166664
+        width: 92.6
+        height: 89.833336
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f4938ef76d33c8d49ae8546e972b3b04
+      internalID: 1227539809
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DeadEffects_25
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 4.166664
+        width: 92.6
+        height: 89.833336
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 44618e29509e9d648a13cd07018c714b
+      internalID: 86835969
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      DeadEffects_0: -1505069579
+      DeadEffects_1: -532250578
+      DeadEffects_10: 1698664479
+      DeadEffects_11: 2130716583
+      DeadEffects_12: 927277650
+      DeadEffects_13: 103919381
+      DeadEffects_14: -1604266587
+      DeadEffects_15: 1389541740
+      DeadEffects_16: 65386102
+      DeadEffects_17: 1758349551
+      DeadEffects_18: -1704522614
+      DeadEffects_19: 875525566
+      DeadEffects_2: 138331633
+      DeadEffects_20: 1093785450
+      DeadEffects_21: 891926316
+      DeadEffects_22: 741099872
+      DeadEffects_23: -752846907
+      DeadEffects_24: 1227539809
+      DeadEffects_25: 86835969
+      DeadEffects_26: -357129058
+      DeadEffects_27: -1058441276
+      DeadEffects_28: 1886910386
+      DeadEffects_3: -283089648
+      DeadEffects_4: -1162394524
+      DeadEffects_5: 1120220417
+      DeadEffects_6: -375616309
+      DeadEffects_7: -1374584154
+      DeadEffects_8: 1003697218
+      DeadEffects_9: -395572217
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

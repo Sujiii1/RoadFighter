@@ -1,3 +1,4 @@
+
 using System.Collections;
 using UnityEngine;
 
@@ -50,7 +51,7 @@ public class CarObject : MonoBehaviour
     [SerializeField] private float carSpeed_x;
     #endregion
 
-    private float xLimit = 3.7f;
+    private float xLimit = 4.2f;
     [SerializeField] private float pushForce = 10f;
     [SerializeField] private float rotationAngle = 45f;
 
@@ -66,15 +67,25 @@ public class CarObject : MonoBehaviour
     private bool isCheck = false;
     private bool isRight;
 
+
+    public GameObject ren;
+
     private void Awake()
     {
-        player = GameObject.FindObjectOfType<PlayerController>().gameObject;
         roadLoop = GameObject.FindGameObjectWithTag("Road").GetComponent<RoadLoop>();
         enemyRB = GetComponent<Rigidbody>();
     }
 
     private void Start()
     {
+        player = GameObject.FindObjectOfType<PlayerController>().gameObject;
+        ren.SetActive(false);
+
+        if (player == null)
+        {
+            Debug.LogError("Player not found.");
+        }
+
         switch (carType)
         {
             case CarType.Yellow:
@@ -82,7 +93,7 @@ public class CarObject : MonoBehaviour
                 break;
 
             case CarType.Green:
-                carSpeed_x = 5.0f;
+                carSpeed_x = 7.0f;
                 break;
 
             case CarType.Mint:
@@ -93,10 +104,6 @@ public class CarObject : MonoBehaviour
                 carSpeed_x = 0.0f;
                 isBus = true;
                 break;
-
-            case CarType.Empty:
-                carSpeed_x = 0.0f;
-                break;
         }
     }
 
@@ -104,33 +111,62 @@ public class CarObject : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Wall"))
         {
-            dieFX.Play();
-            gameObject.SetActive(false);
-            EnQueueObject();
+            //dieFX.Play();
+            ren.SetActive(true);
+            StartCoroutine(DestroyCar_Co());
+
 
         }
         else if (collision.gameObject.CompareTag("Player"))     //속도 느려짐
         {
             if (!isBus)
             {
-                enemyRB.AddForce(pushForce * new Vector3(1, -1, 0), ForceMode.Impulse);   //대각선으로 밀려남
+                #region [충돌 방향 회전]
+                Vector3 collisionPoint = collision.contacts[0].point;                   // 충돌 지점의 평균 위치
+                Vector3 direction = collisionPoint - transform.position;                // 플레이어 위치와 충돌 지점 사이의 벡터를 계산
+                direction.Normalize();                                                   // 방향 벡터를 정규화
 
-                transform.rotation = Quaternion.Euler(0, rotationAngle, 0);
-                StartCoroutine(Collision_Co());
+                if (Vector3.Dot(transform.right, direction) > 0)
+                {
+                    enemyRB.AddTorque(Vector3.up * pushForce, ForceMode.Impulse);    //right
+                    transform.rotation = Quaternion.Euler(0, -rotationAngle, 0);
+                    StartCoroutine(Collision_Co());
+                }
+                else
+                {
+                    enemyRB.AddTorque(Vector3.up * -pushForce, ForceMode.Impulse);   //left
+                    transform.rotation = Quaternion.Euler(0, rotationAngle, 0);
+                    StartCoroutine(Collision_Co());
+                }
+                #endregion
+
             }
             else
             {
                 roadLoop.ZeroSpeed(0f);  //로드루프 멈춤
                 enemyRB.AddForce(pushForce * new Vector3(1, -1, 0), ForceMode.Impulse);   //대각선으로 밀려남
             }
-
-
         }
     }
     private void Update()
     {
-        FindPlayer();
-        CheckDirection();
+        if (player == null)
+        {
+            player = GameObject.FindObjectOfType<PlayerController>()?.gameObject;
+
+            if (player != null)
+            {
+                FindPlayer();
+                CheckDirection();
+            }
+        }
+
+        if (player != null)
+        {
+            FindPlayer();
+            CheckDirection();
+        }
+
 
         if (transform.position.z <= -7f)
         {
@@ -140,6 +176,8 @@ public class CarObject : MonoBehaviour
 
     private void FixedUpdate()
     {
+        //예외처리 
+        //게임이 시작되면 
         CarMove_x();
     }
 
@@ -169,10 +207,6 @@ public class CarObject : MonoBehaviour
             case CarType.Bus:
                 ObjectPoolingManager.Instance.BuscarObjectPool.Enqueue(this);
                 break;
-
-            case CarType.Empty:
-                ObjectPoolingManager.Instance.BuscarObjectPool.Enqueue(this);
-                break;
         }
     }
 
@@ -185,7 +219,8 @@ public class CarObject : MonoBehaviour
 
     private void FindPlayer()
     {
-        if(player != null)
+
+        if (player != null)
         {
             float distance = Vector3.Distance(player.transform.position, transform.position);
 
@@ -194,14 +229,13 @@ public class CarObject : MonoBehaviour
                 isFindPlayer = true;
             }
         }
-       
+
     }
 
     private void CheckDirection()
     {
         if (isCheck || !isFindPlayer) return;
 
-        // Vector3 cross = Vector3.Cross(transform.position.normalized, player.transform.position.normalized);
         Vector3 directionPlayer = player.transform.position - transform.position;
 
         if (Vector3.Dot(directionPlayer, transform.right) > 0f)     //Right
@@ -237,9 +271,9 @@ public class CarObject : MonoBehaviour
         if (!isRight)
         {
             transform.Translate(Vector3.left * carSpeed_x * Time.deltaTime);
-            if (transform.position.x < -xLimit)
+            if (transform.position.x < -3.7f)
             {
-                transform.position = new Vector3(-xLimit, transform.position.y, transform.position.z);
+                transform.position = new Vector3(-3.7f, transform.position.y, transform.position.z);
             }
             return;
         }
@@ -249,6 +283,14 @@ public class CarObject : MonoBehaviour
     {
         yield return new WaitForSeconds(2f);
         transform.rotation = Quaternion.Euler(0, 0, 0);
+    }
+
+    //적 사라지는 코루틴
+    IEnumerator DestroyCar_Co()
+    {
+        yield return new WaitForSeconds(dieFX.main.duration);
+        gameObject.SetActive(false);
+        EnQueueObject();
     }
 
 }

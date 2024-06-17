@@ -36,7 +36,7 @@ public class UIManager : MonoBehaviour //ReStart 없어짐
         timerTextUI.text = ScoreManager.Instance.GetTimerTexts();
         scoreTextUI.text = ScoreManager.Instance.GetScoreTexts();
 
-        // 이거 끝날 때 한 번 호출
+        // 끝날 때 한 번 호출
         endScoreTextUI.text = ScoreManager.Instance.GetScoreTexts();
         preBsetScoreTextUI.text = ScoreManager.Instance.GetPreviousScoreTexts();
     }
