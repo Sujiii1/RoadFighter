@@ -40,7 +40,7 @@ public class ScoreManager : MonoBehaviour
 
     // Timer
     [Header("Timer")]
-    public float time = 20f;
+    public float time = 30f;
     public string timeText;
     private bool isStartTime;
 
@@ -55,7 +55,7 @@ public class ScoreManager : MonoBehaviour
     [Header(" ")]
     public bool isStartGame = false;
     public bool isGameOver = false;
-    private bool isPauseScore = false;
+    public bool isPauseScore = false;
     [SerializeField] private bool isAgainBtn = false;
 
 
@@ -118,8 +118,8 @@ public class ScoreManager : MonoBehaviour
 
     public void ResetTime()
     {
-        time = 20.0f;
-        timeText = "20";
+        time = 30.0f;
+        timeText = "30";
     }
 
     private void UpdateTimer()

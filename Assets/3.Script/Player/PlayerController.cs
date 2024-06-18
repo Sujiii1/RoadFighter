@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 
@@ -25,6 +26,13 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private ParticleSystem hitFX;
 
     public bool isWall = false;
+    public bool isRotate = false;
+
+
+    //Event
+    public event EventHandler onCollision;
+
+
 
     private void Awake()
     {
@@ -43,6 +51,9 @@ public class PlayerController : MonoBehaviour
             playerRB.velocity = new Vector3(smoothedVelocity, playerRB.velocity.y, playerRB.velocity.z);
         }*/
 
+
+
+
     private void FixedUpdate()
     {
         if (ScoreManager.Instance.isStartGame)
@@ -53,7 +64,7 @@ public class PlayerController : MonoBehaviour
 
     private void TouchMovePlayer()
     {
-        if (Input.GetMouseButton(0))
+        if (Input.GetMouseButton(0) && !isRotate)
         {
             RaycastHit hit;
 
@@ -69,28 +80,82 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    private void OnCollisionStay(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Wall"))
+        {
+            isWall = true;
+            isRotate = false;
+            TimeEnd();
+
+            onCollision?.Invoke(this, EventArgs.Empty);
+        }
+    }
+
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.CompareTag("Wall") || collision.gameObject.CompareTag("Bus"))
-        {
-            isWall = true;
-            TimeEnd();
-        }
-        else if (collision.gameObject.CompareTag("Enemy"))
+        Vector3 collisionPoint = collision.contacts[0].point;                   // 충돌 지점의 평균 위치
+        Vector3 direction = collisionPoint - transform.position;                // 플레이어 위치와 충돌 지점 사이의 벡터를 계산
+        direction.Normalize();
+
+
+        if (collision.gameObject.CompareTag("Enemy"))
         {
             isWall = false;
-            CollisionPlayer();
+            isRotate = true;
+            onCollision?.Invoke(this, EventArgs.Empty);
 
-            //부딪혔을 때 Road Speed 낮추기
+
             if (roadLoop != null)
             {
-                float currentSpeed = roadLoop.GetSpeed();
-                float reducedSpeed = currentSpeed * 0.5f; // 속도를 절반으로 줄임
-                roadLoop.SetSpeed(reducedSpeed);
+                ReduceLoadSpeed();
+            }
+
+            if (Vector3.Dot(transform.right, direction) > 0)
+            {
+                playerRB.AddTorque(Vector3.up * pushForce, ForceMode.Impulse);    //right
+                transform.rotation = Quaternion.Euler(0, -rotationAngle, 0);
+                hitFX.Play();
+                StartCoroutine(collision_Co());
+            }
+            else
+            {
+                playerRB.AddTorque(Vector3.up * -pushForce, ForceMode.Impulse);   //left
+                transform.rotation = Quaternion.Euler(0, rotationAngle, 0);
+                hitFX.Play();
+                StartCoroutine(collision_Co());
             }
         }
+        else if (collision.gameObject.CompareTag("Bus"))
+        {
+            isWall = true;
+            isRotate = true;
+            TimeEnd();
+            onCollision?.Invoke(this, EventArgs.Empty);
+
+
+            playerRB.AddForce(pushForce * Vector3.right, ForceMode.Impulse);
+            transform.rotation = Quaternion.Euler(0, rotationAngle, 0);
+
+
+            if (Vector3.Dot(transform.right, direction) > 0)
+            {
+                playerRB.AddTorque(Vector3.up * pushForce, ForceMode.Impulse);    //right
+                transform.rotation = Quaternion.Euler(0, rotationAngle, 0);
+                StartCoroutine(collision_Co());
+            }
+            else
+            {
+                playerRB.AddTorque(Vector3.up * -pushForce, ForceMode.Impulse);   //left
+                transform.rotation = Quaternion.Euler(0, -rotationAngle, 0);
+                StartCoroutine(collision_Co());
+            }
+            StartCoroutine(collision_Co());
+        }
+
     }
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Item"))
@@ -123,18 +188,31 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void CollisionPlayer()
+    public void ReduceLoadSpeed()
     {
-        playerRB.AddForce(pushForce * Vector3.right, ForceMode.Impulse);
-        transform.rotation = Quaternion.Euler(0, rotationAngle, 0);
-        hitFX.Play();
-        StartCoroutine(collision_Co());
+        //부딪혔을 때 Road Speed 낮추기
+
+        float currentSpeed = roadLoop.GetSpeed();
+        float reducedSpeed = currentSpeed * 0.5f; // 속도를 절반으로 줄임
+        roadLoop.SetSpeed(reducedSpeed);
+
+
+
     }
+
+    /*    private void CollisionPlayer()
+        {
+            playerRB.AddForce(pushForce * Vector3.right, ForceMode.Impulse);
+            transform.rotation = Quaternion.Euler(0, rotationAngle, 0);
+            hitFX.Play();
+            // StartCoroutine(collision_Co());
+        }*/
 
     IEnumerator collision_Co()
     {
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(1f);
         transform.rotation = Quaternion.Euler(0, 0, 0);
+        isRotate = false;
     }
 
     private void OnDestroy()

@@ -179,6 +179,7 @@ GameObject:
   - component: {fileID: 5400993922560927033}
   - component: {fileID: 726642818662147895}
   - component: {fileID: -2275039996498745264}
+  - component: {fileID: -4555478936888106556}
   m_Layer: 0
   m_Name: Car_Yellow
   m_TagString: Enemy
@@ -275,6 +276,10 @@ MonoBehaviour:
   pushForce: 10
   rotationAngle: 45
   dieFX: {fileID: 1146890246311960304, guid: 4a21f2f7170dd2545a625ebb82de1576, type: 3}
+  isFindPlayer: 0
+  isAccident: 0
+  isCheck: 0
+  isRight: 0
   ren: {fileID: 5094971281238615346}
 --- !u!114 &-2275039996498745264
 MonoBehaviour:
@@ -289,6 +294,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 5
+--- !u!114 &-4555478936888106556
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3935531410507799975}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e43ce5745891a9d438d17988c7d552dc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5094971281238615346
 GameObject:
   m_ObjectHideFlags: 0
