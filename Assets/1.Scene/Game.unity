@@ -1041,6 +1041,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a596585a1fd6af64da957ccebf792917, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  poolController: {fileID: 1017421136}
   initialSpawnPosZ: 35
   currentSpawnPosZ: 0
 --- !u!1 &388432513
@@ -40420,6 +40421,7 @@ MonoBehaviour:
   cameraController: {fileID: 963194229}
   speed: 10
   maxX: 4.7
+  playerBasePosition: {x: 0, y: 0, z: 0}
   pushForce: 10
   rotationAngle: 45
   dieFX: {fileID: 5757806106117436432}

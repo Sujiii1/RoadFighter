@@ -8,9 +8,12 @@ public class PoolController : MonoBehaviour
     [SerializeField] private SpawnManager spawnManager;
     private Transform carPoolsParent;
     private Vector3 startPosition;
+    private float reSpawnPosition = 20f;
 
     [SerializeField] private float poolSpeed = 60f;
     [SerializeField] private bool isPoolMove;
+
+
 
     private void Awake()
     {
@@ -27,17 +30,7 @@ public class PoolController : MonoBehaviour
         startPosition = transform.position;
     }
 
-    private void OnEnable()
-    {
-        if (playerController != null)
-        {
-            playerController.onWall += StartRePosPool;
-        }
-        else
-        {
-            Debug.LogError("playerController is not assigned");
-        }
-    }
+
 
     private void OnDisable()
     {
@@ -45,15 +38,25 @@ public class PoolController : MonoBehaviour
         {
             playerController.onWall -= StartRePosPool;
         }
+        if (ScoreManager.Instance != null && ScoreManager.Instance.isStartGame)
+        {
+            spawnManager.ResetCarObject();
+        }
     }
 
     private void Start()
     {
-
-
         if (carPoolsParent != null)
         {
             startPosition = carPoolsParent.position;
+        }
+        if (playerController != null)
+        {
+            playerController.onWall += StartRePosPool;
+        }
+        else
+        {
+            Debug.LogError("playerController is not assigned");
         }
     }
 
@@ -84,14 +87,11 @@ public class PoolController : MonoBehaviour
 
         isPoolMove = false;
         carPoolsParent.position = startPosition;
-        //다시 돌아오지 말고 
-
         //초기화
         if (spawnManager != null)
         {
+            spawnManager.currentSpawnPosZ = reSpawnPosition;        //초기 위치 재설정
             spawnManager.ResetCarObject();
-
-
         }
     }
 

@@ -9,8 +9,6 @@ public class MoveZ : MonoBehaviour
     [SerializeField] private float speed = 5f;
     private float boundaryZ = -8f;
 
-
-    private bool isEnemylMove = false;
     private float originalSpeed;
 
 
@@ -68,12 +66,10 @@ public class MoveZ : MonoBehaviour
 
     private IEnumerator MoveStopCoroutine()
     {
-        isEnemylMove = true;
         //speed = originalSpeed;
 
         yield return new WaitForSeconds(1f);
 
-        isEnemylMove = false;
         speed = 0;
     }
 }

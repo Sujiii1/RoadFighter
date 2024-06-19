@@ -17,8 +17,8 @@ public class PlayerController : MonoBehaviour
 
     //Collision
     [Header("Collision")]
-    [SerializeField] private float pushForce = 10f;     //¹Ð·Á³ª´Â Èû 
-    [SerializeField] private float rotationAngle = 45f;     //¹Ð·Á³ª´Â Èû 
+    [SerializeField] private float pushForce = 10f;
+    [SerializeField] private float rotationAngle = 45f;
 
 
     //Effect
@@ -33,7 +33,6 @@ public class PlayerController : MonoBehaviour
     //Event
     public event EventHandler onCollision;
     public event EventHandler onWall;
-
 
 
     private void Awake()
@@ -97,7 +96,6 @@ public class PlayerController : MonoBehaviour
 
             onCollision?.Invoke(this, EventArgs.Empty);
             onWall?.Invoke(this, EventArgs.Empty);
-
         }
     }
 

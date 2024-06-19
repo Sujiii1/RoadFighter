@@ -41,8 +41,6 @@ public class CameraController : MonoBehaviour
     {
         if (transform.position.z < 12 && isCameraMove)
         {
-            //Debug.LogError("CameraMove : 실행");
-
             //Time.deltaTime은 한 프레임과 프레임 사이의 시간. 고로 아래와 같은 코드가 원하는 만큼 움직이는 것을
             //원한다면 Update와 같은 반복 호출에 포함되어 있어야 함. 이를 하기 위한 방법 작성.
             transform.position += Vector3.forward * cameraSpeed * Time.deltaTime;
@@ -54,24 +52,6 @@ public class CameraController : MonoBehaviour
     {
         StartCoroutine(WaitAndMoveBack());
     }
-
-    /*    private void StartRePosCamera(object sender, EventArgs args)
-        {
-            StartCoroutine(RePos_Co());
-        }
-
-        public IEnumerator RePos_Co()
-        {
-            //Debug.LogError("RePos_Co : 실행");
-            //CameraMove();
-            isCameraMove = true;
-
-            yield return new WaitForSeconds(3f);
-
-            isCameraMove = false;
-            transform.position = offset;
-        }
-    */
 
     private IEnumerator WaitAndMoveBack()
     {

@@ -24,7 +24,7 @@ public class GameProgress : MonoBehaviour
         }
     }
 
-    private void OnDestroy()
+    private void OnDisable()
     {
         if (playerController != null)
         {
