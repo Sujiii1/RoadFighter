@@ -16,10 +16,6 @@ public class ScoreManager : MonoBehaviour
     }
 
 
-
-
-
-
     // ==========================================
     // 내부 변수
     // ==========================================
@@ -297,7 +293,5 @@ public class ScoreManager : MonoBehaviour
             uiManager.startPopUp.gameObject.SetActive(true);
         }
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-
-        //StartCoroutine(StartScoreIncreaseAfterDelay());
     }
 }

@@ -58,9 +58,11 @@ public class CarObject : MonoBehaviour
 
 
     [Header("Effect")]
-    [SerializeField] private ParticleSystem dieFX;
+    // [SerializeField] private ParticleSystem dieFX;
+    [SerializeField] private GameObject ren;
 
     private WaitForSeconds waitTime = new WaitForSeconds(3f);
+    private WaitForSeconds CollisionTime = new WaitForSeconds(2f);
 
     private Rigidbody enemyRB;
     [SerializeField] private bool isFindPlayer = false;
@@ -69,7 +71,6 @@ public class CarObject : MonoBehaviour
     [SerializeField] private bool isRight;
 
 
-    public GameObject ren;
 
     private void Awake()
     {
@@ -116,8 +117,6 @@ public class CarObject : MonoBehaviour
             //dieFX.Play();
             ren.SetActive(true);
             StartCoroutine(DestroyCar_Co());
-
-
         }
         else if (collision.gameObject.CompareTag("Player"))     //속도 느려짐
         {
@@ -186,7 +185,10 @@ public class CarObject : MonoBehaviour
 
     private void OnEnable()
     {
+        StopAllCoroutines();
+
         InitializePlayer();
+        ResetCarState();
     }
 
     private void OnDisable()
@@ -210,6 +212,7 @@ public class CarObject : MonoBehaviour
         isCheck = false;
         isAccident = false;
         ren.SetActive(false);
+
         transform.rotation = Quaternion.identity;
     }
 
@@ -308,14 +311,15 @@ public class CarObject : MonoBehaviour
 
     IEnumerator Collision_Co()
     {
-        yield return new WaitForSeconds(2f);
+        yield return CollisionTime; ;
         transform.rotation = Quaternion.Euler(0, 0, 0);
     }
 
     //적 사라지는 코루틴
     IEnumerator DestroyCar_Co()
     {
-        yield return new WaitForSeconds(dieFX.main.duration);
+        //yield return new WaitForSeconds(dieFX.main.duration);
+        yield return CollisionTime;
         gameObject.SetActive(false);
         EnQueueObject();
     }

@@ -1009,7 +1009,7 @@ GameObject:
   - component: {fileID: 318463722}
   m_Layer: 0
   m_Name: SpawnManager
-  m_TagString: Untagged
+  m_TagString: SpawnManager
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2862,9 +2862,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8870d5e2d1001d7449ef1a9b3713f721, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 8581342514329536666}
-  offet: {x: 0, y: 0, z: 0}
+  playerController: {fileID: 8581342514329536666}
+  offset: {x: 0, y: 0, z: 0}
   cameraSpeed: 10
+  smoothTime: 1
   isCameraMove: 0
 --- !u!1 &973934528
 GameObject:
@@ -3117,6 +3118,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1017421134}
   - component: {fileID: 1017421135}
+  - component: {fileID: 1017421136}
   m_Layer: 0
   m_Name: ObjectPooling
   m_TagString: Untagged
@@ -3157,6 +3159,22 @@ MonoBehaviour:
   - {fileID: 3016176335056489305, guid: 89fdcf93fb8fb224f9aaa34c3399e3f9, type: 3}
   - {fileID: -2441614845406062669, guid: 29e61dfcdd02ff1479b69a6297a4def1, type: 3}
   itemPrefab: {fileID: 4798453952980836149, guid: 35ac4b2cfdb0bf348bc4ee39dc4cb653, type: 3}
+--- !u!114 &1017421136
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1017421133}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 061b28248de3020419aef8dd9d1deae0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerController: {fileID: 8581342514329536666}
+  spawnManager: {fileID: 318463722}
+  poolSpeed: 10
+  isPoolMove: 0
 --- !u!1 &1029689288
 GameObject:
   m_ObjectHideFlags: 0

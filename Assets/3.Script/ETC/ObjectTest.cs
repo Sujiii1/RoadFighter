@@ -13,7 +13,7 @@ public class ObjectTest : MonoBehaviour
         if (transform.position.z >= -7f)
         {
 
-            Debug.Log($"{gameObject.name} {gameObject.transform.position} False");
+            //Debug.Log($"{gameObject.name} {gameObject.transform.position} False");
         }
 
     }

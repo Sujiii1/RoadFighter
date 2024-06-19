@@ -161,14 +161,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2206b11d0b50a8640b5d2cac01987d19, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  carType: 1
+  carType: -1
   isBus: 0
   player: {fileID: 0}
   carSpeed_x: 0
   pushForce: 10
   rotationAngle: 45
-  dieFX: {fileID: 1146890246311960304, guid: 4a21f2f7170dd2545a625ebb82de1576, type: 3}
   ren: {fileID: 4791007393268947155}
+  isFindPlayer: 0
+  isAccident: 0
+  isCheck: 0
+  isRight: 0
 --- !u!1 &4791007393268947155
 GameObject:
   m_ObjectHideFlags: 0

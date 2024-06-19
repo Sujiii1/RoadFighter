@@ -13,6 +13,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float speed = 20f;
     [SerializeField] private float maxX = 4.7f;
     private Vector3 targetPosition;
+    public Vector3 playerBasePosition;
 
     //Collision
     [Header("Collision")]
@@ -31,6 +32,7 @@ public class PlayerController : MonoBehaviour
 
     //Event
     public event EventHandler onCollision;
+    public event EventHandler onWall;
 
 
 
@@ -51,7 +53,10 @@ public class PlayerController : MonoBehaviour
             playerRB.velocity = new Vector3(smoothedVelocity, playerRB.velocity.y, playerRB.velocity.z);
         }*/
 
-
+    private void Start()
+    {
+        playerBasePosition = transform.position;
+    }
 
 
     private void FixedUpdate()
@@ -88,7 +93,11 @@ public class PlayerController : MonoBehaviour
             isRotate = false;
             TimeEnd();
 
+            //Camera Method
+
             onCollision?.Invoke(this, EventArgs.Empty);
+            onWall?.Invoke(this, EventArgs.Empty);
+
         }
     }
 

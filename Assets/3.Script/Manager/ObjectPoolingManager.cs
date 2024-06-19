@@ -21,6 +21,8 @@ public class ObjectPoolingManager : MonoBehaviour
     public Queue<CarObject> RemainBus = new Queue<CarObject>();
     public Queue<CarObject> RemainItem = new Queue<CarObject>(); // 아이템 남은 목록 추가
 
+
+
     private void Awake()
     {
         #region  [SingleTone]
@@ -37,11 +39,14 @@ public class ObjectPoolingManager : MonoBehaviour
         #endregion
     }
 
+
+
     private void Start()
     {
         InitializeCarPools();
         InitializeItemPool();
     }
+
 
     private void InitializeCarPools()
     {
@@ -92,7 +97,7 @@ public class ObjectPoolingManager : MonoBehaviour
             return;
         }
 
-        for (int i = 0; i < 3; i++)
+        for (int i = 0; i < 5; i++)
         {
             CarObject newItem = Instantiate(itemPrefab, itemPrefab.transform.position, Quaternion.identity, transform);
             newItem.gameObject.SetActive(false);

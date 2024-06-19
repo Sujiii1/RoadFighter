@@ -9,11 +9,28 @@ public class SpawnManager : MonoBehaviour
     //3. Item 나올 확률 적게
     //4. IsGameOver true 됐을 때 스폰 멈춤v
 
-    [SerializeField] private float initialSpawnPosZ = 35f; // 초기 스폰 위치
-    [SerializeField] private float currentSpawnPosZ;       //Spawn Start Position
+    //[SerializeField] private PlayerController playerController;
+    public float initialSpawnPosZ = 35f; // 초기 스폰 위치
+    public float currentSpawnPosZ;       //Spawn Start Position
     private float spawnRangeX = 3.5f;
     private float spawnDistance = 1f;
 
+
+    /*    private void OnEnable()
+        {
+            if (playerController != null)
+            {
+                playerController.onWall += StopSpawn;
+            }
+
+        }
+        private void OnDisable()
+        {
+            if (playerController != null)
+            {
+                playerController.onWall -= StopSpawn;
+            }
+        }*/
 
 
     private void Start()
@@ -38,7 +55,7 @@ public class SpawnManager : MonoBehaviour
 
     }
 
-    private void ResetCarObject()
+    public void ResetCarObject()
     {
         if (ObjectPoolingManager.Instance.RemainYellow.Count > 0)
         {
@@ -118,8 +135,7 @@ public class SpawnManager : MonoBehaviour
     public void SpawnStart()
     {
         currentSpawnPosZ = initialSpawnPosZ; // 게임 시작 시 스폰 위치 초기화
-        //Debug.Log($"<b>ResetSpawnPosition: initialSpawnPosZ</b> :<color=red> {initialSpawnPosZ} </color>");
-        //Debug.Log($"<b>ResetSpawnPosition: spawnPosZ</b> :<color=green> {currentSpawnPosZ} </color>");
+
         if (ScoreManager.Instance != null && ScoreManager.Instance.isStartGame)
         {
             StartCoroutine(SpawnBetween_Co());
@@ -134,7 +150,7 @@ public class SpawnManager : MonoBehaviour
         }
 
         ScoreManager.Instance.isStartGame = true;
-        int enemyIndex = Random.Range(0, 5);
+        int enemyIndex = UnityEngine.Random.Range(0, 6);
 
         CarObject carObject = null;
 
@@ -172,36 +188,32 @@ public class SpawnManager : MonoBehaviour
 
     }
 
-
-    private void InitCarObject(CarObject carObject)
+    public void InitCarObject(CarObject carObject)
     {
         //생성 위치
         //Vector3 spawnPositionZ = carObject.transform.position + Vector3.forward * currentSpawnPosZ;
+
+
         Vector3 spawnPositionZ = new Vector3();
         spawnPositionZ.z = currentSpawnPosZ;
-        spawnPositionZ.x = Random.Range(-spawnRangeX, spawnRangeX);
+        spawnPositionZ.x = UnityEngine.Random.Range(-spawnRangeX, spawnRangeX);
         spawnPositionZ.y = 6.3f;
 
-        //Debug.Log("InitCarObject: spawnPosition = " + spawnPositionZ);
-        //Debug.Log("InitCarObject: spawnPosZ before increment = " + currentSpawnPosZ);
-
         carObject.transform.position = spawnPositionZ;
-
         carObject.gameObject.SetActive(true);
 
         currentSpawnPosZ += spawnDistance;
-
-        //Debug.Log("InitCarObject: spawnPosZ after increment = " + currentSpawnPosZ);
     }
 
-    IEnumerator SpawnBetween_Co()
+
+    public IEnumerator SpawnBetween_Co()
     {
         while (ScoreManager.Instance != null && !ScoreManager.Instance.isGameOver)   //GameOver 아닐 때 Spawn
         {
             yield return new WaitForSeconds(1f);
             Create();
-
         }
     }
+
 
 }
