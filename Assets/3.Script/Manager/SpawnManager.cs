@@ -9,7 +9,7 @@ public class SpawnManager : MonoBehaviour
     //3. Item 나올 확률 적게
     //4. IsGameOver true 됐을 때 스폰 멈춤v
 
-    //[SerializeField] private PlayerController playerController;
+    public CarObject carObject;
     [SerializeField] private PoolController poolController;
     public float initialSpawnPosZ = 35f; // 초기 스폰 위치
     public float currentSpawnPosZ;       //Spawn Start Position
@@ -17,6 +17,12 @@ public class SpawnManager : MonoBehaviour
     private float spawnDistance = 1f;
 
 
+
+
+    private void Awake()
+    {
+        ObjectPoolingManager.Instance.poolController.spawnManager = this;
+    }
 
     private void Start()
     {
@@ -131,7 +137,6 @@ public class SpawnManager : MonoBehaviour
     public void InitCarObject(CarObject carObject)
     {
         //생성 위치
-
         Vector3 spawnPositionZ = new Vector3();
         spawnPositionZ.z = currentSpawnPosZ;
         spawnPositionZ.x = UnityEngine.Random.Range(-spawnRangeX, spawnRangeX);
@@ -194,7 +199,6 @@ public class SpawnManager : MonoBehaviour
         {
             InitCarObject(carObject);
         }
-
     }
 
     public IEnumerator SpawnBetween_Co()

@@ -21,7 +21,7 @@ public class ObjectPoolingManager : MonoBehaviour
     public Queue<CarObject> RemainBus = new Queue<CarObject>();
     public Queue<CarObject> RemainItem = new Queue<CarObject>(); // 아이템 남은 목록 추가
 
-
+    public PoolController poolController;
 
     private void Awake()
     {

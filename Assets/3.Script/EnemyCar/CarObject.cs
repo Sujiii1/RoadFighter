@@ -169,13 +169,12 @@ public class CarObject : MonoBehaviour
                 CheckDirection();
             }
         }
-
-        if (player != null)
+        else
         {
             FindPlayer();
             CheckDirection();
-        }
 
+        }
 
         if (transform.position.z <= -7f)
         {
@@ -183,6 +182,10 @@ public class CarObject : MonoBehaviour
         }
     }
 
+
+
+
+    #region [ÃÊ±âÈ­]
     private void OnEnable()
     {
         StopAllCoroutines();
@@ -190,14 +193,6 @@ public class CarObject : MonoBehaviour
         InitializePlayer();
         ResetCarState();
     }
-
-    private void OnDisable()
-    {
-        StopAllCoroutines();
-        isFindPlayer = false;
-        isCheck = false;
-    }
-
 
     private void InitializePlayer()
     {
@@ -215,11 +210,19 @@ public class CarObject : MonoBehaviour
 
         transform.rotation = Quaternion.identity;
     }
+    #endregion
 
+
+
+    private void OnDisable()
+    {
+        StopAllCoroutines();
+        isFindPlayer = false;
+        isCheck = false;
+    }
 
     private void EnQueueObject()
     {
-        //Debug.Log($"EnQueueObject called for {gameObject.name} at position {transform.position}");
         gameObject.SetActive(false);
         ResetCarState();
 

@@ -4,23 +4,21 @@ using UnityEngine;
 
 public class PoolController : MonoBehaviour
 {
-    [SerializeField] private PlayerController playerController;
-    [SerializeField] private SpawnManager spawnManager;
+    public PlayerController playerController;
+    public SpawnManager spawnManager;
+
     private Transform carPoolsParent;
     private Vector3 startPosition;
     private float reSpawnPosition = 20f;
 
     [SerializeField] private float poolSpeed = 60f;
-    [SerializeField] private bool isPoolMove;
+    [SerializeField] private bool isPoolMove = false;
 
 
 
     private void Awake()
     {
-        //spawnManager = GameObject.FindGameObjectWithTag("Road").GetComponent<SpawnManager>();
-        //playerController = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
-        spawnManager = FindObjectOfType<SpawnManager>();
-        playerController = FindObjectOfType<PlayerController>();
+        isPoolMove = false;
 
         if (ObjectPoolingManager.Instance == null)
         {
@@ -30,7 +28,17 @@ public class PoolController : MonoBehaviour
         startPosition = transform.position;
     }
 
-
+    private void OnEnable()
+    {
+        if (playerController != null)
+        {
+            playerController.onWall -= StartRePosPool;
+        }
+        if (ScoreManager.Instance != null && ScoreManager.Instance.isStartGame)
+        {
+            spawnManager.ResetCarObject();
+        }
+    }
 
     private void OnDisable()
     {
@@ -44,19 +52,17 @@ public class PoolController : MonoBehaviour
         }
     }
 
+
+
     private void Start()
     {
-        if (carPoolsParent != null)
+        if (carPoolsParent != null && playerController != null)
         {
             startPosition = carPoolsParent.position;
         }
         if (playerController != null)
         {
             playerController.onWall += StartRePosPool;
-        }
-        else
-        {
-            Debug.LogError("playerController is not assigned");
         }
     }
 
@@ -87,6 +93,7 @@ public class PoolController : MonoBehaviour
 
         isPoolMove = false;
         carPoolsParent.position = startPosition;
+
         //√ ±‚»≠
         if (spawnManager != null)
         {
@@ -94,38 +101,4 @@ public class PoolController : MonoBehaviour
             spawnManager.ResetCarObject();
         }
     }
-
-
-
-
-    //CarObject carObject = GetCarObject();
-    //spawnManager.InitCarObject(carObject);
-    //private CarObject GetCarObject()
-    //{
-    //    return new CarObject();
-    //}
-
-    /* private void ResetAllPooledObjects()
-     {
-         ResetCarObjects(ObjectPoolingManager.Instance.RemainYellow, ObjectPoolingManager.Instance.YellowcarObjectPool);
-         ResetCarObjects(ObjectPoolingManager.Instance.RemainGreen, ObjectPoolingManager.Instance.GreencarObjectPool);
-         ResetCarObjects(ObjectPoolingManager.Instance.RemainMint, ObjectPoolingManager.Instance.MintcarObjectPool);
-         ResetCarObjects(ObjectPoolingManager.Instance.RemainBus, ObjectPoolingManager.Instance.BuscarObjectPool);
-         ResetCarObjects(ObjectPoolingManager.Instance.RemainItem, ObjectPoolingManager.Instance.ItemObjectPool);
-     }
-
-     private void ResetCarObjects(Queue<CarObject> activeQueue, Queue<CarObject> poolQueue)
-     {
-         int count = activeQueue.Count;
-         for (int i = 0; i < count; i++)
-         {
-             CarObject carObject = activeQueue.Dequeue();
-             if (carObject != null)
-             {
-                 carObject.gameObject.SetActive(false);
-                 poolQueue.Enqueue(carObject);
-             }
-         }
-     }*/
-
 }

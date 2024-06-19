@@ -38,6 +38,8 @@ public class PlayerController : MonoBehaviour
     private void Awake()
     {
         playerRB = GetComponent<Rigidbody>();
+        ObjectPoolingManager.Instance.poolController.playerController = this;
+
     }
 
 
@@ -91,8 +93,6 @@ public class PlayerController : MonoBehaviour
             isWall = true;
             isRotate = false;
             TimeEnd();
-
-            //Camera Method
 
             onCollision?.Invoke(this, EventArgs.Empty);
             onWall?.Invoke(this, EventArgs.Empty);
