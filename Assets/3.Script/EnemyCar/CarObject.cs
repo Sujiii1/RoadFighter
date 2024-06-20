@@ -71,7 +71,6 @@ public class CarObject : MonoBehaviour
     [SerializeField] private bool isRight;
 
 
-
     private void Awake()
     {
         roadLoop = GameObject.FindGameObjectWithTag("Road").GetComponent<RoadLoop>();
@@ -173,7 +172,6 @@ public class CarObject : MonoBehaviour
         {
             FindPlayer();
             CheckDirection();
-
         }
 
         if (transform.position.z <= -7f)
@@ -181,7 +179,6 @@ public class CarObject : MonoBehaviour
             EnQueueObject();
         }
     }
-
 
 
 
@@ -217,6 +214,7 @@ public class CarObject : MonoBehaviour
     private void OnDisable()
     {
         StopAllCoroutines();
+        CarMove_x();
         isFindPlayer = false;
         isCheck = false;
     }

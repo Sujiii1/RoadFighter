@@ -8,6 +8,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private RoadLoop roadLoop;
     [SerializeField] private UIManager uiManager;
     [SerializeField] private CameraController cameraController;
+    [SerializeField] private SpawnManager spawnManager;
+    [SerializeField] private PoolController poolController;
+    private MoveZ moveZ;
 
     private float horizontalInput;
     [SerializeField] private float speed = 20f;
@@ -39,9 +42,15 @@ public class PlayerController : MonoBehaviour
     {
         playerRB = GetComponent<Rigidbody>();
         ObjectPoolingManager.Instance.poolController.playerController = this;
+        moveZ = FindObjectOfType<MoveZ>();
+
+        if (poolController != null)
+        {
+            poolController = GameObject.FindGameObjectWithTag("ObjectPooling").GetComponent<PoolController>();
+        }
+
 
     }
-
 
     /*    public void PlayerMove(InputAction.CallbackContext context)
         {
@@ -57,6 +66,11 @@ public class PlayerController : MonoBehaviour
     private void Start()
     {
         playerBasePosition = transform.position;
+
+        if (poolController == null)
+        {
+            Debug.LogError("poolController is not assigned in the inspector");
+        }
     }
 
 
@@ -96,6 +110,18 @@ public class PlayerController : MonoBehaviour
 
             onCollision?.Invoke(this, EventArgs.Empty);
             onWall?.Invoke(this, EventArgs.Empty);
+
+            poolController.isPoolMove = true;
+
+
+
+            if (moveZ != null)
+            {
+                moveZ.isZeroSpeed = true;
+                moveZ.speed = 0;
+            }
+            StartCoroutine(WallReSpawn_Co());
+
         }
     }
 
@@ -202,9 +228,6 @@ public class PlayerController : MonoBehaviour
         float currentSpeed = roadLoop.GetSpeed();
         float reducedSpeed = currentSpeed * 0.5f; // 속도를 절반으로 줄임
         roadLoop.SetSpeed(reducedSpeed);
-
-
-
     }
 
     /*    private void CollisionPlayer()
@@ -214,6 +237,22 @@ public class PlayerController : MonoBehaviour
             hitFX.Play();
             // StartCoroutine(collision_Co());
         }*/
+
+    IEnumerator WallReSpawn_Co()
+    {
+        yield return new WaitForSeconds(2f);
+
+        if (poolController.spawnManager != null)
+        {
+            lock (spawnManager) // Lock to prevent conflicts
+            {
+                spawnManager.currentSpawnPosZ = poolController.reSpawnPosition;
+                spawnManager.ResetCarObject();
+                poolController.carPoolsParent.position = poolController.startPosition;
+            }
+        }
+        poolController.isPoolMove = false;
+    }
 
     IEnumerator collision_Co()
     {

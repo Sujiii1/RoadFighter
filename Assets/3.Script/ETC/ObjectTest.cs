@@ -10,10 +10,10 @@ public class ObjectTest : MonoBehaviour
     }
     private void OnDisable()
     {
-        if (transform.position.z >= -7f)
+        if (transform.position.z <= -7f)
         {
-
             //Debug.Log($"{gameObject.name} {gameObject.transform.position} False");
+
         }
 
     }

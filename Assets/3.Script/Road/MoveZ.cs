@@ -1,38 +1,43 @@
 using System;
-using System.Collections;
 using UnityEngine;
 
 public class MoveZ : MonoBehaviour
 {
-    private PlayerController player;
+    private PlayerController playerController;
     private RoadLoop roadRoop;
-    [SerializeField] private float speed = 5f;
+    public float speed = 5f;
     private float boundaryZ = -8f;
 
-    private float originalSpeed;
 
+    public bool isZeroSpeed = false;
 
     private void Awake()
     {
         roadRoop = GameObject.FindGameObjectWithTag("Road").GetComponent<RoadLoop>();
-        player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
-        originalSpeed = speed;
+        playerController = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
     }
+
 
     private void OnEnable()
     {
-        player.onWall += StartMoveZ;
+        if (playerController != null)
+        {
+            playerController.onWall += SpeedZero;
+        }
     }
     private void OnDisable()
     {
-        player.onWall -= StartMoveZ;
+        if (playerController != null)
+        {
+            playerController.onWall -= SpeedZero;
+        }
     }
 
 
 
     private void FixedUpdate()
     {
-        if (ScoreManager.Instance.isStartGame)
+        if (ScoreManager.Instance.isStartGame && !isZeroSpeed)
         {
             MoveObject();
         }
@@ -42,8 +47,12 @@ public class MoveZ : MonoBehaviour
     {
         ScoreManager.Instance.isStartGame = true;
 
-        transform.Translate(Vector3.back * Time.deltaTime * speed);
-        Boundary();
+        if (!isZeroSpeed)
+        {
+            transform.Translate(Vector3.back * Time.deltaTime * speed);
+            Boundary();
+        }
+
     }
 
     private void Boundary()
@@ -56,20 +65,26 @@ public class MoveZ : MonoBehaviour
         }
     }
 
-
-
-    //Player Wall에 충돌
-    private void StartMoveZ(object sender, EventArgs args)
+    private void SpeedZero(object sender, EventArgs args)
     {
-        StartCoroutine(MoveStopCoroutine());
+        isZeroSpeed = true;
+        speed = 0;
     }
 
-    private IEnumerator MoveStopCoroutine()
+
+    /* //Player Wall에 충돌
+     private void StartMoveZ(object sender, EventArgs args)
+     {
+         //StartCoroutine(MoveStopCoroutine());
+
+         //Debug.Log("StartMoveZ");
+     }*/
+
+    /*private IEnumerator MoveStopCoroutine()
     {
         //speed = originalSpeed;
 
         yield return new WaitForSeconds(1f);
-
         speed = 0;
-    }
+    }*/
 }

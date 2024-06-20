@@ -17,7 +17,10 @@ public class CameraController : MonoBehaviour
     private void Start()
     {
         offset = transform.position;
+    }
 
+    private void OnEnable()
+    {
         if (playerController != null)
         {
             playerController.onWall += StartRePosCamera;

@@ -3123,7 +3123,7 @@ GameObject:
   - component: {fileID: 1017421136}
   m_Layer: 0
   m_Name: ObjectPooling
-  m_TagString: Untagged
+  m_TagString: ObjectPooling
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3176,7 +3176,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerController: {fileID: 8581342514329536666}
   spawnManager: {fileID: 318463722}
-  poolSpeed: 10
+  carPoolsParent: {fileID: 0}
+  startPosition: {x: 0, y: 0, z: 0}
+  reSpawnPosition: 20
+  poolSpeed: 60
   isPoolMove: 0
 --- !u!1 &1029689288
 GameObject:
@@ -4397,7 +4400,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   uiManager: {fileID: 0}
   gameMode: 0
-  time: 30
+  time: 50
   timeText: 
   scoreText: 
   preBsetScoreText: 
@@ -40348,6 +40351,8 @@ MonoBehaviour:
   roadLoop: {fileID: 1714660768}
   uiManager: {fileID: 944022733}
   cameraController: {fileID: 963194229}
+  spawnManager: {fileID: 318463722}
+  poolController: {fileID: 1017421136}
   speed: 10
   maxX: 4.7
   playerBasePosition: {x: 0, y: 0, z: 0}

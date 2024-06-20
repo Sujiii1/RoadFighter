@@ -36,7 +36,7 @@ public class ScoreManager : MonoBehaviour
 
     // Timer
     [Header("Timer")]
-    public float time = 30f;
+    public float time = 50f;
     public string timeText;
     private bool isStartTime;
 
@@ -114,8 +114,8 @@ public class ScoreManager : MonoBehaviour
 
     public void ResetTime()
     {
-        time = 30.0f;
-        timeText = "30";
+        time = 50.0f;
+        timeText = "50";
     }
 
     private void UpdateTimer()
