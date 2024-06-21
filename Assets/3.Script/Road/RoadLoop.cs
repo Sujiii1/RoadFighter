@@ -83,7 +83,7 @@ public class RoadLoop : MonoBehaviour
         this.speed = speed;
     }
 
-    public void SetSpeed(float newSpeed)
+    public void SetSpeed(float newSpeed)    //reduce
     {
         speed = Mathf.Clamp(newSpeed, 0f, maxSpeed); // 새로운 속도를 클램핑
     }

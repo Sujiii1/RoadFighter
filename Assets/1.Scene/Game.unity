@@ -2738,6 +2738,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   againBtn: {fileID: 1972142725}
+  spawnManager: {fileID: 0}
   timerTextUI: {fileID: 1618951332}
   scoreTextUI: {fileID: 162613875}
   endScoreTextUI: {fileID: 1366437561}
@@ -4399,8 +4400,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   uiManager: {fileID: 0}
-  gameMode: 0
-  time: 50
+  time: 20
   timeText: 
   scoreText: 
   preBsetScoreText: 
@@ -5532,6 +5532,18 @@ MonoBehaviour:
       - m_Target: {fileID: 318463722}
         m_TargetAssemblyTypeName: SpawnManager, Assembly-CSharp
         m_MethodName: SpawnStart
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 944022733}
+        m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
+        m_MethodName: ReRoadScene
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -40606,7 +40618,7 @@ SceneRoots:
   - {fileID: 1017421134}
   - {fileID: 318463721}
   - {fileID: 1056343176}
-  - {fileID: 1714660764}
   - {fileID: 8581342514329536665}
+  - {fileID: 1714660764}
   - {fileID: 2053740051}
   - {fileID: 1742755152}

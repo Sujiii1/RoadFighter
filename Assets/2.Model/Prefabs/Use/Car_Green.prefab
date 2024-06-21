@@ -202,7 +202,6 @@ GameObject:
   - component: {fileID: 4722382467180835867}
   - component: {fileID: -5652341376746666272}
   - component: {fileID: 527348723996394252}
-  - component: {fileID: 7718963889777809787}
   m_Layer: 0
   m_Name: Car_Green
   m_TagString: Enemy
@@ -298,12 +297,11 @@ MonoBehaviour:
   carSpeed_x: 0
   pushForce: 10
   rotationAngle: 45
-  dieFX: {fileID: 1146890246311960304, guid: 4a21f2f7170dd2545a625ebb82de1576, type: 3}
+  ren: {fileID: 3181688927080330821}
   isFindPlayer: 0
   isAccident: 0
   isCheck: 0
   isRight: 0
-  ren: {fileID: 3181688927080330821}
 --- !u!114 &527348723996394252
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -317,18 +315,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 5
---- !u!114 &7718963889777809787
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3842103477153090734}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e43ce5745891a9d438d17988c7d552dc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  isZeroSpeed: 0
 --- !u!1 &5114429426930830797
 GameObject:
   m_ObjectHideFlags: 0

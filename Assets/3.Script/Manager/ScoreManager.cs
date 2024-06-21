@@ -1,6 +1,5 @@
 using System.Collections;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class ScoreManager : MonoBehaviour
 {
@@ -21,17 +20,8 @@ public class ScoreManager : MonoBehaviour
     // ==========================================
 
 
-    public enum GameMode
-    {
-        None,
-        GameStart,
-        GameOver
-    }
-
 
     [SerializeField] private UIManager uiManager;
-
-    [SerializeField] private GameMode gameMode;
 
 
     // Timer
@@ -173,7 +163,7 @@ public class ScoreManager : MonoBehaviour
     #region  [Score]
 
 
-    private void ResetScore()   //초기화
+    public void ResetScore()   //초기화
     {
         scoreTime = 0;
         scoreText = "000000";
@@ -277,21 +267,21 @@ public class ScoreManager : MonoBehaviour
         StartTimer();  // Timer 시작
     }
 
-    public void AgainBtn()      // 완전 처음 게임 시작 - 다 초기화
-    {
-        //isAgainBtn = true;
-        isGameOver = false;
-        isStartGame = true;
-
-        SavePreScore();
-        ResetScore();
-        ResetTime();
-
-        if (uiManager != null)
+    /*    public void AgainBtn()      // 완전 처음 게임 시작 - 다 초기화
         {
-            uiManager.endPopUp.gameObject.SetActive(false);
-            uiManager.startPopUp.gameObject.SetActive(true);
-        }
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-    }
+            //isAgainBtn = true;
+            isGameOver = false;
+            isStartGame = true;
+
+            SavePreScore();
+            ResetScore();
+            ResetTime();
+
+            if (uiManager != null)
+            {
+                uiManager.endPopUp.gameObject.SetActive(false);
+                uiManager.startPopUp.gameObject.SetActive(true);
+            }
+            //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        }*/
 }

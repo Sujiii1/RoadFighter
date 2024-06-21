@@ -32,6 +32,14 @@ public class SpawnManager : MonoBehaviour
         }
     }
 
+    private void OnEnable()
+    {
+        if (ScoreManager.Instance.isStartGame)
+        {
+            ResetCarObject();    // 게임이 시작된 상태라면 오브젝트를 초기화
+        }
+    }
+
     private void OnDestroy()
     {
         StopAllCoroutines();
@@ -43,10 +51,9 @@ public class SpawnManager : MonoBehaviour
 
     }
 
+
+
     #region   [생성 초기화]
-
-
-
 
     //게임 시작 시 스폰을 초기화
     public void SpawnStart()
@@ -62,10 +69,10 @@ public class SpawnManager : MonoBehaviour
     // 오브젝트를 생성하는 메서드
     public void Create()
     {
-        Debug.Log("Attempting to enter Create lock");
+        //Debug.Log("Attempting to enter Create lock");
         lock (lockObject)
         {
-            Debug.Log("Entered Create lock");
+            // Debug.Log("Entered Create lock");
 
             if (ScoreManager.Instance == null || ScoreManager.Instance.isGameOver)
             {
@@ -108,15 +115,15 @@ public class SpawnManager : MonoBehaviour
                 InitCarObject(carObject);
             }
         }
-        Debug.Log("Exited Create lock");
+        //Debug.Log("Exited Create lock");
     }
 
     public void ResetCarObject()
     {
-        Debug.Log("Attempting to enter ResetCarObject lock");
+        //Debug.Log("Attempting to enter ResetCarObject lock");
         lock (lockObject)
         {
-            Debug.Log("Entered ResetCarObject lock");
+            // Debug.Log("Entered ResetCarObject lock");
 
             if (ObjectPoolingManager.Instance.RemainYellow.Count > 0)
             {
@@ -188,11 +195,10 @@ public class SpawnManager : MonoBehaviour
                 }
             }
         }
-        Debug.Log("Exited ResetCarObject lock");
+        //Debug.Log("Exited ResetCarObject lock");
     }
 
     #endregion
-
 
 
 
@@ -206,7 +212,7 @@ public class SpawnManager : MonoBehaviour
             y = 6.3f
         };
 
-        carObject.transform.position = spawnPositionZ;  // 오브젝트 위치 설정
+        carObject.transform.position = spawnPositionZ;  // 오브젝트 위치 설정s
         carObject.gameObject.SetActive(true);            // 오브젝트 활성화
 
         currentSpawnPosZ += spawnDistance;              // 다음 스폰 위치 설정

@@ -1,12 +1,13 @@
 
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour //ReStart 없어짐
 {
     [SerializeField] private Button againBtn;
-
+    [SerializeField] private SpawnManager spawnManager;
 
     public TMP_Text timerTextUI;
     public TMP_Text scoreTextUI;
@@ -18,19 +19,27 @@ public class UIManager : MonoBehaviour //ReStart 없어짐
 
     private PlayerInput inputActions;
 
+
+
     private void Awake()
     {
         inputActions = new PlayerInput();
         inputActions.Enable();
         //inputActions.Touch.TouchPress.started += (context) => Debug.Log("123");
-        ScoreManager.Instance.SetUIManager(this);
 
-        againBtn.onClick.AddListener(ScoreManager.Instance.AgainBtn);
+        ScoreManager.Instance.SetUIManager(this);
+        //againBtn.onClick.AddListener(ScoreManager.Instance.AgainBtn);
     }
+
 
     private void Update()
     {
+        UIupdate();
+    }
 
+
+    private void UIupdate()
+    {
         // 후에 최적화를 한다면..?
         // 60초에 한 번 호출
         timerTextUI.text = ScoreManager.Instance.GetTimerTexts();
@@ -39,5 +48,23 @@ public class UIManager : MonoBehaviour //ReStart 없어짐
         // 끝날 때 한 번 호출
         endScoreTextUI.text = ScoreManager.Instance.GetScoreTexts();
         preBsetScoreTextUI.text = ScoreManager.Instance.GetPreviousScoreTexts();
+    }
+
+    public void ReRoadScene()
+    {
+        //isAgainBtn = true;
+        ScoreManager.Instance.isGameOver = false;
+        ScoreManager.Instance.isStartGame = true;
+
+        ScoreManager.Instance.SavePreScore();
+        ScoreManager.Instance.ResetScore();
+        ScoreManager.Instance.ResetTime();
+
+        endPopUp.gameObject.SetActive(false);
+        startPopUp.gameObject.SetActive(true);
+        // spawnManager.SpawnStart();
+
+
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 }

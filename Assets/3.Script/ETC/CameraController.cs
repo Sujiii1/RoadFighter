@@ -61,7 +61,7 @@ public class CameraController : MonoBehaviour
         isCameraMove = true;
 
 
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(2f);
 
         isCameraMove = false;
         playerController.transform.position = playerController.playerBasePosition;
