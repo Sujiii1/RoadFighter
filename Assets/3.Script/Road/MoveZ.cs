@@ -23,6 +23,7 @@ public class MoveZ : MonoBehaviour
         if (playerController != null)
         {
             playerController.onWall += SpeedZero;
+            //playerController.RegisterMoveZObject(this);
         }
     }
     private void OnDisable()
@@ -30,6 +31,7 @@ public class MoveZ : MonoBehaviour
         if (playerController != null)
         {
             playerController.onWall -= SpeedZero;
+            //playerController.RegisterMoveZObject(this);
         }
     }
 
@@ -57,8 +59,6 @@ public class MoveZ : MonoBehaviour
 
     private void Boundary()
     {
-        //ScoreManager.Instance.isStartGame = true;
-
         if (transform.position.z < boundaryZ)
         {
             Destroy(gameObject);
@@ -67,24 +67,10 @@ public class MoveZ : MonoBehaviour
 
     private void SpeedZero(object sender, EventArgs args)
     {
-        isZeroSpeed = true;
-        speed = 0;
+        //isZeroSpeed = true;
+        if (isZeroSpeed)
+        {
+            speed = 0;
+        }
     }
-
-
-    /* //Player Wall¿¡ Ãæµ¹
-     private void StartMoveZ(object sender, EventArgs args)
-     {
-         //StartCoroutine(MoveStopCoroutine());
-
-         //Debug.Log("StartMoveZ");
-     }*/
-
-    /*private IEnumerator MoveStopCoroutine()
-    {
-        //speed = originalSpeed;
-
-        yield return new WaitForSeconds(1f);
-        speed = 0;
-    }*/
 }

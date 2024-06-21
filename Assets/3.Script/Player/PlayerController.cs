@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -38,6 +39,8 @@ public class PlayerController : MonoBehaviour
     public event EventHandler onWall;
 
 
+    private List<MoveZ> moveZObjects = new List<MoveZ>(); // MoveZ 오브젝트들을 저장할 리스트
+
     private void Awake()
     {
         playerRB = GetComponent<Rigidbody>();
@@ -49,7 +52,7 @@ public class PlayerController : MonoBehaviour
             poolController = GameObject.FindGameObjectWithTag("ObjectPooling").GetComponent<PoolController>();
         }
 
-
+        FindMoveZObjects();
     }
 
     /*    public void PlayerMove(InputAction.CallbackContext context)
@@ -72,6 +75,13 @@ public class PlayerController : MonoBehaviour
             Debug.LogError("poolController is not assigned in the inspector");
         }
     }
+
+    private void OnDestroy()
+    {
+        StopAllCoroutines();
+    }
+
+
 
 
     private void FixedUpdate()
@@ -108,18 +118,26 @@ public class PlayerController : MonoBehaviour
             isRotate = false;
             TimeEnd();
 
+            //Event
             onCollision?.Invoke(this, EventArgs.Empty);
             onWall?.Invoke(this, EventArgs.Empty);
 
+            //Pool Position Move
             poolController.isPoolMove = true;
 
 
-
+            //MoveZ 0
             if (moveZ != null)
             {
-                moveZ.isZeroSpeed = true;
-                moveZ.speed = 0;
+                foreach (var moveCarZ in moveZObjects)
+                {
+                    moveCarZ.isZeroSpeed = true;
+                    Debug.Log(" isZeroSpeed : " + moveCarZ.isZeroSpeed);
+                    moveCarZ.speed = 0;
+                }
             }
+
+            //부딪힌 후 초기화
             StartCoroutine(WallReSpawn_Co());
 
         }
@@ -230,14 +248,6 @@ public class PlayerController : MonoBehaviour
         roadLoop.SetSpeed(reducedSpeed);
     }
 
-    /*    private void CollisionPlayer()
-        {
-            playerRB.AddForce(pushForce * Vector3.right, ForceMode.Impulse);
-            transform.rotation = Quaternion.Euler(0, rotationAngle, 0);
-            hitFX.Play();
-            // StartCoroutine(collision_Co());
-        }*/
-
     IEnumerator WallReSpawn_Co()
     {
         yield return new WaitForSeconds(2f);
@@ -261,8 +271,21 @@ public class PlayerController : MonoBehaviour
         isRotate = false;
     }
 
-    private void OnDestroy()
+
+
+    private void FindMoveZObjects()
     {
-        StopAllCoroutines();
+        // Enemy
+        GameObject[] moveCar = GameObject.FindGameObjectsWithTag("Enemy");
+
+        foreach (GameObject obj in moveCar)
+        {
+            MoveZ moveCarZ = obj.GetComponent<MoveZ>();
+            if (moveCarZ != null)
+            {
+                moveZObjects.Add(moveCarZ);
+            }
+        }
     }
+
 }
