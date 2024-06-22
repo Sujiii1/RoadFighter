@@ -10,7 +10,7 @@ public enum CarType
     Green,      // 느리게 움직이는 차
     Mint,       // 빠르게 움직이는 차
     Bus,       // 가만히 있는데 부딪치면 무조건 죽는 차
-    Empty         // 가만히 있는데 부딪치면 무조건 죽는 차
+    Item         // 가만히 있는데 부딪치면 무조건 죽는 차
 }
 
 
@@ -104,6 +104,10 @@ public class CarObject : MonoBehaviour
             case CarType.Bus:
                 carSpeed_x = 0.0f;
                 isBus = true;
+                break;
+
+            case CarType.Item:
+                carSpeed_x = 0.0f;
                 break;
         }
     }
@@ -219,7 +223,7 @@ public class CarObject : MonoBehaviour
         isCheck = false;
     }
 
-    private void EnQueueObject()
+    public void EnQueueObject()
     {
         gameObject.SetActive(false);
         ResetCarState();
@@ -228,18 +232,27 @@ public class CarObject : MonoBehaviour
         {
             case CarType.Yellow:
                 ObjectPoolingManager.Instance.YellowcarObjectPool.Enqueue(this);
+                ObjectPoolingManager.Instance.RemainYellow.Dequeue();
                 break;
 
             case CarType.Green:
-                ObjectPoolingManager.Instance.GreencarObjectPool.Enqueue(this);
+                ObjectPoolingManager.Instance.GreencarObjectPool.Enqueue(this); 
+                ObjectPoolingManager.Instance.RemainGreen.Dequeue();
                 break;
 
             case CarType.Mint:
                 ObjectPoolingManager.Instance.MintcarObjectPool.Enqueue(this);
+                ObjectPoolingManager.Instance.RemainMint.Dequeue();
                 break;
 
             case CarType.Bus:
                 ObjectPoolingManager.Instance.BuscarObjectPool.Enqueue(this);
+                ObjectPoolingManager.Instance.RemainBus.Dequeue();
+                break;
+
+            case CarType.Item:
+                ObjectPoolingManager.Instance.BuscarObjectPool.Enqueue(this);
+                ObjectPoolingManager.Instance.RemainItem.Dequeue();
                 break;
         }
     }

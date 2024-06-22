@@ -25,6 +25,8 @@ public class ObjectPoolingManager : MonoBehaviour
 
     public PoolController poolController;
 
+    public bool isPlayerOnWall = false;
+
     private void Awake()
     {
         #region  [SingleTone]

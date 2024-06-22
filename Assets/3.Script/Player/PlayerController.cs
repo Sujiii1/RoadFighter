@@ -122,6 +122,8 @@ public class PlayerController : MonoBehaviour
             onCollision?.Invoke(this, EventArgs.Empty);
             onWall?.Invoke(this, EventArgs.Empty);
 
+            ObjectPoolingManager.Instance.isPlayerOnWall = true;
+
             //Pool Position Move
             poolController.isPoolMove = true;
 
@@ -211,7 +213,9 @@ public class PlayerController : MonoBehaviour
     {
         if (other.CompareTag("Item"))
         {
-            Destroy(other.gameObject);
+            //Destroy(other.gameObject);
+            other.gameObject.SetActive(false);
+            other.GetComponent<CarObject>().EnQueueObject();
 
             ScoreManager.Instance.ItemIncreaseScore();
         }
@@ -251,6 +255,8 @@ public class PlayerController : MonoBehaviour
     IEnumerator WallReSpawn_Co()
     {
         yield return new WaitForSeconds(2f);
+
+        ObjectPoolingManager.Instance.isPlayerOnWall = false;
 
         if (poolController.spawnManager != null)
         {
