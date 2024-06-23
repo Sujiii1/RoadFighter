@@ -50,6 +50,13 @@ public class UIManager : MonoBehaviour //ReStart ¾ø¾îÁü
         preBsetScoreTextUI.text = ScoreManager.Instance.GetPreviousScoreTexts();
     }
 
+    public void ExitPopUp()
+    {
+        endPopUp.SetActive(false);
+        startPopUp.SetActive(true);
+
+    }
+
     public void ReRoadScene()
     {
         //isAgainBtn = true;

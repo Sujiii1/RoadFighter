@@ -11,8 +11,6 @@ public class SpawnManager : MonoBehaviour
     private float spawnDistance = 1f;   // 오브젝트 간 스폰 거리
 
 
-    private bool isResetting = false; // ResetCarObject 작업 중인지
-
     //  // 큐에 접근하는 동안 충돌을 방지하기 위한 동기화 객체
     //lock 문을 사용하여 특정 코드 블록을 한 번에 하나의 스레드만 실행하도록 보장
     private readonly object lockObject = new object();
@@ -77,11 +75,6 @@ public class SpawnManager : MonoBehaviour
         {
             // Debug.Log("Entered Create lock");
 
-            if (isResetting)
-            {
-                return;
-            }
-
             if (ScoreManager.Instance == null || ScoreManager.Instance.isGameOver)
             {
                 return;
@@ -133,7 +126,6 @@ public class SpawnManager : MonoBehaviour
         //Debug.Log("Attempting to enter ResetCarObject lock");
         lock (lockObject)
         {
-            isResetting = true;
             // Debug.Log("Entered ResetCarObject lock");
 
             if (ObjectPoolingManager.Instance.RemainYellow.Count > 0)
@@ -207,7 +199,6 @@ public class SpawnManager : MonoBehaviour
                 }
             }
         }
-        isResetting = false;
     }
 
     #endregion

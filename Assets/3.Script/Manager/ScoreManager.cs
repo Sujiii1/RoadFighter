@@ -142,20 +142,20 @@ public class ScoreManager : MonoBehaviour
         }
         SavePreScore();
 
-        if (isAgainBtn)
+/*        if (isAgainBtn)
         {
             isAgainBtn = false; // 플 무한 루프 방지
             StartGameAgain();   // 게임을 다시 시작하는 로직을 별도로 분리
-        }
+        }*/
     }
 
-    private void StartGameAgain()
+  /*  private void StartGameAgain()
     {
         isStartGame = true;
         isGameOver = false;
         ResetTime();
         StartTimer();
-    }
+    }*/
 
     #endregion
 
@@ -253,6 +253,7 @@ public class ScoreManager : MonoBehaviour
 
     public void StartGame()
     {
+        isGameOver = false;
         isStartGame = true;
 
         if (uiManager != null)
@@ -267,21 +268,4 @@ public class ScoreManager : MonoBehaviour
         StartTimer();  // Timer 시작
     }
 
-    /*    public void AgainBtn()      // 완전 처음 게임 시작 - 다 초기화
-        {
-            //isAgainBtn = true;
-            isGameOver = false;
-            isStartGame = true;
-
-            SavePreScore();
-            ResetScore();
-            ResetTime();
-
-            if (uiManager != null)
-            {
-                uiManager.endPopUp.gameObject.SetActive(false);
-                uiManager.startPopUp.gameObject.SetActive(true);
-            }
-            //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-        }*/
 }
