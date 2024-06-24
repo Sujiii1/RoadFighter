@@ -15,7 +15,7 @@ public class PlayerController : MonoBehaviour
 
     private float horizontalInput;
     [SerializeField] private float speed = 20f;
-    [SerializeField] private float maxX = 4.7f;
+    [SerializeField] private float maxX = 4.7f;     //-3.74
     private Vector3 targetPosition;
     public Vector3 playerBasePosition;
 
@@ -24,14 +24,21 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float pushForce = 10f;
     [SerializeField] private float rotationAngle = 45f;
 
+    [SerializeField] private bool isGotMode;
+    [SerializeField] private bool isScoreUpItem;
+    private WaitForSeconds ItemDuration = new WaitForSeconds(3f);
+
 
     //Effect
     [Header("Effect")]
     [SerializeField] private ParticleSystem dieFX;
     [SerializeField] private ParticleSystem hitFX;
+    [SerializeField] private ParticleSystem ItemOnFX;
 
-    public bool isWall = false;
-    public bool isRotate = false;
+
+    [SerializeField] private bool isWall = false;
+    [SerializeField] private bool isRotate = false;
+    [SerializeField] private bool isItemOn = false;
 
 
     //Event
@@ -55,6 +62,8 @@ public class PlayerController : MonoBehaviour
         FindMoveZObjects();
     }
 
+
+    #region [Player KeyBoard Move]
     /*    public void PlayerMove(InputAction.CallbackContext context)
         {
             Vector3 input = context.ReadValue<Vector3>();
@@ -65,6 +74,8 @@ public class PlayerController : MonoBehaviour
             float smoothedVelocity = Mathf.Lerp(playerRB.velocity.x, tar, Time.deltaTime);
             playerRB.velocity = new Vector3(smoothedVelocity, playerRB.velocity.y, playerRB.velocity.z);
         }*/
+    #endregion
+
 
     private void Start()
     {
@@ -80,8 +91,6 @@ public class PlayerController : MonoBehaviour
     {
         StopAllCoroutines();
     }
-
-
 
 
     private void FixedUpdate()
@@ -112,7 +121,7 @@ public class PlayerController : MonoBehaviour
 
     private void OnCollisionStay(Collision collision)
     {
-        if (collision.gameObject.CompareTag("Wall"))
+        if (collision.gameObject.CompareTag("Wall") && !isItemOn)
         {
             isWall = true;
             isRotate = false;
@@ -141,7 +150,6 @@ public class PlayerController : MonoBehaviour
 
             //∫Œµ˙»˘ »ƒ √ ±‚»≠
             StartCoroutine(WallReSpawn_Co());
-
         }
     }
 
@@ -153,10 +161,11 @@ public class PlayerController : MonoBehaviour
         direction.Normalize();
 
 
-        if (collision.gameObject.CompareTag("Enemy"))
+        if (collision.gameObject.CompareTag("Enemy") && !isItemOn)
         {
             isWall = false;
             isRotate = true;
+
             onCollision?.Invoke(this, EventArgs.Empty);
 
 
@@ -179,9 +188,12 @@ public class PlayerController : MonoBehaviour
                 hitFX.Play();
                 StartCoroutine(collision_Co());
             }
+
         }
-        else if (collision.gameObject.CompareTag("Bus"))
+
+        else if (collision.gameObject.CompareTag("Bus") && !isItemOn)
         {
+
             isWall = true;
             isRotate = true;
             TimeEnd();
@@ -205,6 +217,7 @@ public class PlayerController : MonoBehaviour
                 StartCoroutine(collision_Co());
             }
             StartCoroutine(collision_Co());
+
         }
 
     }
@@ -213,11 +226,21 @@ public class PlayerController : MonoBehaviour
     {
         if (other.CompareTag("Item"))
         {
-            //Destroy(other.gameObject);
+            isGotMode = other.gameObject.name.Contains("GotModeItem");
+            isScoreUpItem = other.gameObject.name.Contains("Cake");
+
             other.gameObject.SetActive(false);
             other.GetComponent<CarObject>().EnQueueObject();
 
-            ScoreManager.Instance.ItemIncreaseScore();
+            if (isGotMode)
+            {
+                StartCoroutine(GotMode_Co());
+            }
+
+            if (isScoreUpItem)
+            {
+                ScoreManager.Instance.ItemIncreaseScore();
+            }
         }
     }
 
@@ -236,10 +259,12 @@ public class PlayerController : MonoBehaviour
         //∏∏æ‡ 100√ ∞° æ»¡ˆ≥µ¥Ÿ∏È
         else
         {
-            //StartCoroutine(cameraController.RePos_Co());
-            dieFX.Play();
-            roadLoop.ZeroSpeed(0f);     //∑ŒµÂ ∑Á«¡ ∏ÿ√„
-            ScoreManager.Instance.PauseScoreForSeconds(3f);  // 3√  µøæ» ¡°ºˆ ¡ı∞° ∏ÿ√„
+            if (!isItemOn)
+            {
+                dieFX.Play();
+                roadLoop.ZeroSpeed(0f);     //∑ŒµÂ ∑Á«¡ ∏ÿ√„
+                ScoreManager.Instance.PauseScoreForSeconds(3f);  // 3√  µøæ» ¡°ºˆ ¡ı∞° ∏ÿ√„
+            }
         }
     }
 
@@ -256,25 +281,34 @@ public class PlayerController : MonoBehaviour
     {
         yield return new WaitForSeconds(2f);
 
-        ObjectPoolingManager.Instance.isPlayerOnWall = false;
-
-        if (poolController.spawnManager != null)
+        if (!isItemOn)
         {
-            lock (spawnManager) // Lock to prevent conflicts
+
+            ObjectPoolingManager.Instance.isPlayerOnWall = false;
+
+            if (poolController.spawnManager != null)
             {
-                spawnManager.currentSpawnPosZ = poolController.reSpawnPosition;
-                spawnManager.ResetCarObject();
-                poolController.carPoolsParent.position = poolController.startPosition;
+                lock (spawnManager) // Lock to prevent conflicts
+                {
+                    spawnManager.currentSpawnPosZ = poolController.reSpawnPosition;
+                    spawnManager.ResetCarObject();
+                    poolController.carPoolsParent.position = poolController.startPosition;
+                }
             }
+            poolController.isPoolMove = false;
         }
-        poolController.isPoolMove = false;
     }
+
 
     IEnumerator collision_Co()
     {
         yield return new WaitForSeconds(1f);
-        transform.rotation = Quaternion.Euler(0, 0, 0);
-        isRotate = false;
+        if (!isItemOn)
+        {
+            transform.rotation = Quaternion.Euler(0, 0, 0);
+            isRotate = false;
+        }
+
     }
 
 
@@ -294,4 +328,13 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+
+    private IEnumerator GotMode_Co()
+    {
+        isItemOn = true;
+        ItemOnFX.Play();
+        yield return ItemDuration;
+        isItemOn = false;
+        ItemOnFX.Stop();
+    }
 }

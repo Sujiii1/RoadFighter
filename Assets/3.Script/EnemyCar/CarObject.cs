@@ -10,7 +10,8 @@ public enum CarType
     Green,      // 느리게 움직이는 차
     Mint,       // 빠르게 움직이는 차
     Bus,       // 가만히 있는데 부딪치면 무조건 죽는 차
-    Item         // 가만히 있는데 부딪치면 무조건 죽는 차
+    ScoreUpItem,
+    GotModeItem
 }
 
 
@@ -106,8 +107,14 @@ public class CarObject : MonoBehaviour
                 isBus = true;
                 break;
 
-            case CarType.Item:
+            case CarType.ScoreUpItem:
                 carSpeed_x = 0.0f;
+                break;
+
+            case CarType.GotModeItem:
+
+                carSpeed_x = 0.0f;
+
                 break;
         }
     }
@@ -236,7 +243,7 @@ public class CarObject : MonoBehaviour
                 break;
 
             case CarType.Green:
-                ObjectPoolingManager.Instance.GreencarObjectPool.Enqueue(this); 
+                ObjectPoolingManager.Instance.GreencarObjectPool.Enqueue(this);
                 ObjectPoolingManager.Instance.RemainGreen.Dequeue();
                 break;
 
@@ -250,9 +257,14 @@ public class CarObject : MonoBehaviour
                 ObjectPoolingManager.Instance.RemainBus.Dequeue();
                 break;
 
-            case CarType.Item:
-                ObjectPoolingManager.Instance.BuscarObjectPool.Enqueue(this);
-                ObjectPoolingManager.Instance.RemainItem.Dequeue();
+            case CarType.ScoreUpItem:
+                ObjectPoolingManager.Instance.ScoreUpObjectPool.Enqueue(this);
+                ObjectPoolingManager.Instance.RemainScoreUpItem.Dequeue();
+                break;
+
+            case CarType.GotModeItem:
+                ObjectPoolingManager.Instance.GotObjectPool.Enqueue(this);
+                ObjectPoolingManager.Instance.RemainScoreUpItem.Dequeue();
                 break;
         }
     }

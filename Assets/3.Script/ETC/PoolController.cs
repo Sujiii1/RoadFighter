@@ -92,35 +92,4 @@ public class PoolController : MonoBehaviour
         //StartCoroutine(MoveCarPoolsCoroutine());
         isPoolMove = true;
     }
-
-
-    /*    // 오브젝트를 재배치하는 코루틴
-        private IEnumerator MoveCarPoolsCoroutine()
-        {
-            isPoolMove = true;
-
-            yield return new WaitForSeconds(3f);
-            Debug.Log("MoveCarPoolsCoroutine after WaitForSeconds");
-
-            isPoolMove = false;                         // 오브젝트 이동 중지
-            carPoolsParent.position = startPosition;    // carPoolsParent 위치 초기화
-
-            if (spawnManager != null)
-            {
-                Debug.Log("MoveCarPoolsCoroutine Attempting to enter ResetCarObject lock");
-                lock (spawnManager)
-                {
-                    Debug.Log("MoveCarPoolsCoroutine Entered ResetCarObject lock");
-                    spawnManager.currentSpawnPosZ = reSpawnPosition;  // 초기 위치 재설정
-                    spawnManager.ResetCarObject();  // 오브젝트 초기화
-                }
-            }
-            else
-            {
-                Debug.Log("MoveCarPoolsCoroutine Exited ResetCarObject lock");
-                Debug.Log("spawnManager null");
-
-            }
-            Debug.Log("MoveCarPoolsCoroutine finished");
-        }*/
 }
