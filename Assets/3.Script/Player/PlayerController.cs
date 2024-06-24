@@ -1,6 +1,5 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -46,8 +45,6 @@ public class PlayerController : MonoBehaviour
     public event EventHandler onWall;
 
 
-    private List<MoveZ> moveZObjects = new List<MoveZ>(); // MoveZ 오브젝트들을 저장할 리스트
-
     private void Awake()
     {
         playerRB = GetComponent<Rigidbody>();
@@ -58,8 +55,6 @@ public class PlayerController : MonoBehaviour
         {
             poolController = GameObject.FindGameObjectWithTag("ObjectPooling").GetComponent<PoolController>();
         }
-
-        FindMoveZObjects();
     }
 
 
@@ -135,18 +130,6 @@ public class PlayerController : MonoBehaviour
 
             //Pool Position Move
             poolController.isPoolMove = true;
-
-
-            //MoveZ 0
-            if (moveZ != null)
-            {
-                foreach (var moveCarZ in moveZObjects)
-                {
-                    moveCarZ.isZeroSpeed = true;
-                    Debug.Log(" isZeroSpeed : " + moveCarZ.isZeroSpeed);
-                    moveCarZ.speed = 0;
-                }
-            }
 
             //부딪힌 후 초기화
             StartCoroutine(WallReSpawn_Co());
@@ -303,28 +286,11 @@ public class PlayerController : MonoBehaviour
     IEnumerator collision_Co()
     {
         yield return new WaitForSeconds(1f);
+
         if (!isItemOn)
         {
-            transform.rotation = Quaternion.Euler(0, 0, 0);
+            transform.rotation = Quaternion.identity;
             isRotate = false;
-        }
-
-    }
-
-
-
-    private void FindMoveZObjects()
-    {
-        // Enemy
-        GameObject[] moveCar = GameObject.FindGameObjectsWithTag("Enemy");
-
-        foreach (GameObject obj in moveCar)
-        {
-            MoveZ moveCarZ = obj.GetComponent<MoveZ>();
-            if (moveCarZ != null)
-            {
-                moveZObjects.Add(moveCarZ);
-            }
         }
     }
 

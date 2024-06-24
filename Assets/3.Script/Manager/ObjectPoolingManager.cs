@@ -91,7 +91,6 @@ public class ObjectPoolingManager : MonoBehaviour
                         BuscarObjectPool.Enqueue(newCar);
                         break;
 
-
                     default:
                         break;
                 }
@@ -103,7 +102,7 @@ public class ObjectPoolingManager : MonoBehaviour
     // 아이템 오브젝트 풀 초기화 메서드
     private void InitializeItemPool()
     {
-        if (itemPrefab == null)
+        if (itemPrefab == null || CarObjectsPrefab.Length == 0)
         {
             return;
         }

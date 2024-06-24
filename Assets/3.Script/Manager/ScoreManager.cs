@@ -42,7 +42,6 @@ public class ScoreManager : MonoBehaviour
     public bool isStartGame = false;
     public bool isGameOver = false;
     public bool isPauseScore = false;
-    [SerializeField] private bool isAgainBtn = false;
 
 
 
@@ -142,20 +141,9 @@ public class ScoreManager : MonoBehaviour
         }
         SavePreScore();
 
-/*        if (isAgainBtn)
-        {
-            isAgainBtn = false; // 플 무한 루프 방지
-            StartGameAgain();   // 게임을 다시 시작하는 로직을 별도로 분리
-        }*/
+
     }
 
-  /*  private void StartGameAgain()
-    {
-        isStartGame = true;
-        isGameOver = false;
-        ResetTime();
-        StartTimer();
-    }*/
 
     #endregion
 
@@ -267,5 +255,4 @@ public class ScoreManager : MonoBehaviour
         }
         StartTimer();  // Timer 시작
     }
-
 }

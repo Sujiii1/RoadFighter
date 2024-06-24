@@ -11,7 +11,7 @@ public class SpawnManager : MonoBehaviour
     private float spawnDistance = 1f;   // 오브젝트 간 스폰 거리
 
 
-    //  // 큐에 접근하는 동안 충돌을 방지하기 위한 동기화 객체
+    // 큐에 접근하는 동안 충돌을 방지하기 위한 동기화 객체
     //lock 문을 사용하여 특정 코드 블록을 한 번에 하나의 스레드만 실행하도록 보장
     private readonly object lockObject = new object();
 
@@ -78,7 +78,7 @@ public class SpawnManager : MonoBehaviour
             }
 
             ScoreManager.Instance.isStartGame = true;
-            int enemyIndex = UnityEngine.Random.Range(0, 6);
+            int enemyIndex = UnityEngine.Random.Range(0, 7);
 
             CarObject carObject = null;
 
@@ -118,7 +118,6 @@ public class SpawnManager : MonoBehaviour
                 InitCarObject(carObject);
             }
         }
-        //Debug.Log("Exited Create lock");
     }
 
 
@@ -241,7 +240,7 @@ public class SpawnManager : MonoBehaviour
     // 오브젝트를 일정 시간 간격으로 생성
     public IEnumerator SpawnBetween_Co()
     {
-        while (ScoreManager.Instance != null && !ScoreManager.Instance.isGameOver)   //GameOver 아닐 때 Spawn
+        while (ScoreManager.Instance != null && !ScoreManager.Instance.isGameOver && ScoreManager.Instance.isStartGame)   //GameOver 아닐 때 Spawn
         {
             yield return new WaitForSeconds(1f);
             Create();

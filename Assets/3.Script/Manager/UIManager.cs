@@ -59,7 +59,6 @@ public class UIManager : MonoBehaviour //ReStart ¾ø¾îÁü
 
     public void ReRoadScene()
     {
-        //isAgainBtn = true;
         ScoreManager.Instance.isGameOver = false;
         ScoreManager.Instance.isStartGame = true;
 

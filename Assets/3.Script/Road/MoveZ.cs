@@ -18,23 +18,6 @@ public class MoveZ : MonoBehaviour
     }
 
 
-    private void OnEnable()
-    {
-/*        if(playerController == null)
-            playerController = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
-
-        playerController.onWall += SpeedZero;*/
-    }
-    private void OnDisable()
-    {
-/*        if (playerController == null)
-            playerController = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
-
-        playerController.onWall -= SpeedZero;*/
-    }
-
-
-
     private void FixedUpdate()
     {
         if (ScoreManager.Instance.isStartGame && !isZeroSpeed && !ObjectPoolingManager.Instance.isPlayerOnWall)
@@ -55,13 +38,13 @@ public class MoveZ : MonoBehaviour
 
     }
 
-/*    private void Boundary()
-    {
-        if (transform.position.z < boundaryZ)
+    /*    private void Boundary()
         {
+            if (transform.position.z < boundaryZ)
+            {
 
-        }
-    }*/
+            }
+        }*/
 
     private void SpeedZero(object sender, EventArgs args)
     {
