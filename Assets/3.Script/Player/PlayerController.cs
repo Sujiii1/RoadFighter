@@ -35,7 +35,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private ParticleSystem ItemOnFX;
 
 
-    [SerializeField] private bool isWall = false;
+    // [SerializeField] private bool isWall = false;
     [SerializeField] private bool isRotate = false;
     [SerializeField] private bool isItemOn = false;
 
@@ -118,7 +118,7 @@ public class PlayerController : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Wall") && !isItemOn)
         {
-            isWall = true;
+            //isWall = true;
             isRotate = false;
             TimeEnd();
 
@@ -146,7 +146,7 @@ public class PlayerController : MonoBehaviour
 
         if (collision.gameObject.CompareTag("Enemy") && !isItemOn)
         {
-            isWall = false;
+            // isWall = false;
             isRotate = true;
 
             onCollision?.Invoke(this, EventArgs.Empty);
@@ -177,7 +177,7 @@ public class PlayerController : MonoBehaviour
         else if (collision.gameObject.CompareTag("Bus") && !isItemOn)
         {
 
-            isWall = true;
+            // isWall = true;
             isRotate = true;
             TimeEnd();
             onCollision?.Invoke(this, EventArgs.Empty);

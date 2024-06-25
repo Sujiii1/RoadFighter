@@ -20,7 +20,6 @@ public class UIManager : MonoBehaviour //ReStart 없어짐
     private PlayerInput inputActions;
 
 
-
     private void Awake()
     {
         inputActions = new PlayerInput();
@@ -54,7 +53,6 @@ public class UIManager : MonoBehaviour //ReStart 없어짐
     {
         endPopUp.SetActive(false);
         startPopUp.SetActive(true);
-
     }
 
     public void ReRoadScene()
@@ -73,7 +71,6 @@ public class UIManager : MonoBehaviour //ReStart 없어짐
         {
             spawnManager.ResetCarObject();          //코루틴 메서드가 실행 안되는 이유 : ㄴCarObject가 비활성화 되어있음 . spawnManager가 싱글톤이 아님.
         }
-
 
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }

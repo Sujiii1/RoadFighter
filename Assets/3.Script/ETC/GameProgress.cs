@@ -1,19 +1,21 @@
 using System;
 using System.Collections;
 using UnityEngine;
+
+
 public class GameProgress : MonoBehaviour
 {
     [SerializeField] private PlayerController playerController;
 
     [SerializeField] private Transform car;
     [SerializeField] private Transform startPoint;
-    [SerializeField] private Transform endPoint;
+    // [SerializeField] private Transform endPoint;
 
     //private float targetY = 1850f;
     [SerializeField] private float goalY = 1850f;
     [SerializeField] private float moveSpeed = 37f;
 
-
+    [SerializeField] private GameObject stageUp;
 
     private void Start()
     {
@@ -33,9 +35,17 @@ public class GameProgress : MonoBehaviour
 
     private void Update()
     {
-        if (!ScoreManager.Instance.isPauseScore)
+        if (!ScoreManager.Instance.isPauseScore && ScoreManager.Instance.isStartGame)
         {
             RoadProcess();
+        }
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Goal"))
+        {
+            Debug.Log("Goal");
         }
     }
 
@@ -49,8 +59,8 @@ public class GameProgress : MonoBehaviour
             // car 도달
             if (car.position.y >= goalY)
             {
-                Debug.Log("도달");
                 moveSpeed = 0f;
+                stageUp.SetActive(true);
             }
         }
         else
