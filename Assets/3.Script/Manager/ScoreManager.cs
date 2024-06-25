@@ -110,8 +110,8 @@ public class ScoreManager : MonoBehaviour
     private void UpdateTimer()
     {
         if (!isStartTime) return;
-        if (time > 0.0f)
 
+        if (time > 0.0f)
         {
             time -= Time.deltaTime;
             timeText = Mathf.CeilToInt(time).ToString();   // Mathf.CeilToInt -> float을 int 형식으로 변환

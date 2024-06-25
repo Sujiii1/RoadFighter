@@ -6,7 +6,7 @@ public class MoveZ : MonoBehaviour
     private PlayerController playerController;
     private RoadLoop roadRoop;
     public float speed = 5f;
-    private float boundaryZ = -8f;
+    //private float boundaryZ = -8f;
 
 
     public bool isZeroSpeed = false;

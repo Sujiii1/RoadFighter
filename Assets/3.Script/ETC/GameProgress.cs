@@ -9,15 +9,14 @@ public class GameProgress : MonoBehaviour
     [SerializeField] private Transform startPoint;
     [SerializeField] private Transform endPoint;
 
-    private float totalTime;  // 총 게임 시간
-    private float baseSpeed;  // 초기 속도 값
-                              // private bool isSpeedReduced = false;
+    //private float targetY = 1850f;
+    [SerializeField] private float goalY = 1850f;
+    [SerializeField] private float moveSpeed = 37f;
+
 
 
     private void Start()
     {
-        totalTime = ScoreManager.Instance.time;
-
         if (playerController != null)
         {
             playerController.onCollision += StopProcess;
@@ -32,8 +31,7 @@ public class GameProgress : MonoBehaviour
         }
     }
 
-
-    private void FixedUpdate()
+    private void Update()
     {
         if (!ScoreManager.Instance.isPauseScore)
         {
@@ -41,12 +39,27 @@ public class GameProgress : MonoBehaviour
         }
     }
 
-    private void CurrentPos(float currentPoint)
+    private void RoadProcess()
     {
-        currentPoint = currentPoint * baseSpeed;
+        Vector3 moveDirection = (new Vector3(startPoint.position.x, goalY, startPoint.position.z) - car.position).normalized;
+        car.Translate(moveDirection * Time.deltaTime * moveSpeed);
+
+        if (!ScoreManager.Instance.isGameOver)
+        {
+            // car 도달
+            if (car.position.y >= goalY)
+            {
+                Debug.Log("도달");
+                moveSpeed = 0f;
+            }
+        }
+        else
+        {
+            moveSpeed = 0f;
+        }
     }
 
-
+    //장애물에 부딪혔을 때 멈추는 Event
     private void StopProcess(object sender, EventArgs args)
     {
         StartCoroutine(PauseProcessCoroutine(0.5f));
@@ -59,36 +72,6 @@ public class GameProgress : MonoBehaviour
         yield return new WaitForSeconds(pauseDuration);
         ScoreManager.Instance.isPauseScore = false;
     }
-
-
-    private void RoadProcess()
-    {
-        // 진행도를 계산 (0에서 1 사이의 값)
-        float amount = ScoreManager.Instance.time / totalTime;
-        StartCoroutine(UpdateCarPositionSmothly(amount));
-    }
-
-
-    /* private void UpdateCarPosition(float progress)
-     {
-         //시작점과 끝점 사이의 선형 보간을 사용하여 차의 위치를 업데이트
-         car.position = Vector3.Lerp(startPoint.position, endPoint.position, progress);
-     }*/
-
-    IEnumerator UpdateCarPositionSmothly(float targetProgress)
-    {
-        Vector3 currentPos = car.position;
-        Vector3 targetPos = Vector3.Lerp(startPoint.position, endPoint.position, targetProgress);
-        float duration = 0.5f;
-        float elapsedTime = 0f;
-
-        while (elapsedTime < duration)
-        {
-            car.position = Vector3.Lerp(currentPos, targetPos, elapsedTime / duration);
-            elapsedTime += Time.deltaTime;
-            yield return null;
-        }
-        car.position = targetPos;
-
-    }
 }
+
+
