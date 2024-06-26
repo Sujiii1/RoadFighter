@@ -5,6 +5,7 @@ public class PoolController : MonoBehaviour
 {
     public PlayerController playerController;
     public SpawnManager spawnManager;
+    public StageManager stageManager;
 
     public Transform carPoolsParent;       // 풀링된 오브젝트의 부모 Transform
     public Vector3 startPosition;
@@ -33,6 +34,10 @@ public class PoolController : MonoBehaviour
         {
             playerController.onWall += StartRePosPool;
         }
+        if (stageManager != null)
+        {
+            stageManager.onStageUp += StartRePosPool;
+        }
 
 
         // 게임이 시작되었으면 spawnManager의 ResetCarObject 메서드를 호출
@@ -44,9 +49,13 @@ public class PoolController : MonoBehaviour
 
     private void OnDisable()
     {
-        if (playerController != null)
+        if (playerController != null && stageManager != null)
         {
             playerController.onWall -= StartRePosPool;
+        }
+        if (stageManager != null)
+        {
+            stageManager.onStageUp -= StartRePosPool;
         }
 
         // 게임이 시작되었으면 spawnManager의 ResetCarObject 메서드를 호출

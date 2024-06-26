@@ -140,8 +140,6 @@ public class ScoreManager : MonoBehaviour
             uiManager.endPopUp.gameObject.SetActive(true);
         }
         SavePreScore();
-
-
     }
 
 

@@ -136,8 +136,8 @@ GameObject:
   - component: {fileID: 24316757}
   - component: {fileID: 24316758}
   m_Layer: 5
-  m_Name: GoalFlag
-  m_TagString: Untagged
+  m_Name: GoalPoint
+  m_TagString: GoalPoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1654,13 +1654,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81cfdad1efc103945a35aa829b5ac875, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerController: {fileID: 0}
-  gameManager: {fileID: 0}
+  playerController: {fileID: 8581342514329536666}
+  stageManager: {fileID: 1582920531}
   car: {fileID: 1582920527}
   startPoint: {fileID: 739514884}
-  goalY: 1850
-  moveSpeed: 37
-  stageUp: {fileID: 1952659360}
+  goalY: 1950
+  moveSpeed: 40
 --- !u!1 &451322976
 GameObject:
   m_ObjectHideFlags: 0
@@ -3514,6 +3513,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerController: {fileID: 8581342514329536666}
   spawnManager: {fileID: 318463722}
+  stageManager: {fileID: 1582920531}
   carPoolsParent: {fileID: 0}
   startPosition: {x: 0, y: 0, z: 0}
   reSpawnPosition: 20
@@ -4644,9 +4644,10 @@ GameObject:
   - component: {fileID: 1582920529}
   - component: {fileID: 1582920528}
   - component: {fileID: 1582920530}
+  - component: {fileID: 1582920532}
   - component: {fileID: 1582920531}
   m_Layer: 5
-  m_Name: Car
+  m_Name: Car(StageManager)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4668,7 +4669,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -660, y: -1346}
+  m_AnchoredPosition: {x: -660, y: 821}
   m_SizeDelta: {x: 72, y: 111}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1582920528
@@ -4754,7 +4755,21 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!50 &1582920531
+--- !u!114 &1582920531
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1582920526}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b89553c8699da7f4aab0ae3cdc44b104, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  poolController: {fileID: 1017421136}
+  stageUp: {fileID: 1952659360}
+--- !u!50 &1582920532
 Rigidbody2D:
   serializedVersion: 4
   m_ObjectHideFlags: 0

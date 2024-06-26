@@ -10,7 +10,6 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private CameraController cameraController;
     [SerializeField] private SpawnManager spawnManager;
     [SerializeField] private PoolController poolController;
-    private MoveZ moveZ;
 
     private float horizontalInput;
     [SerializeField] private float speed = 20f;
@@ -49,7 +48,6 @@ public class PlayerController : MonoBehaviour
     {
         playerRB = GetComponent<Rigidbody>();
         ObjectPoolingManager.Instance.poolController.playerController = this;
-        moveZ = FindObjectOfType<MoveZ>();
 
         if (poolController != null)
         {
@@ -260,25 +258,30 @@ public class PlayerController : MonoBehaviour
         roadLoop.SetSpeed(reducedSpeed);
     }
 
+    public void InitRespawn()
+    {
+        ObjectPoolingManager.Instance.isPlayerOnWall = false;
+
+        if (poolController.spawnManager != null)
+        {
+            lock (spawnManager) // Lock to prevent conflicts
+            {
+                spawnManager.currentSpawnPosZ = poolController.reSpawnPosition;
+                spawnManager.ResetCarObject();
+                poolController.carPoolsParent.position = poolController.startPosition;
+            }
+        }
+        poolController.isPoolMove = false;
+    }
+
+
     IEnumerator WallReSpawn_Co()
     {
         yield return new WaitForSeconds(2f);
 
         if (!isItemOn)
         {
-
-            ObjectPoolingManager.Instance.isPlayerOnWall = false;
-
-            if (poolController.spawnManager != null)
-            {
-                lock (spawnManager) // Lock to prevent conflicts
-                {
-                    spawnManager.currentSpawnPosZ = poolController.reSpawnPosition;
-                    spawnManager.ResetCarObject();
-                    poolController.carPoolsParent.position = poolController.startPosition;
-                }
-            }
-            poolController.isPoolMove = false;
+            InitRespawn();
         }
     }
 
