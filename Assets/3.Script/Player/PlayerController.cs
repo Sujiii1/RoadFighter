@@ -43,6 +43,9 @@ public class PlayerController : MonoBehaviour
     public event EventHandler onCollision;
     public event EventHandler onWall;
 
+    private WaitForSeconds collisionTime = new WaitForSeconds(1f);
+    private WaitForSeconds stopTime = new WaitForSeconds(2f);
+
 
     private void Awake()
     {
@@ -276,7 +279,7 @@ public class PlayerController : MonoBehaviour
 
     IEnumerator WallReSpawn_Co()
     {
-        yield return new WaitForSeconds(2f);
+        yield return stopTime;
 
         if (!isItemOn)
         {
@@ -287,7 +290,7 @@ public class PlayerController : MonoBehaviour
 
     IEnumerator collision_Co()
     {
-        yield return new WaitForSeconds(1f);
+        yield return collisionTime;
 
         if (!isItemOn)
         {

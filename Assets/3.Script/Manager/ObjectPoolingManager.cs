@@ -23,7 +23,7 @@ public class ObjectPoolingManager : MonoBehaviour
     public Queue<CarObject> RemainMint = new Queue<CarObject>();
     public Queue<CarObject> RemainBus = new Queue<CarObject>();
     public Queue<CarObject> RemainScoreUpItem = new Queue<CarObject>(); // 아이템 남은 목록 추가
-    public Queue<CarObject> RemainGotItem = new Queue<CarObject>();     //무적 아이템
+    public Queue<CarObject> RemainGetItem = new Queue<CarObject>();     //무적 아이템
 
     public PoolController poolController;
 
@@ -114,7 +114,7 @@ public class ObjectPoolingManager : MonoBehaviour
                 continue;
             }
 
-            for (int j = 0; j < 2; j++)
+            for (int j = 0; j < 15; j++)
             {
                 CarObject newItem = Instantiate(itemPrefab[i], itemPrefab[i].transform.position, Quaternion.identity, transform); // 새로운 아이템 오브젝트 생성
                 newItem.gameObject.SetActive(false);     // 생성된 오브젝트를 비활성화

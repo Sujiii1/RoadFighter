@@ -1,10 +1,15 @@
+using System;
 using System.Collections;
 using UnityEngine;
 
 public class SpawnManager : MonoBehaviour
 {
-    public CarObject carObject;
+    [SerializeField] private CarObject carObject;
     [SerializeField] private PoolController poolController;
+    [SerializeField] private StageManager stageManager;
+
+
+
     public float initialSpawnPosZ = 35f; // 초기 스폰 위치
     public float currentSpawnPosZ;       //Spawn Start Position
     private float spawnRangeX = 3.5f;
@@ -37,6 +42,19 @@ public class SpawnManager : MonoBehaviour
         {
             ResetCarObject();    // 게임이 시작된 상태라면 오브젝트를 초기화
         }
+
+        if (stageManager != null)
+        {
+            stageManager.onStageUp += IncreaseSpawnDistance;
+        }
+    }
+
+    private void OnDisable()
+    {
+        if (stageManager != null)
+        {
+            stageManager.onStageUp -= IncreaseSpawnDistance;
+        }
     }
 
     private void OnDestroy()
@@ -47,7 +65,6 @@ public class SpawnManager : MonoBehaviour
         {
             ResetCarObject();    // 게임이 시작된 상태라면 오브젝트를 초기화
         }
-
     }
 
 
@@ -68,150 +85,149 @@ public class SpawnManager : MonoBehaviour
     // 오브젝트를 생성하는 메서드
     public void Create()
     {
-        lock (lockObject)
+        if (ScoreManager.Instance == null || ScoreManager.Instance.isGameOver)
         {
-            // Debug.Log("Entered Create lock");
+            return;
+        }
 
-            if (ScoreManager.Instance == null || ScoreManager.Instance.isGameOver)
-            {
-                return;
-            }
+        ScoreManager.Instance.isStartGame = true;
+        int enemyIndex = UnityEngine.Random.Range(0, 6);
 
-            ScoreManager.Instance.isStartGame = true;
-            int enemyIndex = UnityEngine.Random.Range(0, 7);
+        CarObject carObject = null;
 
-            CarObject carObject = null;
+        if (enemyIndex.Equals(0) && ObjectPoolingManager.Instance.YellowcarObjectPool.Count > 0)
+        {
+            carObject = ObjectPoolingManager.Instance.YellowcarObjectPool.Dequeue();
+            ObjectPoolingManager.Instance.RemainYellow.Enqueue(carObject);
+        }
+        else if (enemyIndex.Equals(1) && ObjectPoolingManager.Instance.GreencarObjectPool.Count > 0)
+        {
+            carObject = ObjectPoolingManager.Instance.GreencarObjectPool.Dequeue();
+            ObjectPoolingManager.Instance.RemainGreen.Enqueue(carObject);
+        }
+        else if (enemyIndex.Equals(2) && ObjectPoolingManager.Instance.MintcarObjectPool.Count > 0)
+        {
+            carObject = ObjectPoolingManager.Instance.MintcarObjectPool.Dequeue();
+            ObjectPoolingManager.Instance.RemainMint.Enqueue(carObject);
+        }
+        else if (enemyIndex.Equals(3) && ObjectPoolingManager.Instance.BuscarObjectPool.Count > 0)
+        {
+            carObject = ObjectPoolingManager.Instance.BuscarObjectPool.Dequeue();
+            ObjectPoolingManager.Instance.RemainBus.Enqueue(carObject);
+        }
+        else if (enemyIndex.Equals(4) && ObjectPoolingManager.Instance.ScoreUpObjectPool.Count > 0)
+        {
+            carObject = ObjectPoolingManager.Instance.ScoreUpObjectPool.Dequeue();
+            ObjectPoolingManager.Instance.RemainScoreUpItem.Enqueue(carObject);
+        }
+        else if (enemyIndex.Equals(5) && ObjectPoolingManager.Instance.GotObjectPool.Count > 0)     // + GetItem 
+        {
+            carObject = ObjectPoolingManager.Instance.GotObjectPool.Dequeue();
+            ObjectPoolingManager.Instance.RemainGetItem.Enqueue(carObject);
+        }
 
-            if (enemyIndex.Equals(0) && ObjectPoolingManager.Instance.YellowcarObjectPool.Count > 0)
-            {
-                carObject = ObjectPoolingManager.Instance.YellowcarObjectPool.Dequeue();
-                ObjectPoolingManager.Instance.RemainYellow.Enqueue(carObject);
-            }
-            else if (enemyIndex.Equals(1) && ObjectPoolingManager.Instance.GreencarObjectPool.Count > 0)
-            {
-                carObject = ObjectPoolingManager.Instance.GreencarObjectPool.Dequeue();
-                ObjectPoolingManager.Instance.RemainGreen.Enqueue(carObject);
-            }
-            else if (enemyIndex.Equals(2) && ObjectPoolingManager.Instance.MintcarObjectPool.Count > 0)
-            {
-                carObject = ObjectPoolingManager.Instance.MintcarObjectPool.Dequeue();
-                ObjectPoolingManager.Instance.RemainMint.Enqueue(carObject);
-            }
-            else if (enemyIndex.Equals(3) && ObjectPoolingManager.Instance.BuscarObjectPool.Count > 0)
-            {
-                carObject = ObjectPoolingManager.Instance.BuscarObjectPool.Dequeue();
-                ObjectPoolingManager.Instance.RemainBus.Enqueue(carObject);
-            }
-            else if (enemyIndex.Equals(4) && ObjectPoolingManager.Instance.ScoreUpObjectPool.Count > 0)
-            {
-                carObject = ObjectPoolingManager.Instance.ScoreUpObjectPool.Dequeue();
-                ObjectPoolingManager.Instance.RemainScoreUpItem.Enqueue(carObject);
-            }
-            else if (enemyIndex.Equals(5) && ObjectPoolingManager.Instance.GotObjectPool.Count > 0)     // + GotItem 
-            {
-                carObject = ObjectPoolingManager.Instance.GotObjectPool.Dequeue();
-                ObjectPoolingManager.Instance.RemainGotItem.Enqueue(carObject);
-            }
-
-            if (carObject != null)
-            {
-                InitCarObject(carObject);
-            }
+        if (carObject != null)
+        {
+            InitCarObject(carObject);
+        }
+        else
+        {
+            Debug.Log("carObject is null");
         }
     }
 
 
     public void ResetCarObject()
     {
+        /*        lock (lockObject)
+                {
 
-        //Debug.Log("Attempting to enter ResetCarObject lock");
-        lock (lockObject)
+                }*/
+
+        // Debug.Log("Entered ResetCarObject lock");
+
+        if (ObjectPoolingManager.Instance.RemainYellow.Count > 0)
         {
-            // Debug.Log("Entered ResetCarObject lock");
-
-            if (ObjectPoolingManager.Instance.RemainYellow.Count > 0)
+            int count = ObjectPoolingManager.Instance.RemainYellow.Count;
+            for (int i = 0; i < count; i++)
             {
-                int count = ObjectPoolingManager.Instance.RemainYellow.Count;
-                for (int i = 0; i < count; i++)
+                CarObject carobject = ObjectPoolingManager.Instance.RemainYellow.Dequeue();
+                if (carobject != null)
                 {
-                    CarObject carobject = ObjectPoolingManager.Instance.RemainYellow.Dequeue();
-                    if (carobject != null)
-                    {
-                        carobject.gameObject.SetActive(false);
-                    }
-                    ObjectPoolingManager.Instance.YellowcarObjectPool.Enqueue(carobject);
+                    carobject.gameObject.SetActive(false);
                 }
+                ObjectPoolingManager.Instance.YellowcarObjectPool.Enqueue(carobject);
             }
+        }
 
-            if (ObjectPoolingManager.Instance.RemainGreen.Count > 0)
+        if (ObjectPoolingManager.Instance.RemainGreen.Count > 0)
+        {
+            int count = ObjectPoolingManager.Instance.RemainGreen.Count;
+            for (int i = 0; i < count; i++)
             {
-                int count = ObjectPoolingManager.Instance.RemainGreen.Count;
-                for (int i = 0; i < count; i++)
+                CarObject carobject = ObjectPoolingManager.Instance.RemainGreen.Dequeue();
+                if (carobject != null)
                 {
-                    CarObject carobject = ObjectPoolingManager.Instance.RemainGreen.Dequeue();
-                    if (carobject != null)
-                    {
-                        carobject.gameObject.SetActive(false);
-                    }
-                    ObjectPoolingManager.Instance.GreencarObjectPool.Enqueue(carobject);
+                    carobject.gameObject.SetActive(false);
                 }
+                ObjectPoolingManager.Instance.GreencarObjectPool.Enqueue(carobject);
             }
+        }
 
-            if (ObjectPoolingManager.Instance.RemainMint.Count > 0)
+        if (ObjectPoolingManager.Instance.RemainMint.Count > 0)
+        {
+            int count = ObjectPoolingManager.Instance.RemainMint.Count;
+            for (int i = 0; i < count; i++)
             {
-                int count = ObjectPoolingManager.Instance.RemainMint.Count;
-                for (int i = 0; i < count; i++)
+                CarObject carobject = ObjectPoolingManager.Instance.RemainMint.Dequeue();
+                if (carobject != null)
                 {
-                    CarObject carobject = ObjectPoolingManager.Instance.RemainMint.Dequeue();
-                    if (carobject != null)
-                    {
-                        carobject.gameObject.SetActive(false);
-                    }
-                    ObjectPoolingManager.Instance.MintcarObjectPool.Enqueue(carobject);
+                    carobject.gameObject.SetActive(false);
                 }
+                ObjectPoolingManager.Instance.MintcarObjectPool.Enqueue(carobject);
             }
+        }
 
-            if (ObjectPoolingManager.Instance.RemainBus.Count > 0)
+        if (ObjectPoolingManager.Instance.RemainBus.Count > 0)
+        {
+            int count = ObjectPoolingManager.Instance.RemainBus.Count;
+            for (int i = 0; i < count; i++)
             {
-                int count = ObjectPoolingManager.Instance.RemainBus.Count;
-                for (int i = 0; i < count; i++)
+                CarObject carobject = ObjectPoolingManager.Instance.RemainBus.Dequeue();
+                if (carobject != null)
                 {
-                    CarObject carobject = ObjectPoolingManager.Instance.RemainBus.Dequeue();
-                    if (carobject != null)
-                    {
-                        carobject.gameObject.SetActive(false);
+                    carobject.gameObject.SetActive(false);
 
-                    }
-                    ObjectPoolingManager.Instance.BuscarObjectPool.Enqueue(carobject);
                 }
+                ObjectPoolingManager.Instance.BuscarObjectPool.Enqueue(carobject);
             }
+        }
 
-            if (ObjectPoolingManager.Instance.RemainScoreUpItem.Count > 0)
+        if (ObjectPoolingManager.Instance.RemainScoreUpItem.Count > 0)
+        {
+            int count = ObjectPoolingManager.Instance.RemainScoreUpItem.Count;
+            for (int i = 0; i < count; i++)
             {
-                int count = ObjectPoolingManager.Instance.RemainScoreUpItem.Count;
-                for (int i = 0; i < count; i++)
+                CarObject carobject = ObjectPoolingManager.Instance.RemainScoreUpItem.Dequeue();
+                if (carobject != null)
                 {
-                    CarObject carobject = ObjectPoolingManager.Instance.RemainScoreUpItem.Dequeue();
-                    if (carobject != null)
-                    {
-                        carobject.gameObject.SetActive(false);
-                    }
-                    ObjectPoolingManager.Instance.ScoreUpObjectPool.Enqueue(carobject);
+                    carobject.gameObject.SetActive(false);
                 }
+                ObjectPoolingManager.Instance.ScoreUpObjectPool.Enqueue(carobject);
             }
+        }
 
-            if (ObjectPoolingManager.Instance.RemainGotItem.Count > 0)
+        if (ObjectPoolingManager.Instance.RemainGetItem.Count > 0)
+        {
+            int count = ObjectPoolingManager.Instance.RemainGetItem.Count;
+            for (int i = 0; i < count; i++)
             {
-                int count = ObjectPoolingManager.Instance.RemainGotItem.Count;
-                for (int i = 0; i < count; i++)
+                CarObject carobject = ObjectPoolingManager.Instance.RemainGetItem.Dequeue();
+                if (carobject != null)
                 {
-                    CarObject carobject = ObjectPoolingManager.Instance.RemainGotItem.Dequeue();
-                    if (carobject != null)
-                    {
-                        carobject.gameObject.SetActive(false);
-                    }
-                    ObjectPoolingManager.Instance.GotObjectPool.Enqueue(carobject);
+                    carobject.gameObject.SetActive(false);
                 }
+                ObjectPoolingManager.Instance.GotObjectPool.Enqueue(carobject);
             }
         }
     }
@@ -230,10 +246,19 @@ public class SpawnManager : MonoBehaviour
             y = 6.3f
         };
 
-        carObject.transform.position = spawnPositionZ;  // 오브젝트 위치 설정s
+        carObject.transform.position = spawnPositionZ;  // 오브젝트 위치 설정
         carObject.gameObject.SetActive(true);            // 오브젝트 활성화
 
         currentSpawnPosZ += spawnDistance;              // 다음 스폰 위치 설정
+        Debug.Log("carObject :" + carObject.transform.position.z);
+    }
+
+
+    //spawnDistance 20% 증가
+    private void IncreaseSpawnDistance(object sender, EventArgs args)
+    {
+        spawnDistance *= 1.2f;
+        Debug.Log("New spawnDistance: " + spawnDistance);
     }
 
 

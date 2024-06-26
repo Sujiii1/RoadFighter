@@ -29,6 +29,7 @@ public class CameraController : MonoBehaviour
 
     private void OnDisable()
     {
+        StopAllCoroutines();
         if (playerController != null)
         {
             playerController.onWall -= StartRePosCamera;

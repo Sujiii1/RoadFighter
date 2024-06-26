@@ -43,7 +43,10 @@ public class ScoreManager : MonoBehaviour
     public bool isGameOver = false;
     public bool isPauseScore = false;
 
-
+    private void OnDisable()
+    {
+        StopAllCoroutines();
+    }
 
     private void Awake()
     {

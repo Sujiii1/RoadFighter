@@ -32,6 +32,7 @@ public class GameProgress : MonoBehaviour
 
     private void OnDisable()
     {
+        StopAllCoroutines();
         if (playerController != null)
         {
             playerController.onCollision -= StopProcess;
@@ -75,7 +76,7 @@ public class GameProgress : MonoBehaviour
     //Àå¾Ö¹°¿¡ ºÎµúÇûÀ» ¶§ ¸ØÃß´Â Event
     private void StopProcess(object sender, EventArgs args)
     {
-        StartCoroutine(PauseProcessCoroutine(0.5f));
+        StartCoroutine(PauseProcessCoroutine(2f));
     }
 
 

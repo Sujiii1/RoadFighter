@@ -19,6 +19,12 @@ public class StageManager : MonoBehaviour       // Z : -1346
     private WaitForSeconds activeTime = new WaitForSeconds(2f);
 
 
+
+    private void OnDisable()
+    {
+        StopAllCoroutines();
+    }
+
     private void Awake()
     {
         if (poolController != null)
@@ -56,12 +62,9 @@ public class StageManager : MonoBehaviour       // Z : -1346
 
         if (poolController.spawnManager != null)
         {
-            lock (spawnManager) // Lock to prevent conflicts
-            {
-                spawnManager.currentSpawnPosZ = poolController.reSpawnPosition;
-                spawnManager.ResetCarObject();
-                poolController.carPoolsParent.position = poolController.startPosition;
-            }
+            spawnManager.currentSpawnPosZ = poolController.reSpawnPosition;
+            spawnManager.ResetCarObject();
+            poolController.carPoolsParent.position = poolController.startPosition;
         }
         poolController.isPoolMove = false;
     }
@@ -73,7 +76,6 @@ public class StageManager : MonoBehaviour       // Z : -1346
 
         stageUp.SetActive(false);
         InitRespawn();
-        // playerController.InitRespawn();
         poolController.isPoolMove = false;
     }
 }
