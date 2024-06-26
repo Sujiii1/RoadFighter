@@ -270,7 +270,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 7
 --- !u!1 &43962292
 GameObject:
   m_ObjectHideFlags: 0
@@ -4768,6 +4768,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   poolController: {fileID: 1017421136}
+  playerController: {fileID: 8581342514329536666}
+  spawnManager: {fileID: 318463722}
   stageUp: {fileID: 1952659360}
 --- !u!50 &1582920532
 Rigidbody2D:

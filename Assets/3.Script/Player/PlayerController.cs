@@ -116,7 +116,6 @@ public class PlayerController : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Wall") && !isItemOn)
         {
-            //isWall = true;
             isRotate = false;
             TimeEnd();
 

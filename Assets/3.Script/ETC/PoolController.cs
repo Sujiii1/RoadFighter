@@ -39,7 +39,6 @@ public class PoolController : MonoBehaviour
             stageManager.onStageUp += StartRePosPool;
         }
 
-
         // 게임이 시작되었으면 spawnManager의 ResetCarObject 메서드를 호출
         if (ScoreManager.Instance != null && ScoreManager.Instance.isStartGame)
         {
@@ -49,7 +48,7 @@ public class PoolController : MonoBehaviour
 
     private void OnDisable()
     {
-        if (playerController != null && stageManager != null)
+        if (playerController != null)
         {
             playerController.onWall -= StartRePosPool;
         }
@@ -94,11 +93,9 @@ public class PoolController : MonoBehaviour
     }
 
 
-
     // onWall 이벤트 발생 시 호출되는 메서드
     private void StartRePosPool(object sender, EventArgs args)
     {
-        //StartCoroutine(MoveCarPoolsCoroutine());
         isPoolMove = true;
     }
 }
