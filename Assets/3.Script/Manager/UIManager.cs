@@ -6,16 +6,23 @@ using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour //ReStart ¾ø¾îÁü
 {
-    [SerializeField] private Button againBtn;
     [SerializeField] private SpawnManager spawnManager;
 
+    [Header("Button")]
+    [SerializeField] private Button againBtn;
+    [SerializeField] private Button developerBtn;   //developer mode
+
+
+    [Header("Text")]
     public TMP_Text timerTextUI;
     public TMP_Text scoreTextUI;
     public TMP_Text endScoreTextUI;
     public TMP_Text preBsetScoreTextUI;
 
+    [Header("PopUp")]
     public GameObject startPopUp;
     public GameObject endPopUp;
+
 
     private PlayerInput inputActions;
 

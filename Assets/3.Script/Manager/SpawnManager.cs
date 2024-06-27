@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class SpawnManager : MonoBehaviour
 {
-    [SerializeField] private CarObject carObject;
+    private CarObject carObject;
     [SerializeField] private PoolController poolController;
     [SerializeField] private StageManager stageManager;
 
@@ -24,6 +24,15 @@ public class SpawnManager : MonoBehaviour
     private void Awake()
     {
         ObjectPoolingManager.Instance.poolController.spawnManager = this;
+
+        if (poolController != null)
+        {
+            poolController = GameObject.FindGameObjectWithTag("ObjectPooling").GetComponent<PoolController>();
+        }
+        else
+        {
+            Debug.Log("Awake poolController null");
+        }
     }
 
     private void Start()
@@ -47,10 +56,10 @@ public class SpawnManager : MonoBehaviour
         {
             stageManager.onStageUp += IncreaseSpawnDistance;
         }
-        else
-        {
-            Debug.Log("OnEnable stageManager null");
-        }
+        /*        else
+                {
+                    Debug.Log("OnEnable stageManager null");
+                }*/
     }
 
     private void OnDisable()
@@ -262,11 +271,14 @@ public class SpawnManager : MonoBehaviour
     }
 
 
-    //spawnDistance 20% 증가
+    //spawnDistance 20% 감소
     private void IncreaseSpawnDistance(object sender, EventArgs args)
     {
-        spawnDistance *= 1.2f;
-        Debug.Log("New spawnDistance: " + spawnDistance);
+        if (spawnDistance > 0)
+        {
+            spawnDistance *= 0.8f;
+            Debug.Log("New spawnDistance: " + spawnDistance);
+        }
     }
 
 

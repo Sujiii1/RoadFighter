@@ -31,6 +31,10 @@ public class StageManager : MonoBehaviour       // Z : -1346
         {
             poolController = GameObject.FindGameObjectWithTag("ObjectPooling").GetComponent<PoolController>();
         }
+        else
+        {
+            Debug.Log("Awake poolController null");
+        }
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -78,4 +82,17 @@ public class StageManager : MonoBehaviour       // Z : -1346
         InitRespawn();
         poolController.isPoolMove = false;
     }
+
+
+    //DeveloperMode
+    public void DevelIncreaseStage()
+    {
+        //Event
+        onStageUp?.Invoke(this, EventArgs.Empty);
+
+        ObjectPoolingManager.Instance.isPlayerOnWall = true;
+        poolController.isPoolMove = true;
+        IncreaseStage();
+    }
+
 }

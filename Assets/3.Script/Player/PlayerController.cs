@@ -56,6 +56,10 @@ public class PlayerController : MonoBehaviour
         {
             poolController = GameObject.FindGameObjectWithTag("ObjectPooling").GetComponent<PoolController>();
         }
+        else
+        {
+            Debug.Log("Awake poolController null");
+        }
     }
 
 
