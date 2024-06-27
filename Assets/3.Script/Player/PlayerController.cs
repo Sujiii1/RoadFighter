@@ -76,11 +76,6 @@ public class PlayerController : MonoBehaviour
     private void Start()
     {
         playerBasePosition = transform.position;
-
-        if (poolController == null)
-        {
-            Debug.LogError("poolController is not assigned in the inspector");
-        }
     }
 
     private void OnDestroy()
@@ -146,7 +141,6 @@ public class PlayerController : MonoBehaviour
 
         if (collision.gameObject.CompareTag("Enemy") && !isItemOn)
         {
-            // isWall = false;
             isRotate = true;
 
             onCollision?.Invoke(this, EventArgs.Empty);
@@ -245,7 +239,7 @@ public class PlayerController : MonoBehaviour
             if (!isItemOn)
             {
                 dieFX.Play();
-                roadLoop.ZeroSpeed(0f);     //∑ŒµÂ ∑Á«¡ ∏ÿ√„
+                roadLoop.ZeroSpeed();     //∑ŒµÂ ∑Á«¡ ∏ÿ√„
                 ScoreManager.Instance.PauseScoreForSeconds(3f);  // 3√  µøæ» ¡°ºˆ ¡ı∞° ∏ÿ√„
             }
         }
@@ -286,7 +280,6 @@ public class PlayerController : MonoBehaviour
             InitRespawn();
         }
     }
-
 
     IEnumerator collision_Co()
     {

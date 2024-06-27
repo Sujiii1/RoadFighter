@@ -153,7 +153,7 @@ public class CarObject : MonoBehaviour
             }
             else
             {
-                roadLoop.ZeroSpeed(0f);  //∑ŒµÂ∑Á«¡ ∏ÿ√„
+                roadLoop.ZeroSpeed();  //∑ŒµÂ∑Á«¡ ∏ÿ√„
                 enemyRB.AddForce(20f * new Vector3(1, -1, 0), ForceMode.Impulse);   //¥Î∞¢º±¿∏∑Œ π–∑¡≥≤
             }
         }

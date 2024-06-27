@@ -47,6 +47,10 @@ public class SpawnManager : MonoBehaviour
         {
             stageManager.onStageUp += IncreaseSpawnDistance;
         }
+        else
+        {
+            Debug.Log("OnEnable stageManager null");
+        }
     }
 
     private void OnDisable()
@@ -54,6 +58,10 @@ public class SpawnManager : MonoBehaviour
         if (stageManager != null)
         {
             stageManager.onStageUp -= IncreaseSpawnDistance;
+        }
+        else
+        {
+            Debug.Log("OnDisable stageManager null");
         }
     }
 
@@ -250,7 +258,7 @@ public class SpawnManager : MonoBehaviour
         carObject.gameObject.SetActive(true);            // 오브젝트 활성화
 
         currentSpawnPosZ += spawnDistance;              // 다음 스폰 위치 설정
-        Debug.Log("carObject :" + carObject.transform.position.z);
+                                                        // Debug.Log("carObject :" + carObject.transform.position.z);
     }
 
 

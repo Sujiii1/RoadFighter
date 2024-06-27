@@ -11,10 +11,10 @@ public class RoadLoop : MonoBehaviour
     [SerializeField] private float accelerationspeed = 1f;
 
 
-    //Road Repeat
-    [SerializeField] private List<Transform> roadSegments;
+    [Header("Road Repeat")]
     [SerializeField] private float resetPositionZ = -10f;
     [SerializeField] private float roadSegmentLength = 10f;  //도로 조각 길이
+    [SerializeField] private List<Transform> roadSegments;
 
     private void Start()
     {
@@ -33,6 +33,7 @@ public class RoadLoop : MonoBehaviour
     private void RepeatRoad()
     {
         ScoreManager.Instance.isStartGame = true;
+
         for (int i = 0; i < roadSegments.Count; i++)
         {
             if (speed < maxSpeed)
@@ -69,7 +70,15 @@ public class RoadLoop : MonoBehaviour
     {
         float displayedSpeed = Mathf.Clamp(speed, 0f, maxSpeed); // 속도를 최대값(maxSpeed)까지 클램핑
         float normalizedSpeed = (displayedSpeed / maxSpeed) * 400f;
-        speedText.text = Mathf.RoundToInt(normalizedSpeed) + "  Km/h";
+
+        if (speed < 1)
+        {
+            speedText.text = "0 Km/h";
+        }
+        else
+        {
+            speedText.text = Mathf.RoundToInt(normalizedSpeed) + "  Km/h";
+        }
     }
 
 
@@ -78,9 +87,10 @@ public class RoadLoop : MonoBehaviour
         return speed;
     }
 
-    public void ZeroSpeed(float speed)
+    public void ZeroSpeed()
     {
-        this.speed = speed;
+        //this.speed = speed;
+        speed = 0f;
     }
 
     public void SetSpeed(float newSpeed)    //reduce
