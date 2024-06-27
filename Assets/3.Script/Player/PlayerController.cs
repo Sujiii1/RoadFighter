@@ -233,6 +233,7 @@ public class PlayerController : MonoBehaviour
             uiManager.endPopUp.SetActive(true);
 
             ScoreManager.Instance.SavePreScore();
+            ScoreManager.Instance.LoadPreScore();
             ScoreManager.Instance.GameOverScore();
 
         }

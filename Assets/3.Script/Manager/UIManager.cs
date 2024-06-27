@@ -68,6 +68,8 @@ public class UIManager : MonoBehaviour //ReStart ¾ø¾îÁü
         ScoreManager.Instance.isStartGame = true;
 
         ScoreManager.Instance.SavePreScore();
+        ScoreManager.Instance.LoadPreScore();
+
         ScoreManager.Instance.ResetScore();
         ScoreManager.Instance.ResetTime();
 
