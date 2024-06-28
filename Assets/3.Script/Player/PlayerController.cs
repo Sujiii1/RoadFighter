@@ -50,7 +50,7 @@ public class PlayerController : MonoBehaviour
     private void Awake()
     {
         playerRB = GetComponent<Rigidbody>();
-        ObjectPoolingManager.Instance.poolController.playerController = this;
+        ObjectPool.Instance.poolController.playerController = this;
 
         if (poolController != null)
         {
@@ -125,7 +125,7 @@ public class PlayerController : MonoBehaviour
             onCollision?.Invoke(this, EventArgs.Empty);
             onWall?.Invoke(this, EventArgs.Empty);
 
-            ObjectPoolingManager.Instance.isPlayerOnWall = true;
+            ObjectPool.Instance.isPlayerOnWall = true;
 
             //Pool Position Move
             poolController.isPoolMove = true;
@@ -261,7 +261,7 @@ public class PlayerController : MonoBehaviour
 
     public void InitRespawn()
     {
-        ObjectPoolingManager.Instance.isPlayerOnWall = false;
+        ObjectPool.Instance.isPlayerOnWall = false;
 
         if (poolController.spawnManager != null)
         {

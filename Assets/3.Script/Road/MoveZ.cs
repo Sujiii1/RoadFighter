@@ -20,7 +20,7 @@ public class MoveZ : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (ScoreManager.Instance.isStartGame && !isZeroSpeed && !ObjectPoolingManager.Instance.isPlayerOnWall)
+        if (ScoreManager.Instance.isStartGame && !isZeroSpeed && !ObjectPool.Instance.isPlayerOnWall)
         {
             MoveObject();
         }

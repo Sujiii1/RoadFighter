@@ -3457,6 +3457,7 @@ GameObject:
   - component: {fileID: 1017421134}
   - component: {fileID: 1017421135}
   - component: {fileID: 1017421136}
+  - component: {fileID: 1017421137}
   m_Layer: 0
   m_Name: ObjectPooling
   m_TagString: ObjectPooling
@@ -3486,7 +3487,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1017421133}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 32ace5408a301084c912a50d2e04a25c, type: 3}
   m_Name: 
@@ -3516,11 +3517,33 @@ MonoBehaviour:
   playerController: {fileID: 8581342514329536666}
   spawnManager: {fileID: 318463722}
   stageManager: {fileID: 1582920531}
-  carPoolsParent: {fileID: 0}
+  carPoolsParent: {fileID: 1017421134}
   startPosition: {x: 0, y: 0, z: 0}
   reSpawnPosition: 20
   poolSpeed: 60
   isPoolMove: 0
+--- !u!114 &1017421137
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1017421133}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 084f1ee1bfc8f7a45968835f8981a4b5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CarObjectsPrefab:
+  - {fileID: 726642818662147895, guid: f5f0445b931259544acb3d862dd2a849, type: 3}
+  - {fileID: -5652341376746666272, guid: b0d4c34c6909c1642987ef1630819699, type: 3}
+  - {fileID: 3016176335056489305, guid: 89fdcf93fb8fb224f9aaa34c3399e3f9, type: 3}
+  - {fileID: -2441614845406062669, guid: 29e61dfcdd02ff1479b69a6297a4def1, type: 3}
+  itemPrefab:
+  - {fileID: 4798453952980836149, guid: 35ac4b2cfdb0bf348bc4ee39dc4cb653, type: 3}
+  - {fileID: 4854153537034215343, guid: 543a4553edcfd524e97cc48a6dcaabbf, type: 3}
+  poolController: {fileID: 1017421136}
+  isPlayerOnWall: 0
 --- !u!1 &1029689288
 GameObject:
   m_ObjectHideFlags: 0

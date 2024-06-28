@@ -44,7 +44,7 @@ public class StageManager : MonoBehaviour       // Z : -1346
             //Event
             onStageUp?.Invoke(this, EventArgs.Empty);
 
-            ObjectPoolingManager.Instance.isPlayerOnWall = true;
+            ObjectPool.Instance.isPlayerOnWall = true;
             poolController.isPoolMove = true;
             IncreaseStage();
         }
@@ -62,7 +62,7 @@ public class StageManager : MonoBehaviour       // Z : -1346
 
     public void InitRespawn()
     {
-        ObjectPoolingManager.Instance.isPlayerOnWall = false;
+        ObjectPool.Instance.isPlayerOnWall = false;
 
         if (poolController.spawnManager != null)
         {
@@ -90,7 +90,7 @@ public class StageManager : MonoBehaviour       // Z : -1346
         //Event
         onStageUp?.Invoke(this, EventArgs.Empty);
 
-        ObjectPoolingManager.Instance.isPlayerOnWall = true;
+        ObjectPool.Instance.isPlayerOnWall = true;
         poolController.isPoolMove = true;
         IncreaseStage();
     }

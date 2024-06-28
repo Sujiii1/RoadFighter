@@ -16,13 +16,13 @@ public class PoolController : MonoBehaviour
 
     private void Awake()
     {
-        if (ObjectPoolingManager.Instance == null)
+        if (ObjectPool.Instance == null)
         {
             return;
         }
 
         // carPoolsParent를 ObjectPoolingManager의 Transform으로 설정
-        carPoolsParent = ObjectPoolingManager.Instance.transform;
+        carPoolsParent = ObjectPool.Instance.transform;
 
         // 현재 위치를 startPosition으로 설정
         startPosition = transform.position;

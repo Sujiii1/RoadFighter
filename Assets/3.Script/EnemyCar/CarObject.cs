@@ -238,33 +238,51 @@ public class CarObject : MonoBehaviour
         switch (carType)
         {
             case CarType.Yellow:
-                ObjectPoolingManager.Instance.YellowcarObjectPool.Enqueue(this);
-                ObjectPoolingManager.Instance.RemainYellow.Dequeue();
+                if (ObjectPool.Instance.RemainYellow.Count > 0)
+                {
+                    ObjectPool.Instance.ReturnYellowCar(this);
+                    ObjectPool.Instance.RemainYellow.Dequeue();
+                }
                 break;
 
             case CarType.Green:
-                ObjectPoolingManager.Instance.GreencarObjectPool.Enqueue(this);
-                ObjectPoolingManager.Instance.RemainGreen.Dequeue();
+                if (ObjectPool.Instance.RemainYellow.Count > 0)
+                {
+                    ObjectPool.Instance.ReturnGreenCar(this);
+                    ObjectPool.Instance.RemainGreen.Dequeue();
+                }
                 break;
 
             case CarType.Mint:
-                ObjectPoolingManager.Instance.MintcarObjectPool.Enqueue(this);
-                ObjectPoolingManager.Instance.RemainMint.Dequeue();
+                if (ObjectPool.Instance.RemainYellow.Count > 0)
+                {
+                    ObjectPool.Instance.ReturnMintCar(this);
+                    ObjectPool.Instance.RemainMint.Dequeue();
+                }
                 break;
 
             case CarType.Bus:
-                ObjectPoolingManager.Instance.BuscarObjectPool.Enqueue(this);
-                ObjectPoolingManager.Instance.RemainBus.Dequeue();
+                if (ObjectPool.Instance.RemainYellow.Count > 0)
+                {
+                    ObjectPool.Instance.ReturnBusCar(this);
+                    ObjectPool.Instance.RemainBus.Dequeue();
+                }
                 break;
 
             case CarType.ScoreUpItem:
-                ObjectPoolingManager.Instance.ScoreUpObjectPool.Enqueue(this);
-                ObjectPoolingManager.Instance.RemainScoreUpItem.Dequeue();
+                if (ObjectPool.Instance.RemainYellow.Count > 0)
+                {
+                    ObjectPool.Instance.ReturnScoreItem(this);
+                    ObjectPool.Instance.RemainScoreUpItem.Dequeue();
+                }
                 break;
 
             case CarType.GotModeItem:
-                ObjectPoolingManager.Instance.GotObjectPool.Enqueue(this);
-                ObjectPoolingManager.Instance.RemainScoreUpItem.Dequeue();
+                if (ObjectPool.Instance.RemainYellow.Count > 0)
+                {
+                    ObjectPool.Instance.ReturnGotItem(this);
+                    ObjectPool.Instance.RemainScoreUpItem.Dequeue();
+                }
                 break;
         }
     }
