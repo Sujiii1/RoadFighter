@@ -268,7 +268,7 @@ public class PlayerController : MonoBehaviour
             lock (spawnManager) // Lock to prevent conflicts
             {
                 spawnManager.currentSpawnPosZ = poolController.reSpawnPosition;
-                //ObjectPool.Instance.ResetAllCarObject();
+                ObjectPool.Instance.ResetAllCarObject();
                 poolController.carPoolsParent.position = poolController.startPosition;
             }
         }

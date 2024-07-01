@@ -43,7 +43,8 @@ public class PoolController : MonoBehaviour
         if (ScoreManager.Instance != null && ScoreManager.Instance.isStartGame)
         {
             //spawnManager.ResetCarObject();
-            //ObjectPool.Instance.ResetAllCarObject();
+            ObjectPool.Instance.ResetAllCarObject();
+
         }
     }
 
@@ -62,7 +63,7 @@ public class PoolController : MonoBehaviour
         if (ScoreManager.Instance != null && ScoreManager.Instance.isStartGame)
         {
             //spawnManager.ResetCarObject();
-            //ObjectPool.Instance.ResetAllCarObject();
+            ObjectPool.Instance.ResetAllCarObject();
 
         }
     }

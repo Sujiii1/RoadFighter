@@ -50,7 +50,7 @@ public class SpawnManager : MonoBehaviour
         if (ScoreManager.Instance.isStartGame)
         {
             //ResetCarObject();    // 게임이 시작된 상태라면 오브젝트를 초기화
-            //ObjectPool.Instance.ResetAllCarObject();
+            ObjectPool.Instance.ResetAllCarObject();
         }
 
         if (stageManager != null)
@@ -82,6 +82,8 @@ public class SpawnManager : MonoBehaviour
         if (ScoreManager.Instance.isStartGame)
         {
             // ResetCarObject();    // 게임이 시작된 상태라면 오브젝트를 초기화
+            ObjectPool.Instance.ResetAllCarObject();
+
         }
     }
 
@@ -90,7 +92,7 @@ public class SpawnManager : MonoBehaviour
 
 
 
-    // 오브젝트를 생성하는 메서드
+    // 오브젝트를 랜덤으로 생성하는 메서드
     public void Create()
     {
         if (ScoreManager.Instance == null || ScoreManager.Instance.isGameOver)
@@ -145,14 +147,6 @@ public class SpawnManager : MonoBehaviour
             Debug.Log("carObject is null");
         }
     }
-
-
-
-
-
-
-
-
 
 
     #region   [생성 초기화]

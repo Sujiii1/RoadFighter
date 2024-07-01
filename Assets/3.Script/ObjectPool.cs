@@ -12,7 +12,6 @@ public class ObjectPool : MonoBehaviour
     [System.Serializable]
     public class Pool
     {
-        public string name;
         public GameObject prefab;
         public int size;
         public CarType carType;
@@ -49,6 +48,10 @@ public class ObjectPool : MonoBehaviour
         InitSpawn();
     }
 
+
+
+
+    //풀 초기화
     private void InitSpawn()
     {
         poolDictionary = new Dictionary<CarType, Queue<GameObject>>();
@@ -86,7 +89,6 @@ public class ObjectPool : MonoBehaviour
     {
         if (!poolDictionary.ContainsKey(carType))
         {
-            Debug.LogWarning(name + " doesn't exist.");
             return null;
         }
 
@@ -117,12 +119,12 @@ public class ObjectPool : MonoBehaviour
             }
             else
             {
-                Debug.LogWarning("No pool found for car type: " + key);
+                Debug.LogWarning("No pool car type: " + key);
             }
         }
         else
         {
-            Debug.LogWarning("CarObject component not found.");
+            Debug.LogWarning("carObject is Null");
         }
     }
 
@@ -135,13 +137,10 @@ public class ObjectPool : MonoBehaviour
             Queue<GameObject> queue = poolDictionary[key];
             int count = queue.Count;
 
-            // 풀의 모든 오브젝트를 복사한 리스트
-            List<GameObject> tempObjects = new List<GameObject>(queue);
 
-            // 복사한 리스트를 순회하면서 초기화 및 다시 풀에 넣기
             for (int i = 0; i < count; i++)
             {
-                GameObject obj = tempObjects[i];
+                GameObject obj = queue.Dequeue();
 
                 // GameObject가 활성화되어 있는지 확인
                 if (obj.activeSelf)
@@ -150,23 +149,12 @@ public class ObjectPool : MonoBehaviour
                     obj.SetActive(false);
                 }
 
-                // CarObject 컴포넌트 확인
-                CarObject carObject = obj.GetComponent<CarObject>();
-                if (carObject != null)
-                {
-                    // CarObject 초기화 메서드 호출 예시
-                    // carObject.ResetCarState();
-                    // 이 부분에서 초기화해야 할 작업을 수행
-                }
-                else
-                {
-                    Debug.LogWarning("CarObject component not found on " + obj.name);
-                }
-
-                // 풀에 다시 넣기
+                // 비활성화 처리한 오브젝트를 다시 풀에 넣기
                 queue.Enqueue(obj);
+
             }
         }
     }
-
 }
+
+
