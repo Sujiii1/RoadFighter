@@ -67,7 +67,9 @@ public class StageManager : MonoBehaviour       // Z : -1346
         if (poolController.spawnManager != null)
         {
             spawnManager.currentSpawnPosZ = poolController.reSpawnPosition;
-            spawnManager.ResetCarObject();
+            //spawnManager.ResetCarObject();
+            //ObjectPool.Instance.ResetAllCarObject();
+
             poolController.carPoolsParent.position = poolController.startPosition;
         }
         poolController.isPoolMove = false;

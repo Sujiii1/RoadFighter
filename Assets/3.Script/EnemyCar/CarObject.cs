@@ -42,7 +42,10 @@ public class CarObject : MonoBehaviour
     private RoadLoop roadLoop;
 
     [Header("Car Type")]
-    [SerializeField] private CarType carType;
+    public CarType carType;
+    public CarType CarType => carType;  // public getter, but private setter
+
+
     [SerializeField] private bool isBus = false;
 
     [Header("Player")]
@@ -78,9 +81,11 @@ public class CarObject : MonoBehaviour
         enemyRB = GetComponent<Rigidbody>();
     }
 
+
     private void Start()
     {
         player = GameObject.FindObjectOfType<PlayerController>().gameObject;
+
         ren.SetActive(false);
 
         if (player == null)
@@ -172,12 +177,6 @@ public class CarObject : MonoBehaviour
         if (player == null)
         {
             player = GameObject.FindObjectOfType<PlayerController>()?.gameObject;
-
-            if (player != null)
-            {
-                FindPlayer();
-                CheckDirection();
-            }
         }
         else
         {
@@ -232,59 +231,60 @@ public class CarObject : MonoBehaviour
 
     public void EnQueueObject()
     {
-        gameObject.SetActive(false);
+        //gameObject.SetActive(false);
         ResetCarState();
+        ObjectPool.Instance.EnqueueObject(gameObject);
 
-        switch (carType)
-        {
-            case CarType.Yellow:
-                if (ObjectPool.Instance.RemainYellow.Count > 0)
-                {
-                    ObjectPool.Instance.ReturnYellowCar(this);
-                    ObjectPool.Instance.RemainYellow.Dequeue();
-                }
-                break;
+        /* switch (carType)
+         {
+             case CarType.Yellow:
+                 if (ObjectPool.Instance.RemainYellow.Count > 0)
+                 {
+                     ObjectPool.Instance.ReturnYellowCar(this);
+                     ObjectPool.Instance.RemainYellow.Dequeue();
+                 }
+                 break;
 
-            case CarType.Green:
-                if (ObjectPool.Instance.RemainYellow.Count > 0)
-                {
-                    ObjectPool.Instance.ReturnGreenCar(this);
-                    ObjectPool.Instance.RemainGreen.Dequeue();
-                }
-                break;
+             case CarType.Green:
+                 if (ObjectPool.Instance.RemainYellow.Count > 0)
+                 {
+                     ObjectPool.Instance.ReturnGreenCar(this);
+                     ObjectPool.Instance.RemainGreen.Dequeue();
+                 }
+                 break;
 
-            case CarType.Mint:
-                if (ObjectPool.Instance.RemainYellow.Count > 0)
-                {
-                    ObjectPool.Instance.ReturnMintCar(this);
-                    ObjectPool.Instance.RemainMint.Dequeue();
-                }
-                break;
+             case CarType.Mint:
+                 if (ObjectPool.Instance.RemainYellow.Count > 0)
+                 {
+                     ObjectPool.Instance.ReturnMintCar(this);
+                     ObjectPool.Instance.RemainMint.Dequeue();
+                 }
+                 break;
 
-            case CarType.Bus:
-                if (ObjectPool.Instance.RemainYellow.Count > 0)
-                {
-                    ObjectPool.Instance.ReturnBusCar(this);
-                    ObjectPool.Instance.RemainBus.Dequeue();
-                }
-                break;
+             case CarType.Bus:
+                 if (ObjectPool.Instance.RemainYellow.Count > 0)
+                 {
+                     ObjectPool.Instance.ReturnBusCar(this);
+                     ObjectPool.Instance.RemainBus.Dequeue();
+                 }
+                 break;
 
-            case CarType.ScoreUpItem:
-                if (ObjectPool.Instance.RemainYellow.Count > 0)
-                {
-                    ObjectPool.Instance.ReturnScoreItem(this);
-                    ObjectPool.Instance.RemainScoreUpItem.Dequeue();
-                }
-                break;
+             case CarType.ScoreUpItem:
+                 if (ObjectPool.Instance.RemainYellow.Count > 0)
+                 {
+                     ObjectPool.Instance.ReturnScoreItem(this);
+                     ObjectPool.Instance.RemainScoreUpItem.Dequeue();
+                 }
+                 break;
 
-            case CarType.GotModeItem:
-                if (ObjectPool.Instance.RemainYellow.Count > 0)
-                {
-                    ObjectPool.Instance.ReturnGotItem(this);
-                    ObjectPool.Instance.RemainScoreUpItem.Dequeue();
-                }
-                break;
-        }
+             case CarType.GotModeItem:
+                 if (ObjectPool.Instance.RemainYellow.Count > 0)
+                 {
+                     ObjectPool.Instance.ReturnGotItem(this);
+                     ObjectPool.Instance.RemainScoreUpItem.Dequeue();
+                 }
+                 break;
+         }*/
     }
 
 
@@ -365,7 +365,7 @@ public class CarObject : MonoBehaviour
         //yield return new WaitForSeconds(dieFX.main.duration);
         yield return CollisionTime;
         gameObject.SetActive(false);
-        EnQueueObject();
+        ObjectPool.Instance.EnqueueObject(gameObject);
     }
 
     private IEnumerator Accident_Timer()

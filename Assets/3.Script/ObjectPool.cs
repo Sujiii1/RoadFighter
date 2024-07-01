@@ -1,36 +1,31 @@
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Pool;
 
 public class ObjectPool : MonoBehaviour
 {
     public static ObjectPool Instance = null;
 
-    [SerializeField] private CarObject[] CarObjectsPrefab;
-    [SerializeField] private CarObject[] itemPrefab;
-
-
     //Pool
-    private IObjectPool<CarObject> YellowcarObjectPool;
-    private IObjectPool<CarObject> GreencarObjectPool;
-    private IObjectPool<CarObject> MintcarObjectPool;
-    private IObjectPool<CarObject> BuscarObjectPool;
-    private IObjectPool<CarObject> ScoreUpObjectPool;
-    private IObjectPool<CarObject> GotObjectPool;
+    private Dictionary<CarType, Queue<GameObject>> poolDictionary;
+    public List<Pool> pools;
 
-
-    // Dequeue된 후 다시 재사용을 위해 보관하는 큐
-    public Queue<CarObject> RemainYellow = new Queue<CarObject>();
-    public Queue<CarObject> RemainGreen = new Queue<CarObject>();
-    public Queue<CarObject> RemainMint = new Queue<CarObject>();
-    public Queue<CarObject> RemainBus = new Queue<CarObject>();
-    public Queue<CarObject> RemainScoreUpItem = new Queue<CarObject>(); // 아이템 남은 목록 추가
-    public Queue<CarObject> RemainGetItem = new Queue<CarObject>();     //무적 아이템
+    [System.Serializable]
+    public class Pool
+    {
+        public string name;
+        public GameObject prefab;
+        public int size;
+        public CarType carType;
+    }
 
 
     public PoolController poolController;
-
     public bool isPlayerOnWall = false;
+
+
+
+
+
 
     private void Awake()
     {
@@ -48,177 +43,130 @@ public class ObjectPool : MonoBehaviour
         #endregion
 
     }
+
     private void Start()
     {
-        InitializePools();
-        InitializeItemPool();
+        InitSpawn();
     }
 
-    private void InitializePools()
+    private void InitSpawn()
     {
-        if (CarObjectsPrefab == null || CarObjectsPrefab.Length == 0)
-        {
-            return;
-        }
+        poolDictionary = new Dictionary<CarType, Queue<GameObject>>();
 
-        if (CarObjectsPrefab != null && CarObjectsPrefab.Length > 0)
+        foreach (Pool pool in pools)
         {
-            for (int i = 0; i < Mathf.Min(CarObjectsPrefab.Length, 15); i++)
+            Queue<GameObject> objectPool = new Queue<GameObject>();
+
+            for (int i = 0; i < pool.size; i++)
             {
-                switch (i)
-                {
-                    case 0:
-                        YellowcarObjectPool = CreateObjectPool(CarObjectsPrefab[i]);
-                        break;
-                    case 1:
-                        GreencarObjectPool = CreateObjectPool(CarObjectsPrefab[i]);
-                        break;
-                    case 2:
-                        MintcarObjectPool = CreateObjectPool(CarObjectsPrefab[i]);
-                        break;
-                    case 3:
-                        BuscarObjectPool = CreateObjectPool(CarObjectsPrefab[i]);
-                        break;
-                    case 4:
-                        ScoreUpObjectPool = CreateObjectPool(CarObjectsPrefab[i]);
-                        break;
-                    case 5:
-                        GotObjectPool = CreateObjectPool(CarObjectsPrefab[i]);
-                        break;
+                GameObject obj = Instantiate(pool.prefab);
+                obj.transform.SetParent(this.transform); // 부모를 설정
+                obj.SetActive(false);
 
-                    default:
-                        break;
+
+                CarObject carObject = obj.GetComponent<CarObject>();
+                if (carObject != null)
+                {
+                    carObject.SetCarType(pool.carType);
                 }
+                objectPool.Enqueue(obj);
+
+            }
+            if (!poolDictionary.ContainsKey(pool.carType))
+            {
+                poolDictionary.Add(pool.carType, objectPool);
+
             }
 
-
-
-            /*for (int i = 0; i < CarObjectsPrefab.Length; i++)
-            {
-                if (CarObjectsPrefab[i] == null)
-                {
-                    continue;
-                }
-
-                for (int j = 0; j < 10; j++)
-                {
-                    CarObject newCar = Instantiate(CarObjectsPrefab[i], CarObjectsPrefab[i].transform.position, Quaternion.identity, transform);
-                    newCar.gameObject.SetActive(false);
-
-                    switch (i)
-                    {
-                        case 0:
-                            YellowcarObjectPool = CreateObjectPool(CarObjectsPrefab[i]);
-                            break;
-                        case 1:
-                            GreencarObjectPool = CreateObjectPool(CarObjectsPrefab[i]);
-                            break;
-                        case 2:
-                            MintcarObjectPool = CreateObjectPool(CarObjectsPrefab[i]);
-                            break;
-                        case 3:
-                            BuscarObjectPool = CreateObjectPool(CarObjectsPrefab[i]);
-                            break;
-
-                        default:
-                            break;
-
-                    }
-                }*/
         }
-
     }
 
-    private void InitializeItemPool()
+    //풀에서 오브젝트 스폰
+    public GameObject SpawnFromPool(CarType carType, Vector3 position, Quaternion rotation)
     {
-        if (itemPrefab == null || itemPrefab.Length == 0)
+        if (!poolDictionary.ContainsKey(carType))
         {
-            return;
+            Debug.LogWarning(name + " doesn't exist.");
+            return null;
         }
 
-        if (itemPrefab != null && itemPrefab.Length > 0)
-        {
-            for (int i = 0; i < Mathf.Min(itemPrefab.Length, 15); i++)
-            {
-                switch (i)
-                {
-                    case 0:
-                        ScoreUpObjectPool = CreateObjectPool(itemPrefab[i]);
-                        break;
-                    case 1:
-                        GotObjectPool = CreateObjectPool(itemPrefab[i]);
-                        break;
+        GameObject objectToSpawn = poolDictionary[carType].Dequeue();
 
-                    default:
-                        break;
-                }
+        objectToSpawn.SetActive(true);
+        objectToSpawn.transform.position = position;
+        objectToSpawn.transform.rotation = rotation;
+
+        poolDictionary[carType].Enqueue(objectToSpawn);
+
+        return objectToSpawn;
+    }
+
+
+    //오브젝트 return
+    public void EnqueueObject(GameObject obj)
+    {
+        obj.SetActive(false);
+        CarObject carObject = obj.GetComponent<CarObject>();
+
+        if (carObject != null)
+        {
+            CarType key = carObject.CarType;
+            if (poolDictionary.ContainsKey(key))
+            {
+                poolDictionary[key].Enqueue(obj);
+            }
+            else
+            {
+                Debug.LogWarning("No pool found for car type: " + key);
             }
         }
         else
         {
-            Debug.Log("itemPrefab null");
+            Debug.LogWarning("CarObject component not found.");
         }
-
-        /*  for (int i = 0; i < itemPrefab.Length; i++)
-          {
-              if (itemPrefab[i] == null)
-              {
-                  continue;
-              }
-
-              for (int j = 0; j < 10; j++)
-              {
-                  CarObject newItem = Instantiate(itemPrefab[i], itemPrefab[i].transform.position, Quaternion.identity, transform); // 새로운 아이템 오브젝트 생성
-                  newItem.gameObject.SetActive(false);     // 생성된 오브젝트를 비활성화
-
-                  // ScoreUpObjectPool.Enqueue(newItem);    // 아이템 풀에 추가
-
-                  switch (i)
-                  {
-                      case 0:
-                          ScoreUpObjectPool = CreateObjectPool(itemPrefab[i]);
-                          break;
-                      case 1:
-                          GotObjectPool = CreateObjectPool(itemPrefab[i]);
-                          break;
-
-                      default:
-                          break;
-                  }
-              }
-          }*/
     }
 
-    // 오브젝트 풀 생성
-    private ObjectPool<CarObject> CreateObjectPool(CarObject prefab)
+
+    // 모든 오브젝트 초기화
+    public void ResetAllCarObject()
     {
-        return new ObjectPool<CarObject>(
-            createFunc: () => Instantiate(prefab, transform),
-            actionOnGet: car => car.gameObject.SetActive(true),
-            actionOnRelease: car => car.gameObject.SetActive(false),
-            collectionCheck: false,
-            defaultCapacity: 15,
-            maxSize: 100
-        );
+        foreach (var key in poolDictionary.Keys)
+        {
+            Queue<GameObject> queue = poolDictionary[key];
+            int count = queue.Count;
+
+            // 풀의 모든 오브젝트를 복사한 리스트
+            List<GameObject> tempObjects = new List<GameObject>(queue);
+
+            // 복사한 리스트를 순회하면서 초기화 및 다시 풀에 넣기
+            for (int i = 0; i < count; i++)
+            {
+                GameObject obj = tempObjects[i];
+
+                // GameObject가 활성화되어 있는지 확인
+                if (obj.activeSelf)
+                {
+                    // GameObject 비활성화 처리
+                    obj.SetActive(false);
+                }
+
+                // CarObject 컴포넌트 확인
+                CarObject carObject = obj.GetComponent<CarObject>();
+                if (carObject != null)
+                {
+                    // CarObject 초기화 메서드 호출 예시
+                    // carObject.ResetCarState();
+                    // 이 부분에서 초기화해야 할 작업을 수행
+                }
+                else
+                {
+                    Debug.LogWarning("CarObject component not found on " + obj.name);
+                }
+
+                // 풀에 다시 넣기
+                queue.Enqueue(obj);
+            }
+        }
     }
 
-
-    //Pool Get/Return
-    public CarObject GetyellowCar() => YellowcarObjectPool.Get();  // Pool Get
-    public void ReturnYellowCar(CarObject carObject) => YellowcarObjectPool.Release(carObject);  //Pool Return
-
-    public CarObject GetGreenCar() => GreencarObjectPool.Get();
-    public void ReturnGreenCar(CarObject carObject) => GreencarObjectPool.Release(carObject);
-
-    public CarObject GetMintCar() => MintcarObjectPool.Get();
-    public void ReturnMintCar(CarObject carObject) => MintcarObjectPool.Release(carObject);
-
-    public CarObject GetBusCar() => BuscarObjectPool.Get();
-    public void ReturnBusCar(CarObject carObject) => BuscarObjectPool.Release(carObject);
-
-    public CarObject GetScoreItem() => ScoreUpObjectPool.Get();
-    public void ReturnScoreItem(CarObject carObject) => ScoreUpObjectPool.Release(carObject);
-
-    public CarObject GetGotItem() => GotObjectPool.Get();
-    public void ReturnGotItem(CarObject carObject) => GotObjectPool.Release(carObject);
 }

@@ -78,7 +78,9 @@ public class UIManager : MonoBehaviour //ReStart 없어짐
         // spawnManager.SpawnStart();
         if (spawnManager != null)
         {
-            spawnManager.ResetCarObject();          //코루틴 메서드가 실행 안되는 이유 : ㄴCarObject가 비활성화 되어있음 . spawnManager가 싱글톤이 아님.
+            //spawnManager.ResetCarObject();          //코루틴 메서드가 실행 안되는 이유 : ㄴCarObject가 비활성화 되어있음 . spawnManager가 싱글톤이 아님.
+            //ObjectPool.Instance.ResetAllCarObject();
+
         }
 
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);

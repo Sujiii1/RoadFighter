@@ -3534,14 +3534,31 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 084f1ee1bfc8f7a45968835f8981a4b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CarObjectsPrefab:
-  - {fileID: 726642818662147895, guid: f5f0445b931259544acb3d862dd2a849, type: 3}
-  - {fileID: -5652341376746666272, guid: b0d4c34c6909c1642987ef1630819699, type: 3}
-  - {fileID: 3016176335056489305, guid: 89fdcf93fb8fb224f9aaa34c3399e3f9, type: 3}
-  - {fileID: -2441614845406062669, guid: 29e61dfcdd02ff1479b69a6297a4def1, type: 3}
-  itemPrefab:
-  - {fileID: 4798453952980836149, guid: 35ac4b2cfdb0bf348bc4ee39dc4cb653, type: 3}
-  - {fileID: 4854153537034215343, guid: 543a4553edcfd524e97cc48a6dcaabbf, type: 3}
+  pools:
+  - name: 
+    prefab: {fileID: 3935531410507799975, guid: f5f0445b931259544acb3d862dd2a849, type: 3}
+    size: 5
+    carType: 0
+  - name: 
+    prefab: {fileID: 3842103477153090734, guid: b0d4c34c6909c1642987ef1630819699, type: 3}
+    size: 5
+    carType: 1
+  - name: 
+    prefab: {fileID: 9169204954353745219, guid: 89fdcf93fb8fb224f9aaa34c3399e3f9, type: 3}
+    size: 5
+    carType: 2
+  - name: 
+    prefab: {fileID: 1266884141782765390, guid: 29e61dfcdd02ff1479b69a6297a4def1, type: 3}
+    size: 5
+    carType: 3
+  - name: 
+    prefab: {fileID: 3457502947828558979, guid: 35ac4b2cfdb0bf348bc4ee39dc4cb653, type: 3}
+    size: 2
+    carType: -1
+  - name: 
+    prefab: {fileID: 7950505960547357053, guid: 543a4553edcfd524e97cc48a6dcaabbf, type: 3}
+    size: 2
+    carType: -1
   poolController: {fileID: 1017421136}
   isPlayerOnWall: 0
 --- !u!1 &1029689288
