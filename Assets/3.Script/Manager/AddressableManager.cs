@@ -6,14 +6,13 @@ using UnityEngine.AddressableAssets;
 public class AddressableManager : MonoBehaviour
 {
     [SerializeField] private AssetReferenceGameObject[] carObject;
-    [SerializeField] private AssetReferenceGameObject[] itemObject;
+    //[SerializeField] private AssetReferenceGameObject[] itemObject;
+
+
 
 
     private List<GameObject> objects = new List<GameObject>();
 
-
-
-    //Addressable 초기화
 
     private void Start()
     {
@@ -27,11 +26,14 @@ public class AddressableManager : MonoBehaviour
             carObject[i].InstantiateAsync().Completed += (obj) =>
             {
                 objects.Add(obj.Result);
+                Debug.Log("obj");
             };
-
         }
     }
 
+
+
+    //Addressable 초기화
     private IEnumerator InitAddressable()
     {
         var init = Addressables.InitializeAsync();
