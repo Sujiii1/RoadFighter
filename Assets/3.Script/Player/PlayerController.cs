@@ -4,7 +4,12 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    //Player
     private Rigidbody playerRB;
+    public Vector3 direction { get; private set; }
+    private const float CONVERT_UNIT_VALUE = 0.01f;
+
+
     [SerializeField] private RoadLoop roadLoop;
     [SerializeField] private UIManager uiManager;
     [SerializeField] private CameraController cameraController;
@@ -12,7 +17,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private PoolController poolController;
 
     private float horizontalInput;
-    [SerializeField] private float speed = 20f;
+    [SerializeField] private float speed = 10f;
     [SerializeField] private float maxX = 4.7f;     //-3.74
     private Vector3 targetPosition;
     public Vector3 playerBasePosition;
@@ -47,7 +52,6 @@ public class PlayerController : MonoBehaviour
 
     private void Awake()
     {
-        playerRB = GetComponent<Rigidbody>();
         ObjectPool.Instance.poolController.playerController = this;
 
         if (poolController != null)
@@ -64,6 +68,8 @@ public class PlayerController : MonoBehaviour
     private void Start()
     {
         playerBasePosition = transform.position;
+        playerRB = GetComponent<Rigidbody>();
+
     }
 
     private void OnDestroy()
@@ -98,17 +104,36 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    #region [Player KeyBoard Move]
-    /*  public void PlayerMove(InputAction.CallbackContext context)
-      {
-          Vector3 input = context.ReadValue<Vector3>();
-          horizontalInput = input.x * speed;
 
-          // 가속도 제한
-          float tar = horizontalInput;
-          float smoothedVelocity = Mathf.Lerp(playerRB.velocity.x, tar, Time.deltaTime);
-          playerRB.velocity = new Vector3(smoothedVelocity, playerRB.velocity.y, playerRB.velocity.z);
-      }*/
+
+    #region [Player KeyBoard Move]
+    /*public void PlayerMove(InputAction.CallbackContext context)
+    {
+        Vector3 input = context.ReadValue<Vector3>();
+        horizontalInput = input.x * speed;
+
+
+        // 가속도 제한
+        float tar = horizontalInput;
+        float smoothedVelocity = Mathf.Lerp(playerRB.velocity.x, tar, Time.deltaTime);
+        playerRB.velocity = new Vector3(smoothedVelocity, playerRB.velocity.y, playerRB.velocity.z);
+
+    }*/
+
+    /*    public void PlayerMoveInput(InputAction.CallbackContext context)
+        {
+            Vector3 input = context.ReadValue<Vector3>();
+            direction = new Vector3(input.x, 0, 0);
+            Debug.Log(context);
+        }
+
+        private void Move()
+        {
+            float currentMoceSpeed = speed * CONVERT_UNIT_VALUE;
+            playerRB.velocity = direction * currentMoceSpeed + Vector3.left * playerRB.velocity.x;
+        }*/
+
+
     #endregion
 
 

@@ -68,10 +68,6 @@ public class SpawnManager : MonoBehaviour
         {
             stageManager.onStageUp -= IncreaseSpawnDistance;
         }
-        else
-        {
-            Debug.Log("OnEnable stageManager null");
-        }
     }
 
     private void OnDestroy()
