@@ -42,7 +42,6 @@ public class PoolController : MonoBehaviour
         // 게임이 시작되었으면 spawnManager의 ResetCarObject 메서드를 호출
         if (ScoreManager.Instance != null && ScoreManager.Instance.isStartGame)
         {
-            //spawnManager.ResetCarObject();
             ObjectPool.Instance.ResetAllCarObject();
 
         }
@@ -62,7 +61,6 @@ public class PoolController : MonoBehaviour
         // 게임이 시작되었으면 spawnManager의 ResetCarObject 메서드를 호출
         if (ScoreManager.Instance != null && ScoreManager.Instance.isStartGame)
         {
-            //spawnManager.ResetCarObject();
             ObjectPool.Instance.ResetAllCarObject();
 
         }

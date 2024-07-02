@@ -47,9 +47,8 @@ public class SpawnManager : MonoBehaviour
 
     private void OnEnable()
     {
-        if (ScoreManager.Instance.isStartGame)
+        if (ScoreManager.Instance.isStartGame)              // 게임이 시작된 상태라면 오브젝트를 초기화
         {
-            //ResetCarObject();    // 게임이 시작된 상태라면 오브젝트를 초기화
             ObjectPool.Instance.ResetAllCarObject();
         }
 
@@ -57,10 +56,10 @@ public class SpawnManager : MonoBehaviour
         {
             stageManager.onStageUp += IncreaseSpawnDistance;
         }
-        /*        else
-                {
-                    Debug.Log("OnEnable stageManager null");
-                }*/
+        else
+        {
+            Debug.Log("OnEnable stageManager null");
+        }
     }
 
     private void OnDisable()
@@ -69,10 +68,10 @@ public class SpawnManager : MonoBehaviour
         {
             stageManager.onStageUp -= IncreaseSpawnDistance;
         }
-        //else
-        //{
-        //    Debug.Log("OnDisable stageManager null");
-        //}
+        else
+        {
+            Debug.Log("OnEnable stageManager null");
+        }
     }
 
     private void OnDestroy()
@@ -81,14 +80,10 @@ public class SpawnManager : MonoBehaviour
 
         if (ScoreManager.Instance.isStartGame)
         {
-            // ResetCarObject();    // 게임이 시작된 상태라면 오브젝트를 초기화
             ObjectPool.Instance.ResetAllCarObject();
 
         }
     }
-
-
-
 
 
 
@@ -121,10 +116,10 @@ public class SpawnManager : MonoBehaviour
                 objToSpawn = ObjectPool.Instance.SpawnFromPool(CarType.Bus, transform.position, Quaternion.identity);
                 break;
             case 4:
-                objToSpawn = ObjectPool.Instance.SpawnFromPool(CarType.None, transform.position, Quaternion.identity);
+                objToSpawn = ObjectPool.Instance.SpawnFromPool(CarType.ScoreUpItem, transform.position, Quaternion.identity);
                 break;
             case 5:
-                objToSpawn = ObjectPool.Instance.SpawnFromPool(CarType.None, transform.position, Quaternion.identity);
+                objToSpawn = ObjectPool.Instance.SpawnFromPool(CarType.GotModeItem, transform.position, Quaternion.identity);
                 break;
             default:
                 break;
@@ -142,14 +137,9 @@ public class SpawnManager : MonoBehaviour
                 Debug.LogWarning("Failed to get CarObject");
             }
         }
-        else
-        {
-            Debug.Log("carObject is null");
-        }
     }
 
 
-    #region   [생성 초기화]
 
     //게임 시작 시 스폰을 초기화
     public void SpawnStart()
@@ -161,100 +151,6 @@ public class SpawnManager : MonoBehaviour
             StartCoroutine(SpawnBetween_Co());  //스폰 코루틴 시작
         }
     }
-
-
-    /*    public void ResetCarObject()
-        {
-            if (ObjectPool.Instance.RemainYellow.Count > 0)
-            {
-                int count = ObjectPool.Instance.RemainYellow.Count;
-                for (int i = 0; i < count; i++)
-                {
-                    CarObject carobject = ObjectPool.Instance.RemainYellow.Dequeue();
-                    if (carobject != null)
-                    {
-                        carobject.gameObject.SetActive(false);
-                    }
-                    ObjectPool.Instance.ReturnYellowCar(carobject);
-                }
-            }
-
-            if (ObjectPool.Instance.RemainGreen.Count > 0)
-            {
-                int count = ObjectPool.Instance.RemainGreen.Count;
-                for (int i = 0; i < count; i++)
-                {
-                    CarObject carobject = ObjectPool.Instance.RemainGreen.Dequeue();
-                    if (carobject != null)
-                    {
-                        carobject.gameObject.SetActive(false);
-                    }
-                    ObjectPool.Instance.ReturnGreenCar(carobject);
-                }
-            }
-
-            if (ObjectPool.Instance.RemainMint.Count > 0)
-            {
-                int count = ObjectPool.Instance.RemainMint.Count;
-                for (int i = 0; i < count; i++)
-                {
-                    CarObject carobject = ObjectPool.Instance.RemainMint.Dequeue();
-                    if (carobject != null)
-                    {
-                        carobject.gameObject.SetActive(false);
-                    }
-                    ObjectPool.Instance.ReturnMintCar(carobject);
-                }
-            }
-
-            if (ObjectPool.Instance.RemainBus.Count > 0)
-            {
-                int count = ObjectPool.Instance.RemainBus.Count;
-                for (int i = 0; i < count; i++)
-                {
-                    CarObject carobject = ObjectPool.Instance.RemainBus.Dequeue();
-                    if (carobject != null)
-                    {
-                        carobject.gameObject.SetActive(false);
-
-                    }
-                    ObjectPool.Instance.ReturnBusCar(carobject);
-                }
-            }
-
-            if (ObjectPool.Instance.RemainScoreUpItem.Count > 0)
-            {
-                int count = ObjectPool.Instance.RemainScoreUpItem.Count;
-                for (int i = 0; i < count; i++)
-                {
-                    CarObject carobject = ObjectPool.Instance.RemainScoreUpItem.Dequeue();
-                    if (carobject != null)
-                    {
-                        carobject.gameObject.SetActive(false);
-                    }
-                    ObjectPool.Instance.ReturnScoreItem(carobject);
-                }
-            }
-
-            if (ObjectPool.Instance.RemainGetItem.Count > 0)
-            {
-                int count = ObjectPool.Instance.RemainGetItem.Count;
-                for (int i = 0; i < count; i++)
-                {
-                    CarObject carobject = ObjectPool.Instance.RemainGetItem.Dequeue();
-                    if (carobject != null)
-                    {
-                        carobject.gameObject.SetActive(false);
-                    }
-                    ObjectPool.Instance.ReturnGotItem(carobject);
-                }
-            }
-
-
-        }*/
-
-    #endregion
-
 
 
     // 오브젝트를 특정 위치에 생성

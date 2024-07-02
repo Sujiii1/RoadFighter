@@ -33,8 +33,6 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private ParticleSystem hitFX;
     [SerializeField] private ParticleSystem ItemOnFX;
 
-
-    // [SerializeField] private bool isWall = false;
     [SerializeField] private bool isRotate = false;
     [SerializeField] private bool isItemOn = false;
 
@@ -61,20 +59,6 @@ public class PlayerController : MonoBehaviour
             Debug.Log("Awake poolController null");
         }
     }
-
-
-    #region [Player KeyBoard Move]
-    /*    public void PlayerMove(InputAction.CallbackContext context)
-        {
-            Vector3 input = context.ReadValue<Vector3>();
-            horizontalInput = input.x * speed;
-
-            // 가속도 제한
-            float tar = horizontalInput;
-            float smoothedVelocity = Mathf.Lerp(playerRB.velocity.x, tar, Time.deltaTime);
-            playerRB.velocity = new Vector3(smoothedVelocity, playerRB.velocity.y, playerRB.velocity.z);
-        }*/
-    #endregion
 
 
     private void Start()
@@ -113,6 +97,20 @@ public class PlayerController : MonoBehaviour
             }
         }
     }
+
+    #region [Player KeyBoard Move]
+    /*  public void PlayerMove(InputAction.CallbackContext context)
+      {
+          Vector3 input = context.ReadValue<Vector3>();
+          horizontalInput = input.x * speed;
+
+          // 가속도 제한
+          float tar = horizontalInput;
+          float smoothedVelocity = Mathf.Lerp(playerRB.velocity.x, tar, Time.deltaTime);
+          playerRB.velocity = new Vector3(smoothedVelocity, playerRB.velocity.y, playerRB.velocity.z);
+      }*/
+    #endregion
+
 
     private void OnCollisionStay(Collision collision)
     {

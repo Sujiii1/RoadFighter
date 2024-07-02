@@ -292,9 +292,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   carType: 1
-  isBus: 0
-  player: {fileID: 0}
-  carSpeed_x: 0
+  carSpeed_x: 10
   pushForce: 10
   rotationAngle: 45
   ren: {fileID: 3181688927080330821}

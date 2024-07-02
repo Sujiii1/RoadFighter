@@ -25,6 +25,7 @@ public class CarObject : MonoBehaviour
     /// </summary>
     /// 
     /// <param name="carType"> 자동차 상태 </param>
+
     public void SetCarType(CarType carType)
     {
         this.carType = carType;
@@ -35,25 +36,24 @@ public class CarObject : MonoBehaviour
         StartCoroutine(Accident_Timer());
     }
 
-    public bool pIsBus { get { return isBus; } }
-
-
-    //=================내부 변수====================
-    private RoadLoop roadLoop;
 
     [Header("Car Type")]
     public CarType carType;
     public CarType CarType => carType;  // public getter, but private setter
 
+    //=================내부 변수====================
 
-    [SerializeField] private bool isBus = false;
+    protected RoadLoop roadLoop;
+    protected Rigidbody enemyRB;
+
+    //protected bool isBus = false;
 
     [Header("Player")]
-    [SerializeField] private GameObject player;
+    protected GameObject player;
 
     #region [자동차 속도]
     [Header("Car Speed")]
-    [SerializeField] private float carSpeed_x;
+    [SerializeField] protected float carSpeed_x;
     #endregion
 
     private float xLimit = 4.2f;
@@ -62,23 +62,63 @@ public class CarObject : MonoBehaviour
 
 
     [Header("Effect")]
-    // [SerializeField] private ParticleSystem dieFX;
     [SerializeField] private GameObject ren;
 
     private WaitForSeconds waitTime = new WaitForSeconds(3f);
     private WaitForSeconds CollisionTime = new WaitForSeconds(2f);
 
-    private Rigidbody enemyRB;
+
     [SerializeField] private bool isFindPlayer = false;
     [SerializeField] private bool isAccident = false;
     [SerializeField] private bool isCheck = false;
     [SerializeField] private bool isRight;
 
 
+
+    #region [CarType Class]
+    public class Green : CarObject
+    {
+        private void Start()
+        {
+            carType = CarType.Green;
+            carSpeed_x = 7.0f;
+        }
+    }
+
+    public class Mint : CarObject
+    {
+        private void Start()
+        {
+            carType = CarType.Mint;
+            carSpeed_x = 10.0f;
+        }
+    }
+
+    /*  public class Bus : CarObject
+      {
+          private void Start()
+          {
+              carType = CarType.Bus;
+              carSpeed_x = 0.0f;
+          }
+      }*/
+
+    #endregion
+
+
+
     private void Awake()
     {
-        roadLoop = GameObject.FindGameObjectWithTag("Road").GetComponent<RoadLoop>();
         enemyRB = GetComponent<Rigidbody>();
+    }
+
+
+    private void OnEnable()
+    {
+        StopAllCoroutines();
+
+        InitializePlayer();
+        ResetCarState();
     }
 
 
@@ -92,36 +132,6 @@ public class CarObject : MonoBehaviour
         {
             Debug.LogError("Player not found.");
         }
-
-        switch (carType)
-        {
-            case CarType.Yellow:
-                carSpeed_x = 0.0f;
-                break;
-
-            case CarType.Green:
-                carSpeed_x = 7.0f;
-                break;
-
-            case CarType.Mint:
-                carSpeed_x = 10.0f;
-                break;
-
-            case CarType.Bus:
-                carSpeed_x = 0.0f;
-                isBus = true;
-                break;
-
-            case CarType.ScoreUpItem:
-                carSpeed_x = 0.0f;
-                break;
-
-            case CarType.GotModeItem:
-
-                carSpeed_x = 0.0f;
-
-                break;
-        }
     }
 
 
@@ -129,7 +139,6 @@ public class CarObject : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Wall"))
         {
-            //dieFX.Play();
             ren.SetActive(true);
             StartCoroutine(DestroyCar_Co());
         }
@@ -140,29 +149,21 @@ public class CarObject : MonoBehaviour
             Vector3 direction = collisionPoint - transform.position;                // 플레이어 위치와 충돌 지점 사이의 벡터를 계산
             direction.Normalize();                                                   // 방향 벡터를 정규화
 
-            if (!isBus)
-            {
 
-                if (Vector3.Dot(transform.right, direction) > 0)
-                {
-                    enemyRB.AddTorque(Vector3.up * pushForce, ForceMode.Impulse);    //right
-                    transform.rotation = Quaternion.Euler(0, rotationAngle, 0);
-                    StartCoroutine(Collision_Co());
-                }
-                else
-                {
-                    enemyRB.AddTorque(Vector3.up * -pushForce, ForceMode.Impulse);   //left
-                    transform.rotation = Quaternion.Euler(0, -rotationAngle, 0);
-                    StartCoroutine(Collision_Co());
-                }
+            if (Vector3.Dot(transform.right, direction) > 0)
+            {
+                enemyRB.AddTorque(Vector3.up * pushForce, ForceMode.Impulse);    //right
+                transform.rotation = Quaternion.Euler(0, rotationAngle, 0);
+                StartCoroutine(Collision_Co());
             }
             else
             {
-                roadLoop.ZeroSpeed();  //로드루프 멈춤
-                enemyRB.AddForce(20f * new Vector3(1, -1, 0), ForceMode.Impulse);   //대각선으로 밀려남
+                enemyRB.AddTorque(Vector3.up * -pushForce, ForceMode.Impulse);   //left
+                transform.rotation = Quaternion.Euler(0, -rotationAngle, 0);
+                StartCoroutine(Collision_Co());
             }
+            #endregion
         }
-        #endregion
     }
 
 
@@ -191,43 +192,16 @@ public class CarObject : MonoBehaviour
     }
 
 
-
-    #region [초기화]
-    private void OnEnable()
-    {
-        StopAllCoroutines();
-
-        InitializePlayer();
-        ResetCarState();
-    }
-
-    private void InitializePlayer()
-    {
-        player = GameObject.FindObjectOfType<PlayerController>()?.gameObject;
-        isFindPlayer = false;
-        isCheck = false;
-    }
-
-    private void ResetCarState()
-    {
-        isFindPlayer = false;
-        isCheck = false;
-        isAccident = false;
-        ren.SetActive(false);
-
-        transform.rotation = Quaternion.identity;
-    }
-    #endregion
-
-
-
     private void OnDisable()
     {
         StopAllCoroutines();
         CarMove_x();
+
         isFindPlayer = false;
         isCheck = false;
     }
+
+
 
     public void EnQueueObject()
     {
@@ -289,6 +263,30 @@ public class CarObject : MonoBehaviour
 
 
 
+
+    #region [Green, Mint, Bus Type의 행동]
+
+
+
+    #region [초기화]   
+    private void InitializePlayer()
+    {
+        player = GameObject.FindObjectOfType<PlayerController>()?.gameObject;
+        isFindPlayer = false;
+        isCheck = false;
+    }
+
+    private void ResetCarState()
+    {
+        isFindPlayer = false;
+        isCheck = false;
+        isAccident = false;
+        ren.SetActive(false);
+
+        transform.rotation = Quaternion.identity;
+    }
+    #endregion
+
     #region   [Collision]
 
     private void FindPlayer()
@@ -304,6 +302,7 @@ public class CarObject : MonoBehaviour
             }
         }
     }
+
 
     private void CheckDirection()
     {
@@ -353,14 +352,14 @@ public class CarObject : MonoBehaviour
     }
 
 
-    IEnumerator Collision_Co()
+    private IEnumerator Collision_Co()
     {
         yield return CollisionTime; ;
         transform.rotation = Quaternion.Euler(0, 0, 0);
     }
 
     //적 사라지는 코루틴
-    IEnumerator DestroyCar_Co()
+    private IEnumerator DestroyCar_Co()
     {
         //yield return new WaitForSeconds(dieFX.main.duration);
         yield return CollisionTime;
@@ -376,5 +375,14 @@ public class CarObject : MonoBehaviour
     }
 
     #endregion
+
+    #endregion
+
+
+    /*    protected virtual void BusCollision(Collision collision)
+        {
+            //roadLoop.ZeroSpeed();  //로드루프 멈춤
+            enemyRB.AddForce(20f * new Vector3(1, -1, 0), ForceMode.Impulse);   //대각선으로 밀려남
+        }*/
 
 }

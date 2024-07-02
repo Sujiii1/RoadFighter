@@ -13,8 +13,8 @@ GameObject:
   - component: {fileID: 153643076114207105}
   - component: {fileID: 3043843233112219206}
   - component: {fileID: 2972637693493625547}
-  - component: {fileID: 4854153537034215343}
   - component: {fileID: 4773346277743087152}
+  - component: {fileID: 4854153537034215343}
   m_Layer: 0
   m_Name: GotModeItem
   m_TagString: Item
@@ -135,29 +135,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 4
   m_CollisionDetection: 0
---- !u!114 &4854153537034215343
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7950505960547357053}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2206b11d0b50a8640b5d2cac01987d19, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  carType: -1
-  isBus: 0
-  player: {fileID: 0}
-  carSpeed_x: 0
-  pushForce: 10
-  rotationAngle: 45
-  ren: {fileID: 4791007393268947155, guid: 35ac4b2cfdb0bf348bc4ee39dc4cb653, type: 3}
-  isFindPlayer: 0
-  isAccident: 0
-  isCheck: 0
-  isRight: 0
 --- !u!114 &4773346277743087152
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -172,3 +149,24 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 5
   isZeroSpeed: 0
+--- !u!114 &4854153537034215343
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7950505960547357053}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2206b11d0b50a8640b5d2cac01987d19, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  carType: 5
+  carSpeed_x: 0
+  pushForce: 10
+  rotationAngle: 45
+  ren: {fileID: 4791007393268947155, guid: 35ac4b2cfdb0bf348bc4ee39dc4cb653, type: 3}
+  isFindPlayer: 0
+  isAccident: 0
+  isCheck: 0
+  isRight: 0

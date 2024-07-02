@@ -5,6 +5,14 @@ public class ObjectPool : MonoBehaviour
 {
     public static ObjectPool Instance = null;
 
+    //참조
+    public PoolController poolController;
+
+    //Bool
+    public bool isPlayerOnWall = false;
+
+
+
     //Pool
     private Dictionary<CarType, Queue<GameObject>> poolDictionary;
     public List<Pool> pools;
@@ -16,13 +24,6 @@ public class ObjectPool : MonoBehaviour
         public int size;
         public CarType carType;
     }
-
-
-    public PoolController poolController;
-    public bool isPlayerOnWall = false;
-
-
-
 
 
 
@@ -78,7 +79,6 @@ public class ObjectPool : MonoBehaviour
             if (!poolDictionary.ContainsKey(pool.carType))
             {
                 poolDictionary.Add(pool.carType, objectPool);
-
             }
 
         }
@@ -151,7 +151,6 @@ public class ObjectPool : MonoBehaviour
 
                 // 비활성화 처리한 오브젝트를 다시 풀에 넣기
                 queue.Enqueue(obj);
-
             }
         }
     }
