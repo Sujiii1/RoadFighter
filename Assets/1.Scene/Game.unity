@@ -3555,7 +3555,7 @@ MonoBehaviour:
   - prefab: {fileID: 3842103477153090734, guid: b0d4c34c6909c1642987ef1630819699, type: 3}
     size: 15
     carType: 1
-  - prefab: {fileID: 9169204954353745219, guid: 89fdcf93fb8fb224f9aaa34c3399e3f9, type: 3}
+  - prefab: {fileID: 3842103477153090734, guid: b0d4c34c6909c1642987ef1630819699, type: 3}
     size: 15
     carType: 2
   - prefab: {fileID: 1266884141782765390, guid: 29e61dfcdd02ff1479b69a6297a4def1, type: 3}
@@ -3837,23 +3837,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 207915419626c9548ae32cacb1e01f46, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  carObject:
-  - m_AssetGUID: f5f0445b931259544acb3d862dd2a849
-    m_SubObjectName: 
-    m_SubObjectType: 
-    m_EditorAssetChanged: 0
-  - m_AssetGUID: b0d4c34c6909c1642987ef1630819699
-    m_SubObjectName: 
-    m_SubObjectType: 
-    m_EditorAssetChanged: 0
-  - m_AssetGUID: 89fdcf93fb8fb224f9aaa34c3399e3f9
-    m_SubObjectName: 
-    m_SubObjectType: 
-    m_EditorAssetChanged: 0
-  - m_AssetGUID: 29e61dfcdd02ff1479b69a6297a4def1
-    m_SubObjectName: 
-    m_SubObjectType: 
-    m_EditorAssetChanged: 0
 --- !u!4 &1162133730
 Transform:
   m_ObjectHideFlags: 0

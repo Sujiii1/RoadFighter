@@ -143,7 +143,7 @@ public class ObjectPool : MonoBehaviour
                 GameObject obj = queue.Dequeue();
 
                 // GameObject가 활성화되어 있는지 확인
-                if (obj.activeSelf)
+                if (obj != null && obj.activeSelf)
                 {
                     // GameObject 비활성화 처리
                     obj.SetActive(false);

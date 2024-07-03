@@ -17,13 +17,13 @@ MonoBehaviour:
     m_SerializedData: []
   m_GUID: 77fba770235ef9d4f989cbe69a5d1390
   m_SerializeEntries:
-  - m_GUID: 29e61dfcdd02ff1479b69a6297a4def1
-    m_Address: Bus_Blue
+  - m_GUID: b0d4c34c6909c1642987ef1630819699
+    m_Address: Car_Green
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: b0d4c34c6909c1642987ef1630819699
-    m_Address: Car_Green
+  - m_GUID: 29e61dfcdd02ff1479b69a6297a4def1
+    m_Address: Bus_Blue
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
