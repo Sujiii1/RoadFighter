@@ -77,7 +77,6 @@ public class SpawnManager : MonoBehaviour
         if (ScoreManager.Instance.isStartGame)
         {
             ObjectPool.Instance.ResetAllCarObject();
-
         }
     }
 
@@ -86,8 +85,9 @@ public class SpawnManager : MonoBehaviour
     // 오브젝트를 랜덤으로 생성하는 메서드
     public void Create()
     {
-        if (ScoreManager.Instance == null || ScoreManager.Instance.isGameOver)
+        if (ScoreManager.Instance == null || ScoreManager.Instance.isGameOver || !ObjectPool.Instance.isPoolInitialized)
         {
+            Debug.LogWarning(" not isPoolInitialized");
             return;
         }
 

@@ -14,20 +14,12 @@ public class GameProgress : MonoBehaviour
 
     //private float targetY = 1850f;
     [SerializeField] private float goalY = 1950f;
-    [SerializeField] private float moveSpeed = 37f;
+    [SerializeField] private float moveSpeed = 40f;
 
 
     private void Start()
     {
-        if (playerController != null)
-        {
-            playerController.onCollision += StopProcess;
-        }
-
-        if (stageManager != null)
-        {
-            stageManager.onStageUp += InitCarPosition;
-        }
+        Initialize();
     }
 
     private void OnDisable()
@@ -46,6 +38,30 @@ public class GameProgress : MonoBehaviour
             RoadProcess();
         }
     }
+
+
+
+    private void Initialize()
+    {
+        if (playerController != null)
+        {
+            playerController.onCollision += StopProcess;
+        }
+        else
+        {
+            Debug.LogWarning("PlayerController is not assigned.");
+        }
+
+        if (stageManager != null)
+        {
+            stageManager.onStageUp += InitCarPosition;
+        }
+        else
+        {
+            Debug.LogWarning("StageManager is not assigned.");
+        }
+    }
+
 
 
     private void InitCarPosition(object sender, EventArgs args)
